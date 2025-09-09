@@ -1,0 +1,203 @@
+div {
+  position: absolute;
+  top: 16vh;
+  /* antes 150px */
+  z-index: 1;
+  pointer-events: none;
+}
+
+img {
+  height: 12vh;
+  /* antes 120px */
+}
+
+/*------Top------*/
+.enter-top {
+  animation: enterTop 3s forwards;
+}
+
+@keyframes enterTop {
+  from {
+    left: -20%;
+    top: 0;
+  }
+
+  to {
+    left: 80%;
+    transform: translateX(-50%);
+    top: 0;
+  }
+}
+
+.fall {
+  position: absolute;
+  animation: fall 2s forwards;
+}
+
+@keyframes fall {
+  from {
+    left: 80%;
+    top: 0;
+    transform: translateX(-50%); /* coincidir con enterTop */
+  }
+
+  to {
+    top: 10%;
+    left: 80%;
+    transform: translate(-50%, 0); /* solo mueve verticalmente */
+  }
+}
+
+.frog-exit-top {
+  animation: frogExitTop 1s forwards;
+}
+
+@keyframes frogExitTop {
+  from {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 16vh;
+  }
+
+  to {
+    left: -30%;
+    top: 16vh;
+  }
+}
+
+/*------Bottom left------*/
+.frog-enter-bottom-left {
+  animation: frogEnterBottomLeft 1s forwards;
+}
+
+@keyframes frogEnterBottomLeft {
+  from {
+    left: 100%;
+    top: 78%;
+  }
+
+  to {
+    left: 18%;
+    transform: translateX(-50%);
+    top: 78%;
+  }
+}
+
+.frog-exit-bottom-left {
+  animation: frogExitBottomLeft 1s forwards;
+}
+
+@keyframes frogExitBottomLeft {
+  from {
+    left: 18%;
+    transform: translateX(-50%);
+    top: 78%;
+  }
+
+  to {
+    left: -30%;
+    top: 78%;
+  }
+}
+
+/*------Bottom center------*/
+.frog-enter-bottom {
+  animation: frogEnterBottom 1s forwards;
+}
+
+@keyframes frogEnterBottom {
+  from {
+    left: 100%;
+    top: 78%;
+  }
+
+  to {
+    left: 49%;
+    transform: translateX(-50%);
+    top: 78%;
+  }
+}
+
+.frog-exit-bottom {
+  animation: frogExitBottom 1s forwards;
+}
+
+@keyframes frogExitBottom {
+  from {
+    left: 49%;
+    transform: translateX(-50%);
+    top: 78%;
+  }
+
+  to {
+    left: -30%;
+    top: 78%;
+  }
+}
+
+/*------Bottom right------*/
+.frog-enter-bottom-right {
+  animation: frogEnterBottomRight 1s forwards;
+}
+
+@keyframes frogEnterBottomRight {
+  from {
+    left: 100%;
+    top: 78%;
+  }
+
+  to {
+    left: 80%;
+    transform: translateX(-50%);
+    top: 78%;
+  }
+}
+
+.frog-exit-bottom-right {
+  animation: frogExitBottomRight 1s forwards;
+}
+
+@keyframes frogExitBottomRight {
+  from {
+    left: 80%;
+    ;
+    transform: translateX(-50%);
+    top: 78%;
+  }
+
+  to {
+    left: -30%;
+    top: 78%;
+  }
+}
+
+/*------Center------*/
+.frog-idle-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.frog-exit-center {
+  animation: frogExitCenter 1s forwards;
+}
+
+@keyframes frogExitCenter {
+  from {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  to {
+    top: 50%;
+    left: 0;
+    transform: translate(-100%, -50%);
+  }
+}
+
+/*------Others------*/
+.frog-hidden {
+  left: -50%
+}
+

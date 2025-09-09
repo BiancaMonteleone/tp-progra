@@ -1,0 +1,44 @@
+<div *ngIf="loading" class="text-center loading">
+    <p>Cargando perfil...</p>
+</div>
+
+<div *ngIf="!loading && user" class="about-container">
+  <div class="card user-card">
+    <img [src]="user.avatar_url" alt="Foto de perfil" class="avatar" />
+    <h2>{{ user.name || user.login }}</h2>
+
+    <div class="stats">
+      <div>
+        <h3>{{ user.public_repos }}</h3>
+        <p>Repos</p>
+      </div>
+      <div>
+        <h3>{{ user.followers }}</h3>
+        <p>Seguidores</p>
+      </div>
+      <div>
+        <h3>{{ user.following }}</h3>
+        <p>Siguiendo</p>
+      </div>
+    </div>
+
+    <a [href]="user.html_url" target="_blank" class="btn">Ver Perfil</a>
+  </div>
+
+  <div class="card info-card">
+    <h3>Juego propio:</h3>
+    <h3>Color o Palabra</h3>
+    <p>Aparecerá un color escrito, pero con la fuente de otro color.</p>
+    <p>Abajo habrá botones, cada uno dirá un color distinto.</p>
+    <p>
+      El jugador deberá hacer click en el botón que represente el color de la fuente, no la palabra.
+    </p>
+    <p>
+      En caso de que acierte, sigue jugando y acumula puntos. De lo contrario, pierde.
+    </p>
+    <img src="/img/game-example.png" />
+  </div>
+</div>
+<div *ngIf="error" class="text-center error">
+    No se pudo cargar la información de GitHub.
+</div>

@@ -1,0 +1,47 @@
+/* Navbar fija arriba, ancho completo, centrado */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;               /* Permite que los links bajen */
+  justify-content: center;       /* Siempre centrados */
+  background-color: #4b5e96;
+  padding: 40px 20px;            /* Menos padding para no ocupar tanto */
+  box-sizing: border-box;
+  border-bottom: 3px solid #2e3b5c;
+  z-index: 1000;
+  font-family: 'Segoe UI', sans-serif;
+  gap: 30px;                     /* Espacio entre filas cuando bajan */
+}
+
+/* Links */
+.navbar-links {
+  display: flex;
+  flex-wrap: wrap;               /* Que bajen cuando no entren */
+  justify-content: center;       /* Siempre centrados */
+  gap: 60px;                     /* Espacio entre links */
+}
+
+.navbar-links a {
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.2s;
+  font-weight: 500;
+  font-size: 5vh;                /* Tamaño relativo a la pantalla */
+}
+
+.navbar-links a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.navbar-links a.active {
+  background: #ffffff;
+  color: #4b5e96;
+  font-weight: bold;
+}
