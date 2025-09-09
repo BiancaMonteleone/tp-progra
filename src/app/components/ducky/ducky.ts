@@ -8,13 +8,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ducky.css',
 })
 export class Ducky {
-  @Input() animation: string = 'jump';
-  @Input() movement: string = 'idleTop';
+  @Input() animation: string = 'floating';
+  @Input() movement: string = 'hidden';
   @Input() size: number = 120;
 
   currentSprite: string = '';
   intervalId: any;
-  positionClass = 'frog-idle';
+  positionClass = 'floating';
 
   constructor(private cdr: ChangeDetectorRef){};
 
@@ -39,28 +39,21 @@ export class Ducky {
         sprites = [
           `/img/ducky/floating-00.png`,
           `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
+          `/img/ducky/floating-00.png`
         ];
-        loop = false;
-        time = 100;
+        loop = true;
+        time = 60;
         break;
       case 'fall':
         sprites = [
           `/img/ducky/fall.png`
+        ];
+        loop = false;
+        time = 100;
+        break;
+      case 'sittingLeft':
+        sprites = [
+          `/img/ducky/sitting-left.png`
         ];
         loop = false;
         time = 100;
@@ -90,11 +83,11 @@ export class Ducky {
       case 'hidden':
         this.positionClass = 'hidden';
         break;
-      case 'enterTop':
-        this.positionClass = 'enter-top';
+      case 'enterAboutMe':
+        this.positionClass = 'enter-about-me';
         break;
-      case 'fall':
-        this.positionClass = 'efall';
+      case 'fallAboutMe':
+        this.positionClass = 'fall-about-me';
         break;
       default:
         this.positionClass = 'hidden';

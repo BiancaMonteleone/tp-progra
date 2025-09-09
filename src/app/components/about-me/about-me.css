@@ -7,9 +7,17 @@
 }
 
 /* --- Carta completa --- */
+.cloud {
+  position: absolute;  /* o fixed si querés que no se mueva con el scroll */
+  top: 33%;            /* equivalente al margin-top que tenías */
+  left: 90%;           /* equivalente al margin-left que tenías */
+  transform: translate(-50%, -50%); /* opcional, centra el punto de referencia */
+  width: 230px;
+}
+
 .full-card {
   width: 80%;
-  max-width: 900px;
+  max-width: 80%;
   background: #fbeed7; /* Fondo cálido */
   border-radius: 20px;
   padding: 2rem;

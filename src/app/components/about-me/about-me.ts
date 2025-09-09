@@ -15,7 +15,7 @@ export class AboutMe implements OnInit {
   loading = true;
   error = '';
   duckyAnimation = 'floating';
-  duckyMovement = 'enterTop';
+  duckyMovement = 'enterAboutMe';
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef){};
   
@@ -24,8 +24,12 @@ export class AboutMe implements OnInit {
     
     setTimeout(() => {
       this.duckyAnimation = 'fall';
-      this.duckyMovement = 'fall';
+      this.duckyMovement = 'fallAboutMe';
       this.cdr.detectChanges();
+      setTimeout(() => {
+        this.duckyAnimation = 'sittingLeft'
+        this.cdr.detectChanges();
+      }, 1000)
     }, 3000)
   }
 
