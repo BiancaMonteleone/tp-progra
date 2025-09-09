@@ -21,6 +21,7 @@ export class AboutMe implements OnInit {
   
   ngOnInit(): void {
     this.loadUser();
+    
     setTimeout(() => {
       this.duckyAnimation = 'fall';
       this.duckyMovement = 'fall';

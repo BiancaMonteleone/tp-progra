@@ -1,7 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
 body {
-  background-color: #4c98cc;
   margin: 0;
   padding: 0;
+  background: linear-gradient(to bottom, #5ec0ca, #98e1f2, #ccecf5);
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
