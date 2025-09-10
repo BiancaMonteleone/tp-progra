@@ -67,11 +67,12 @@ export class Ducky {
       index++;
 
       if (index < sprites.length) {
-        this.cdr.detectChanges();
         this.currentSprite = sprites[index];
+        this.cdr.detectChanges();
       } else if (loop) {
         index = 0;
         this.currentSprite = sprites[index];
+        this.cdr.detectChanges();
       } else {
         clearInterval(this.intervalId);
       }
