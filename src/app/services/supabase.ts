@@ -39,11 +39,23 @@ export class Supabase {
   }
 
   async login(email: string, password: string) {
-    const { data, error } = await this.client.auth.signInWithPassword({
+    const { data: authData, error: authError } = await this.client.auth.signInWithPassword({
       email,
       password,
     });
-    if (error) throw error;
-    return data;
+    if (authError) throw authError;
+
+    const userId = authData.user?.id;
+    if (!userId) throw new Error('No se pudo obtener el ID del usuario');
+
+    const { data: profile, error: profileError } = await this.client
+      .from('users')
+      .select('*')
+      .eq('auth_id', userId)
+      .maybeSingle();
+
+    if (profileError) throw profileError;
+
+    return { authData, profile };
   }
 }

@@ -64,6 +64,10 @@ export class Register implements OnInit{
       return;
     }
     console.log('Formulario válido');
-    await this.supabase.register(this.email, this.password, this.name, this.lastName, Number(this.age));
+    try {
+      await this.supabase.register(this.email, this.password, this.name, this.lastName, Number(this.age));
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

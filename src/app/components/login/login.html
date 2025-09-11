@@ -1,1 +1,26 @@
-<p>¡Ingreso funciona!</p>
+<div class="login-container">
+  <!--<img src="/img/tree2.png" class="tree">
+  <app-ducky 
+    [animation]="duckyAnimation"
+    [movement]="duckyMovement"
+    [size]="120">
+  </app-ducky>-->
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()">
+
+      <label>
+        Email:
+        <input name="email" [(ngModel)]="email" />
+        <p *ngIf="errors['email']">{{ errors['email'] }}</p>
+      </label>
+
+      <label>
+        Contraseña:
+        <input name="password" type="password" [(ngModel)]="password" />
+        <p *ngIf="errors['password']">{{ errors['password'] }}</p>
+      </label>
+
+      <button type="submit">Aceptar</button>
+    </form>
+  </div>
+</div>
