@@ -63,6 +63,25 @@ img {
   }
 }
 
+.fall-login {
+  position: absolute;
+  animation: fallLogin 1s forwards;
+}
+
+@keyframes fallLogin {
+  from {
+    left: 20%;
+    top: -20%;
+    transform: translateX(-50%);
+  }
+
+  to {
+    left: 20%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .hidden {
   left: -50%
 }

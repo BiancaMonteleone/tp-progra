@@ -24,7 +24,6 @@ export class Register implements OnInit{
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    
     setTimeout(() => {
       this.duckyAnimation = 'sittingLeft'
       this.cdr.detectChanges();

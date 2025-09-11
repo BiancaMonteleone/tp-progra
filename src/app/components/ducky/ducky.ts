@@ -68,6 +68,13 @@ export class Ducky {
         loop = false;
         time = 100;
         break;
+      case 'death':
+        sprites = [
+          `/img/ducky/death.png`
+        ];
+        loop = false;
+        time = 100;
+        break;
     }
 
     let index = 0;
@@ -102,6 +109,9 @@ export class Ducky {
         break;
       case 'enterRegister':
         this.positionClass = 'enter-register';
+        break;
+      case 'fallLogin':
+        this.positionClass = 'fall-login';
         break;
       default:
         this.positionClass = 'hidden';

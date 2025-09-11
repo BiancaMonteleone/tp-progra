@@ -6,13 +6,14 @@
   gap: 20px;
 }
 
-/*.tree {
+.cloud {
   position: absolute;
-  bottom: -4%;
-  left: 83%;
-  transform: translateX(-50%);
-  width: 500PX;
-}*/
+  top: 100%;
+  left: 
+  20%;
+  transform: translate(-50%, -50%);
+  width: 15%;
+}
 
 .form-container form {
   width: 90%;
