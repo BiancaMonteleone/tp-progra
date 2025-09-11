@@ -1,15 +1,14 @@
 <div *ngIf="loading" class="text-center loading">
   <p>Cargando perfil...</p>
 </div>
-<img src="/img/cloud.png" class="cloud">
 <div *ngIf="!loading && user" class="about-container">
+  <img src="/img/cloud.png" class="cloud">
   <app-ducky 
     [animation]="duckyAnimation"
     [movement]="duckyMovement"
     [size]="120">
   </app-ducky>
   <div class="card full-card">
-    <!-- Sección usuario -->
     <div class="user-section">
       <div class="left-section">
         <img [src]="user.avatar_url" alt="Foto de perfil" class="avatar" />
@@ -35,10 +34,8 @@
       </div>
     </div>
 
-    <!-- Línea divisoria -->
     <hr />
 
-    <!-- Sección juego -->
     <div class="info-card">
       <h1>Juego propio - Color o Palabra</h1>
       <p>Aparecerá un color escrito, pero con la fuente de otro color.</p>

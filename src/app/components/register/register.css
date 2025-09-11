@@ -1,0 +1,78 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.tree {
+  position: absolute;
+  bottom: -4%;
+  left: 83%;
+  transform: translateX(-50%);
+  width: 500PX;
+}
+
+.form-container form {
+  width: 90%;
+  max-width: 600px;
+  background: #fbeed7;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  display: block;
+  text-align: left;
+  color: #444;
+  font-weight: bold;
+}
+
+input {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #eeb485;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  background-color: #fffbf9;
+}
+
+input:focus {
+  border-color: #ea944e;
+}
+
+p {
+  font-size: 0.85rem;
+  margin: 0.3rem 0 0;
+  color: #e53e3e;
+}
+
+button {
+  background: linear-gradient(90deg, #ecad79, #eeb485);
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  border: none;
+}
+
+@media (max-width: 700px) {
+  .form-container form {
+    width: 95%;
+  }
+
+  .tree {
+    width: 25%;
+    right: 2%;
+  }
+}

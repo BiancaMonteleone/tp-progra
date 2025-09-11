@@ -6,26 +6,23 @@
   gap: 20px;
 }
 
-/* --- Carta completa --- */
 .cloud {
-  position: absolute;  /* o fixed si querés que no se mueva con el scroll */
-  top: 33%;            /* equivalente al margin-top que tenías */
-  left: 90%;           /* equivalente al margin-left que tenías */
-  transform: translate(-50%, -50%); /* opcional, centra el punto de referencia */
-  width: 230px;
+  position: absolute;
+  top: 33%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  width: 15%;
 }
 
 .full-card {
-  width: 80%;
-  max-width: 80%;
-  background: #fbeed7; /* Fondo cálido */
+  width: 70%;
+  background: #fbeed7;
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
 }
 
-/* Sección usuario */
 .user-section {
   display: flex;
   justify-content: space-between;
@@ -35,7 +32,6 @@
   border-radius: 12px;
 }
 
-/* Izquierda */
 .left-section {
   display: flex;
   flex-direction: column;
@@ -73,7 +69,6 @@
   background: #d7a175;
 }
 
-/* Derecha: stats */
 .right-section {
   display: flex;
   align-items: center;
@@ -87,7 +82,7 @@
 }
 
 .stats div {
-  background: #eeb485; /* Contraste con fondo */
+  background: #eeb485;
   padding: 10px 15px;
   border-radius: 10px;
   text-align: center;
@@ -105,7 +100,6 @@
   font-size: 0.8rem;
 }
 
-/* Línea divisoria */
 .full-card hr {
   margin: 2rem 0;
   border: none;
@@ -113,7 +107,6 @@
   background: rgba(0, 0, 0, 0.224);
 }
 
-/* Sección juego */
 .info-card {
   text-align: center;
 }
@@ -136,7 +129,6 @@
   border: 3px solid #4ba0c0;
 }
 
-/* Responsivo */
 @media (max-width: 700px) {
   .user-section {
     flex-direction: column;

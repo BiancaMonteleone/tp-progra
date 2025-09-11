@@ -1,1 +1,49 @@
-<p>¡Registro funciona!</p>
+<div class="register-container">
+  <img src="/img/tree2.png" class="tree">
+  <app-ducky 
+    [animation]="duckyAnimation"
+    [movement]="duckyMovement"
+    [size]="120">
+  </app-ducky>
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()">
+      <label>
+        Nombre:
+        <input name="name" [(ngModel)]="name" />
+        <p *ngIf="errors['name']">{{ errors['name'] }}</p>
+      </label>
+
+      <label>
+        Apellido:
+        <input name="lastName" [(ngModel)]="lastName" />
+        <p *ngIf="errors['lastName']">{{ errors['lastName'] }}</p>
+      </label>
+
+      <label>
+        Edad:
+        <input type="number" name="age" [(ngModel)]="age" />
+        <p *ngIf="errors['age']">{{ errors['age'] }}</p>
+      </label>
+
+      <label>
+        Email:
+        <input name="email" [(ngModel)]="email" />
+        <p *ngIf="errors['email']">{{ errors['email'] }}</p>
+      </label>
+
+      <label>
+        Contraseña:
+        <input name="password" type="password" [(ngModel)]="password" />
+        <p *ngIf="errors['password']">{{ errors['password'] }}</p>
+      </label>
+
+      <label>
+        Confirmar contraseña:
+        <input name="confirmPassword" type="password" [(ngModel)]="confirmPassword" />
+        <p *ngIf="errors['confirmPassword']">{{ errors['confirmPassword'] }}</p>
+      </label>
+
+      <button type="submit">Aceptar</button>
+    </form>
+  </div>
+</div>

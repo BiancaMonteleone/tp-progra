@@ -44,6 +44,16 @@ export class Ducky {
         loop = true;
         time = 60;
         break;
+      case 'climb':
+        sprites = [
+          `/img/ducky/climb-00.png`,
+          `/img/ducky/climb-01.png`,
+          `/img/ducky/climb-02.png`,
+          `/img/ducky/climb-03.png`
+        ];
+        loop = true;
+        time = 60;
+        break;
       case 'fall':
         sprites = [
           `/img/ducky/fall.png`
@@ -89,6 +99,9 @@ export class Ducky {
         break;
       case 'fallAboutMe':
         this.positionClass = 'fall-about-me';
+        break;
+      case 'enterRegister':
+        this.positionClass = 'enter-register';
         break;
       default:
         this.positionClass = 'hidden';

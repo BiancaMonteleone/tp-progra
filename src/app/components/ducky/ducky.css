@@ -1,6 +1,5 @@
 div {
   position: absolute;
-  top: 16vh;
   z-index: 1;
   pointer-events: none;
 }
@@ -9,7 +8,6 @@ img {
   height: 12vh;
 }
 
-/*------ About me ------*/
 .enter-about-me {
   animation: enterAboutMe 3s forwards;
 }
@@ -46,8 +44,25 @@ img {
   }
 }
 
-/*------ Others ------*/
+.enter-register {
+  position: absolute;
+  animation: enterRegister 2s forwards;
+}
+
+@keyframes enterRegister {
+  from {
+    left: 85%;
+    transform: translateX(-50%);
+    bottom: -20%;
+  }
+
+  to {
+    left: 85%;
+    transform: translateX(-50%);
+    bottom: 53%;
+  }
+}
+
 .hidden {
   left: -50%
 }
-
