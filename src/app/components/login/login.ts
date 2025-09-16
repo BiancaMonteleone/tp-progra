@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../services/supabase';
 import { Ducky } from '../ducky/ducky';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { Ducky } from '../ducky/ducky';
   styleUrl: './login.css',
 })
 export class Login {
+  
   email = '';
   password = '';
   user = '';
@@ -18,13 +20,17 @@ export class Login {
   duckyAnimation = 'fall';
   duckyMovement = 'fallLogin';
 
-  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
+  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router,) {}
 
   ngOnInit(): void {
     setTimeout(() => {
       this.duckyAnimation = 'death'
       this.cdr.detectChanges();
     }, 750)
+  }
+
+  logOut(){
+    this.supabase.logout();
   }
 
   async onSubmit() {
@@ -44,6 +50,8 @@ export class Login {
     try {
       const result = await this.supabase.login(this.email, this.password);
       console.log(result.profile);
+      localStorage.setItem('user', result.profile)
+      this.router.navigate(['/home']);
     } catch (error) {
       console.error(error);
     }

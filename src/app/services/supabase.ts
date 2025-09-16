@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://krvvcmhozcmlckjhuxoh.supabase.co';
@@ -10,10 +10,15 @@ const SUPABASE_KEY =
 })
 export class Supabase {
   private client: SupabaseClient;
+  private user = signal<any>(null);
 
   constructor() {
     this.client = createClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false },
+    });
+
+    this.client.auth.onAuthStateChange((event: any, user: any) => {
+      this.user.set(user);
     });
   }
 
@@ -57,5 +62,11 @@ export class Supabase {
     if (profileError) throw profileError;
 
     return { authData, profile };
+  }
+
+  async logout() {
+    const { error } = await this.client.auth.signOut();
+    localStorage.removeItem('user')
+    if (error) throw error;
   }
 }

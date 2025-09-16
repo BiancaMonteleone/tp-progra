@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { Supabase } from '../../services/supabase';
 
 @Component({
   selector: 'app-home',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './home.css'
 })
 export class Home {
-
+  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
+  logOut(){
+    this.supabase.logout();
+    this.cdr.detectChanges();
+  }
 }
