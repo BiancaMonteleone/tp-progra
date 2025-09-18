@@ -1,86 +1,16 @@
-/*.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: #4ba0c0;
-  padding: 40px 10px;
-  border-bottom: 3px solid #367e98;
-  z-index: 1000;
-  gap: 20px;
-}
-
-.navbar-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.navbar-links a {
-  font-family: 'Press Start 2P', cursive;
-  color: #fff;
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 10px;
-  transition: background 0.3s, transform 0.2s;
-  font-size: 4vh;
-}
-
-.navbar-links a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.navbar-links a.active {
-  background: #efd199;
-  color: #4b5e96;
-  font-weight: bold;
-}
-
-.custom-navbar {
-  background-color: #4ba0c0;
-  border-bottom: 3px solid #367e98;
-  padding: 40px 10px;
-}
-
-.custom-navbar .nav-link {
-  font-family: 'Press Start 2P', cursive;
-  color: #fff;
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 4vh;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.custom-navbar .nav-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.custom-navbar .nav-link.active {
-  background: #efd199;
-  color: #4b5e96;
-  font-weight: bold;
-}*/
-
 .navbar {
   background-color: #4ba0c0;
 }
 
 .navbar .nav-link {
   font-family: 'Press Start 2P', cursive;
-  font-size: 24px;  /* Cambiá este valor a gusto */
-  color: white;     /* Podés cambiar colores también */
+  font-size: 24px;
+  color: white;
 }
 
 .nav-link:hover,
 .active-link {
-  color: #efd199 !important;          /* color del texto */
-  border-bottom: 3px solid #efd199;   /* rayita debajo */
-  padding-bottom: 3px;                /* espacio para que la línea no toque el texto */
+  color: #efd199 !important;
+  border-bottom: 3px solid #efd199;
+  padding-bottom: 3px;
 }

@@ -1,51 +1,47 @@
-<div *ngIf="loading" class="text-center loading">
+<div *ngIf="loading" class="text-center my-4">
   <p>Cargando perfil...</p>
 </div>
-<div *ngIf="!loading && user" class="about-container">
-  <img src="/img/cloud.png" class="cloud">
-  <app-ducky 
-    [animation]="duckyAnimation"
-    [movement]="duckyMovement"
-    [size]="120">
-  </app-ducky>
-  <div class="card full-card">
-    <div class="user-section">
-      <div class="left-section">
-        <img [src]="user.avatar_url" alt="Foto de perfil" class="avatar" />
-        <h2>{{ user.name }}</h2>
-        <a [href]="user.html_url" target="_blank" class="btn">Ver Perfil</a>
+
+<div *ngIf="!loading && user" class="d-flex justify-content-center">
+  <div class="card full-card w-100 rounded-4 p-4 shadow-lg">
+    <div class="row align-items-center">
+
+      <!-- Sección izquierda -->
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img [src]="user.avatar_url" alt="Foto de perfil" class="avatar rounded-circle border border-4 border-warning mb-3">
+        <h2 class="h4">{{ user.name }}</h2>
+        <a [href]="user.html_url" target="_blank" class="btn btn-warning mt-2">Ver Perfil</a>
       </div>
 
-      <div class="right-section">
-        <div class="stats">
-          <div>
-            <h3>{{ user.public_repos }}</h3>
-            <p>Repos</p>
+      <!-- Sección derecha -->
+      <div class="col-md-8 d-flex justify-content-center">
+        <div class="d-flex gap-3 flex-wrap justify-content-center">
+          <div class="bg-warning text-white rounded-3 p-3 text-center">
+            <h3 class="h5 mb-1">{{ user.public_repos }}</h3>
+            <p class="mb-0">Repositorios</p>
           </div>
-          <div>
-            <h3>{{ user.followers }}</h3>
-            <p>Seguidores</p>
+          <div class="bg-warning text-white rounded-3 p-3 text-center">
+            <h3 class="h5 mb-1">{{ user.followers }}</h3>
+            <p class="mb-0">Seguidores</p>
           </div>
-          <div>
-            <h3>{{ user.following }}</h3>
-            <p>Siguiendo</p>
+          <div class="bg-warning text-white rounded-3 p-3 text-center">
+            <h3 class="h5 mb-1">{{ user.following }}</h3>
+            <p class="mb-0">Siguiendo</p>
           </div>
         </div>
       </div>
     </div>
 
-    <hr />
+    <hr class="my-4" />
 
-    <div class="info-card">
-      <h1>Juego propio - Color o Palabra</h1>
+    <!-- Info del juego -->
+    <div class="text-center">
+      <h1 class="h4 mb-3">Juego propio - Color o Palabra</h1>
       <p>Aparecerá un color escrito, pero con la fuente de otro color.</p>
       <p>Abajo habrá botones, cada uno dirá un color distinto.</p>
-      <p>
-        El jugador deberá hacer click en el botón que represente el color de la fuente, no la
-        palabra.
-      </p>
+      <p>El jugador deberá hacer click en el botón que represente el color de la fuente, no la palabra.</p>
       <p>En caso de que acierte, sigue jugando y acumula puntos. De lo contrario, pierde.</p>
-      <img src="/img/game-example.png" />
+      <img src="/img/game-example.png" class="img-fluid border-warning rounded-3 border border-3 border-info mt-3" />
     </div>
   </div>
 </div>

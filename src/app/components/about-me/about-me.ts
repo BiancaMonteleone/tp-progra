@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Ducky } from '../ducky/ducky';
+/*import { Ducky } from '../ducky/ducky';*/
 
 @Component({
   selector: 'app-about-me',
-  imports: [CommonModule, Ducky],
+  imports: [CommonModule, /*Ducky*/],
   templateUrl: './about-me.html',
   styleUrl: './about-me.css',
 })

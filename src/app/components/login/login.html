@@ -1,26 +1,27 @@
-<div class="login-container">
+<div class="login-container d-flex flex-column align-items-center py-4">
   <img src="/img/cloud.png" class="cloud">
+
   <app-ducky 
     [animation]="duckyAnimation"
     [movement]="duckyMovement"
     [size]="120">
   </app-ducky>
-  <div class="form-container">
-    <form (ngSubmit)="onSubmit()">
 
-      <label>
+  <div class="form-container d-flex justify-content-center">
+    <form (ngSubmit)="onSubmit()" class="card login-card p-4 d-flex flex-column gap-3 w-100 rounded-4 shadow-lg">
+      <label class="fw-bold text-dark">
         Email:
-        <input name="email" [(ngModel)]="email" />
-        <p *ngIf="errors['email']">{{ errors['email'] }}</p>
+        <input name="email" [(ngModel)]="email" class="form-control mt-1" />
+        <p *ngIf="errors['email']" class="text-danger small mt-1">{{ errors['email'] }}</p>
       </label>
 
-      <label>
+      <label class="fw-bold text-dark">
         Contraseña:
-        <input name="password" type="password" [(ngModel)]="password" />
-        <p *ngIf="errors['password']">{{ errors['password'] }}</p>
+        <input name="password" type="password" [(ngModel)]="password" class="form-control mt-1" />
+        <p *ngIf="errors['password']" class="text-danger small mt-1">{{ errors['password'] }}</p>
       </label>
 
-      <button type="submit">Aceptar</button>
+      <button type="submit" class="btn btn-warning mt-2">Aceptar</button>
     </form>
   </div>
 </div>

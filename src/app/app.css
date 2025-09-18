@@ -1,10 +1,8 @@
-/* Este es el contenedor principal de tu aplicación */
 .app-content {
-  position: relative;  /* necesario para que los hijos con absolute se posicionen dentro */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-  padding: 8rem; /* Ajusta este valor si tu navbar es más alta */
-  margin-top: 2%;
+  padding: 5rem;
 }
