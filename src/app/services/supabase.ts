@@ -1,5 +1,5 @@
-import { Injectable, signal } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { Injectable } from '@angular/core';
+import { createClient, SupabaseClient, Session, User, AuthChangeEvent } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://krvvcmhozcmlckjhuxoh.supabase.co';
 const SUPABASE_KEY =
@@ -9,21 +9,15 @@ const SUPABASE_KEY =
   providedIn: 'root',
 })
 export class Supabase {
-  private client: SupabaseClient;
-  private user = signal<any>(null);
+  private supabase: SupabaseClient;
 
   constructor() {
-    this.client = createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
-
-    this.client.auth.onAuthStateChange((event: any, user: any) => {
-      this.user.set(user);
+    this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
     });
   }
 
   async register(email: string, password: string, name: string, lastname: string, age: number) {
-    const { data: authData, error: authError } = await this.client.auth.signUp({
+    const { data: authData, error: authError } = await this.supabase.auth.signUp({
       email,
       password,
     });
@@ -32,7 +26,7 @@ export class Supabase {
     const userId = authData.user?.id;
     if (!userId) throw new Error('No se pudo obtener el ID del usuario');
 
-    const { data, error } = await this.client
+    const { data, error } = await this.supabase
       .from('users')
       .insert([{ auth_id: userId, name, lastname, age }])
       .select()
@@ -43,30 +37,26 @@ export class Supabase {
     return { auth: authData, profile: data };
   }
 
-  async login(email: string, password: string) {
-    const { data: authData, error: authError } = await this.client.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (authError) throw authError;
+  async login(email: string, password: string): Promise<{ user: User | null; session: Session | null }> {
+    const { data, error } = await this.supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
 
-    const userId = authData.user?.id;
-    if (!userId) throw new Error('No se pudo obtener el ID del usuario');
-
-    const { data: profile, error: profileError } = await this.client
-      .from('users')
-      .select('*')
-      .eq('auth_id', userId)
-      .maybeSingle();
-
-    if (profileError) throw profileError;
-
-    return { authData, profile };
+    // data.session puede ser null si el email no está confirmado
+    return { user: data.user, session: data.session };
   }
 
   async logout() {
-    const { error } = await this.client.auth.signOut();
-    localStorage.removeItem('user')
+    const { error } = await this.supabase.auth.signOut();
     if (error) throw error;
+    localStorage.removeItem('user')
+  }
+
+  async getUser(): Promise<User | null> {
+    const { data } = await this.supabase.auth.getUser();
+    return data.user; // puede ser null si no hay sesión
+  }
+
+  onAuthStateChange(callback: (event: AuthChangeEvent, session: Session | null) => void) {
+    return this.supabase.auth.onAuthStateChange(callback);
   }
 }

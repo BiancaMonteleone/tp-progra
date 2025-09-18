@@ -15,7 +15,6 @@ export class Login {
   
   email = '';
   password = '';
-  user = '';
   errors: { [key: string]: string } = {};
   duckyAnimation = 'fall';
   duckyMovement = 'fallLogin';
@@ -48,12 +47,15 @@ export class Login {
     }
     console.log('Formulario válido');
     try {
-      const result = await this.supabase.login(this.email, this.password);
-      console.log(result.profile);
-      localStorage.setItem('user', result.profile)
-      this.router.navigate(['/home']);
-    } catch (error) {
-      console.error(error);
+      const { user, session } = await this.supabase.login(this.email, this.password);
+
+      if (user) {
+        console.log('Usuario logueado:', user.email);
+        this.router.navigate(['/home']);
+      }
+    } catch (error: any) {
+      console.log(error);
+      
     }
   }
 }

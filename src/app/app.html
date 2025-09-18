@@ -1,11 +1,4 @@
+<app-navbar></app-navbar>
 <div class="app-content">
-  <nav class="navbar">
-    <div class="navbar-links">
-      <a *ngIf="!isLoggedIn" href="login">Ingreso</a>
-      <a *ngIf="!isLoggedIn" href="register">Registro</a>
-      <a href="home">Bienvenida</a>
-      <a href="about-me">Sobre mí</a>
-    </div>
-  </nav>
   <router-outlet></router-outlet>
 </div>
