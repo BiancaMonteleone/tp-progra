@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Supabase } from '../../services/supabase';
 
 @Component({
   selector: 'app-navbar',
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  styleUrl: './navbar.css',
 })
-export class Navbar implements OnInit{
-isLoggedIn = false;
+export class Navbar implements OnInit {
+  logged = false;
 
-  ngOnInit(): void {
-    this.isLoggedIn = false;
-    if(localStorage.getItem('user')){
-      this.isLoggedIn = true;
-    }
+  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
+
+  async ngOnInit() {
+    this.supabase.onAuthStateChange((event, session) => {
+      this.logged = session !== null;
+      this.cdr.detectChanges();
+    });
   }
 }

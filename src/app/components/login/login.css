@@ -1,9 +1,9 @@
 .cloud {
   position: absolute;
-  top: 100%;
+  margin-top: 5rem;
   left: 20%;
   transform: translate(-50%, -50%);
-  width: 15%;
+  width: 225px;
 }
 
 .login-card {

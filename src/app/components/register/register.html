@@ -1,49 +1,51 @@
-<div class="register-container">
+<div class="register-container d-flex flex-column align-items-center">
   <img src="/img/tree2.png" class="tree">
+
   <app-ducky 
     [animation]="duckyAnimation"
     [movement]="duckyMovement"
     [size]="120">
   </app-ducky>
-  <div class="form-container">
-    <form (ngSubmit)="onSubmit()">
-      <label>
+
+  <div class="form-container d-flex justify-content-center">
+    <form (ngSubmit)="onSubmit()" class="card login-card p-4 d-flex flex-column gap-3 w-100 rounded-4 shadow-lg">
+      <label class="fw-bold text-dark">
         Nombre:
-        <input name="name" [(ngModel)]="name" />
-        <p *ngIf="errors['name']">{{ errors['name'] }}</p>
+        <input name="name" [(ngModel)]="name" class="form-control mt-1" />
+        <p *ngIf="errors['name']" class="text-danger small mt-1">{{ errors['name'] }}</p>
       </label>
 
-      <label>
+      <label class="fw-bold text-dark">
         Apellido:
-        <input name="lastName" [(ngModel)]="lastName" />
-        <p *ngIf="errors['lastName']">{{ errors['lastName'] }}</p>
+        <input name="lastName" [(ngModel)]="lastName" class="form-control mt-1" />
+        <p *ngIf="errors['lastName']" class="text-danger small mt-1">{{ errors['lastName'] }}</p>
       </label>
 
-      <label>
+      <label class="fw-bold text-dark">
         Edad:
-        <input type="number" name="age" [(ngModel)]="age" />
-        <p *ngIf="errors['age']">{{ errors['age'] }}</p>
+        <input type="number" name="age" [(ngModel)]="age" class="form-control mt-1" />
+        <p *ngIf="errors['age']" class="text-danger small mt-1">{{ errors['age'] }}</p>
       </label>
 
-      <label>
+      <label class="fw-bold text-dark">
         Email:
-        <input name="email" [(ngModel)]="email" />
-        <p *ngIf="errors['email']">{{ errors['email'] }}</p>
+        <input name="email" [(ngModel)]="email" class="form-control mt-1" />
+        <p *ngIf="errors['email']" class="text-danger small mt-1">{{ errors['email'] }}</p>
       </label>
 
-      <label>
+      <label class="fw-bold text-dark">
         Contraseña:
-        <input name="password" type="password" [(ngModel)]="password" />
-        <p *ngIf="errors['password']">{{ errors['password'] }}</p>
+        <input name="password" type="password" [(ngModel)]="password" class="form-control mt-1" />
+        <p *ngIf="errors['password']" class="text-danger small mt-1">{{ errors['password'] }}</p>
       </label>
 
-      <label>
+      <label class="fw-bold text-dark">
         Confirmar contraseña:
-        <input name="confirmPassword" type="password" [(ngModel)]="confirmPassword" />
-        <p *ngIf="errors['confirmPassword']">{{ errors['confirmPassword'] }}</p>
+        <input name="confirmPassword" type="password" [(ngModel)]="confirmPassword" class="form-control mt-1" />
+        <p *ngIf="errors['confirmPassword']" class="text-danger small mt-1">{{ errors['confirmPassword'] }}</p>
       </label>
 
-      <button type="submit">Aceptar</button>
+      <button type="submit" class="btn btn-warning mt-2">Aceptar</button>
     </form>
   </div>
 </div>

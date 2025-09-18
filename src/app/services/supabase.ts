@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient, Session, User, AuthChangeEvent } from '@supabase/supabase-js';
+import {
+  createClient,
+  SupabaseClient,
+  Session,
+  User,
+  AuthChangeEvent,
+} from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://krvvcmhozcmlckjhuxoh.supabase.co';
 const SUPABASE_KEY =
@@ -12,8 +18,7 @@ export class Supabase {
   private supabase: SupabaseClient;
 
   constructor() {
-    this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
-    });
+    this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {});
   }
 
   async register(email: string, password: string, name: string, lastname: string, age: number) {
@@ -37,18 +42,19 @@ export class Supabase {
     return { auth: authData, profile: data };
   }
 
-  async login(email: string, password: string): Promise<{ user: User | null; session: Session | null }> {
-    const { data, error } = await this.supabase.auth.signInWithPassword({ email, password });
+  async login(email: string, password: string) {
+    const { data, error } = await this.supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     if (error) throw error;
-
-    // data.session puede ser null si el email no está confirmado
-    return { user: data.user, session: data.session };
+    return { data, error };
   }
 
   async logout() {
     const { error } = await this.supabase.auth.signOut();
     if (error) throw error;
-    localStorage.removeItem('user')
+    localStorage.removeItem('user');
   }
 
   async getUser(): Promise<User | null> {
@@ -56,7 +62,23 @@ export class Supabase {
     return data.user; // puede ser null si no hay sesión
   }
 
-  onAuthStateChange(callback: (event: AuthChangeEvent, session: Session | null) => void) {
-    return this.supabase.auth.onAuthStateChange(callback);
+  async getSession(): Promise<Session | null> {
+    const {
+      data: { session },
+      error,
+    } = await this.supabase.auth.getSession();
+
+    if (error) {
+      console.error('Error al obtener la sesión:', error.message);
+      return null;
+    }
+
+    return session;
+  }
+
+  onAuthStateChange(callback: (event: string, session: Session | null) => void) {
+    this.supabase.auth.onAuthStateChange((event, session) => {
+      callback(event, session);
+    });
   }
 }

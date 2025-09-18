@@ -1,27 +1,40 @@
-<div class="login-container d-flex flex-column align-items-center py-4">
-  <img src="/img/cloud.png" class="cloud">
-
-  <app-ducky 
-    [animation]="duckyAnimation"
-    [movement]="duckyMovement"
-    [size]="120">
-  </app-ducky>
-
+<div class="login-container d-flex flex-column align-items-center">
+  
+  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement" [size]="120"> </app-ducky>
+  
   <div class="form-container d-flex justify-content-center">
-    <form (ngSubmit)="onSubmit()" class="card login-card p-4 d-flex flex-column gap-3 w-100 rounded-4 shadow-lg">
+    <form
+    [formGroup]="formLogin"
+    (ngSubmit)="onSubmit()"
+    class="card login-card p-4 d-flex flex-column gap-3 w-100 rounded-4 shadow-lg"
+    >
       <label class="fw-bold text-dark">
         Email:
-        <input name="email" [(ngModel)]="email" class="form-control mt-1" />
-        <p *ngIf="errors['email']" class="text-danger small mt-1">{{ errors['email'] }}</p>
+        <input formControlName="email" class="form-control mt-1" />
+        <p
+        *ngIf="formLogin.get('email')?.invalid && formLogin.get('email')?.touched"
+        class="text-danger small mt-1"
+        >
+          {{ getErrorMsj('email') }}
+        </p>
       </label>
-
+      
       <label class="fw-bold text-dark">
         Contraseña:
-        <input name="password" type="password" [(ngModel)]="password" class="form-control mt-1" />
-        <p *ngIf="errors['password']" class="text-danger small mt-1">{{ errors['password'] }}</p>
+        <input type="password" formControlName="password" class="form-control mt-1" />
+        <p
+          *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched"
+          class="text-danger small mt-1"
+          >
+          {{ getErrorMsj('password') }}
+        </p>
+        <p *ngIf="formLogin.get('email')?.hasError('userNotFound')" class="text-danger small mt-1">
+          Usuario o contraseña incorrectos
+        </p>
       </label>
-
+      
       <button type="submit" class="btn btn-warning mt-2">Aceptar</button>
     </form>
   </div>
+  <img src="/img/cloud.png" class="cloud" />
 </div>
