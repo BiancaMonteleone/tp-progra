@@ -18,16 +18,20 @@ export class Register implements OnInit{
   password = '';
   confirmPassword = '';
   errors: { [key: string]: string } = {};
-  duckyAnimation = 'climb';
+  duckyAnimation = 'jump';
   duckyMovement = 'enterRegister';
 
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.duckyAnimation = 'sittingLeft'
+      this.duckyAnimation = 'climb'
       this.cdr.detectChanges();
-    }, 2000)
+      setTimeout(() => {
+        this.duckyAnimation = 'sittingLeft'
+        this.cdr.detectChanges();
+      }, 1700)
+    }, 1000)
   }
 
   async onSubmit() {

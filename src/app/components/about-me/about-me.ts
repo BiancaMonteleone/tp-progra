@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-/*import { Ducky } from '../ducky/ducky';*/
+import { Ducky } from '../ducky/ducky';
 
 @Component({
   selector: 'app-about-me',
-  imports: [CommonModule, /*Ducky*/],
+  imports: [CommonModule, Ducky],
   templateUrl: './about-me.html',
   styleUrl: './about-me.css',
 })
@@ -24,13 +24,12 @@ export class AboutMe implements OnInit {
     
     setTimeout(() => {
       this.duckyAnimation = 'fall';
-      this.duckyMovement = 'fallAboutMe';
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingLeft'
         this.cdr.detectChanges();
-      }, 1000)
-    }, 3000)
+      }, 550)
+    }, 1800)
   }
 
   loadUser(){

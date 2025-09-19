@@ -15,10 +15,9 @@ import { Router } from '@angular/router';
 export class Login implements OnInit {
   formLogin: FormGroup;
   duckyAnimation = 'fall';
-  duckyMovement = 'fallLogin';
+  duckyMovement = 'enterLogin';
 
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {
-    // Definimos el FormGroup y los validadores
     this.formLogin = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -29,7 +28,7 @@ export class Login implements OnInit {
     setTimeout(() => {
       this.duckyAnimation = 'death';
       this.cdr.detectChanges();
-    }, 750);
+    }, 800);
   }
 
   async onSubmit() {

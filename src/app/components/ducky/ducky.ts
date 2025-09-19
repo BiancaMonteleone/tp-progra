@@ -75,6 +75,17 @@ export class Ducky {
         loop = false;
         time = 100;
         break;
+      case 'jump':
+        sprites = [
+          `/img/ducky/jump-00.png`,
+          `/img/ducky/jump-01.png`,
+          `/img/ducky/jump-02.png`,
+          `/img/ducky/jump-03.png`,
+          `/img/ducky/jump-00.png`
+        ];
+        loop = false;
+        time = 150;
+        break;
     }
 
     let index = 0;
@@ -104,14 +115,11 @@ export class Ducky {
       case 'enterAboutMe':
         this.positionClass = 'enter-about-me';
         break;
-      case 'fallAboutMe':
-        this.positionClass = 'fall-about-me';
-        break;
       case 'enterRegister':
         this.positionClass = 'enter-register';
         break;
-      case 'fallLogin':
-        this.positionClass = 'fall-login';
+      case 'enterLogin':
+        this.positionClass = 'enter-login';
         break;
       default:
         this.positionClass = 'hidden';

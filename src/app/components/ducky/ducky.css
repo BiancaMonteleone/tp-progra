@@ -10,74 +10,70 @@ img {
 
 .enter-about-me {
   animation: enterAboutMe 3s forwards;
+  transform: translate(-50%, -50%);
+  left: -20%;
+  top: 5%
 }
 
 @keyframes enterAboutMe {
-  from {
+  0% {
     left: -20%;
+    top: 5%
+  }
+
+  60% {
+    left: 60%;
+    top: 5%
+  }
+
+  90% {
+    left: 60%;
     top: 8%;
   }
 
-  to {
-    left: 90%;
-    transform: translateX(-50%);
+  100% {
+    left: 60%;
     top: 8%;
-  }
-}
-
-.fall-about-me {
-  position: absolute;
-  animation: fallAboutMe 1s forwards;
-}
-
-@keyframes fallAboutMe {
-  from {
-    left: 90%;
-    top: 8%;
-    transform: translateX(-50%);
-  }
-
-  to {
-    left: 90%;
-    top: 30%;
-    transform: translate(-50%, -50%);
   }
 }
 
 .enter-register {
-  position: absolute;
-  animation: enterRegister 2s forwards;
+  animation: enterRegister 3s forwards;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes enterRegister {
-  from {
-    left: 85%;
-    transform: translateX(-50%);
-    bottom: -20%;
+  0% {
+    left: 50%;
+    bottom: -15%
   }
 
-  to {
-    left: 85%;
-    transform: translateX(-50%);
-    bottom: 53%;
+  30% {
+    left: 50%;
+    bottom: 3%
+  }
+
+  100% {
+    left: 50%;
+    bottom: 77%;
   }
 }
 
-.fall-login {
+.enter-login {
   position: absolute;
-  animation: fallLogin 1s forwards;
+  animation: enterLogin 1s forwards;
 }
 
-@keyframes fallLogin {
+@keyframes enterLogin {
   from {
-    left: 20%;
+    left: 50%;
     top: -20%;
     transform: translateX(-50%);
   }
 
   to {
-    left: 20%;
-    top: 90%;
+    left: 50%;
+    top: 36rem;
     transform: translate(-50%, -50%);
   }
 }
