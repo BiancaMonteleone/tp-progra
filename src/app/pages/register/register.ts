@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../services/supabase';
-import { Ducky } from '../ducky/ducky';
+import { Ducky } from '../../components/ducky/ducky';
 import { Router } from '@angular/router';
 
 @Component({

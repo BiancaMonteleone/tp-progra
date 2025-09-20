@@ -97,4 +97,13 @@ export class Supabase {
       callback(event, session);
     });
   }
+
+  async getMessages() {
+    const { data, error } = await this.supabase
+      .from('messages')
+      .select('*')
+
+    if (error) throw error;
+    return data;
+  }
 }

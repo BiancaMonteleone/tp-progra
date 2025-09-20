@@ -20,6 +20,11 @@
         <li class="nav-item me-4">
           <a class="nav-link" routerLink="about-me" routerLinkActive="active-link">Sobre mí</a>
         </li>
+        @if(logged){
+          <li class="nav-item me-4">
+            <a class="nav-link" routerLink="chat" routerLinkActive="active-link">Chat</a>
+          </li>
+        }
         @if(!logged){
         <li class="nav-item me-4">
           <a class="nav-link" routerLink="login" routerLinkActive="active-link">Ingreso</a>
