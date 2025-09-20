@@ -1,0 +1,26 @@
+.custom-card {
+  background-color: #fbeed7;  /* azul clarito de fondo */
+  border: 2px dashed #e7b861; /* borde con líneas cortadas */
+  border-radius: 12px;        /* esquinas redondeadas */
+  padding: 20px;
+  transition: transform 0.2s ease;
+  height: 100%; /* junto con align-items-stretch en la row */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.custom-card:hover {
+  transform: scale(1.1); /* efecto al pasar el mouse */
+}
+
+.custom-card img {
+  max-height: 200px; /* para que no se desborden */
+  object-fit: cover;
+}
+
+h5 {
+  font-family: 'Press Start 2P', cursive;
+  color: rgb(104, 104, 104);
+}

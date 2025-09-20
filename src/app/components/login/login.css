@@ -1,6 +1,6 @@
 .cloud {
   position: absolute;
-  margin-top: 35rem;
+  margin-top: 28rem;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 225px;
@@ -26,4 +26,23 @@ input:focus {
 
 .btn-warning:hover {
   background-color: #d7a175;
+}
+
+.feather-container {
+  display: flex;
+  justify-content: center; /* centra horizontalmente todas las plumas */
+  gap: 30px;               /* espacio entre cada pluma */
+  align-items: center;      /* opcional: alinea verticalmente si hay altura diferente */
+  flex-wrap: wrap;          /* opcional: que se vaya a otra línea si no entra */
+  margin-top: 15px;
+}
+
+.feather {
+  width: 70px;   /* tamaño fijo o relativo */
+  height: auto;
+  cursor: pointer;
+}
+
+.feather:hover {
+  transform: scale(1.1); /* efecto al pasar el mouse */
 }

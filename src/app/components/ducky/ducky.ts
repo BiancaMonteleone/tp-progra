@@ -86,6 +86,16 @@ export class Ducky {
         loop = false;
         time = 150;
         break;
+      case 'roll':
+        sprites = [
+          `/img/ducky/roll-00.png`,
+          `/img/ducky/roll-01.png`,
+          `/img/ducky/roll-02.png`,
+          `/img/ducky/roll-03.png`,
+        ];
+        loop = true;
+        time = 100;
+        break;
     }
 
     let index = 0;

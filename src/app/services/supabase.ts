@@ -54,13 +54,27 @@ export class Supabase {
   async logout() {
     const { error } = await this.supabase.auth.signOut();
     if (error) throw error;
-    localStorage.removeItem('user');
   }
 
-  async getUser(): Promise<User | null> {
-    const { data } = await this.supabase.auth.getUser();
-    return data.user; // puede ser null si no hay sesión
-  }
+  async getUser() {
+  // obtener la sesión actual
+  const { data: { session }, error: sessionError } = await this.supabase.auth.getSession();
+  if (sessionError) throw sessionError;
+
+  const authId = session?.user?.id;
+  if (!authId) return null; // no hay usuario logueado
+
+  // buscar en la tabla users el perfil vinculado
+  const { data, error } = await this.supabase
+    .from('users')
+    .select('*')
+    .eq('auth_id', authId)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
+
 
   async getSession(): Promise<Session | null> {
     const {

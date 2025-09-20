@@ -12,9 +12,12 @@
 .active-link {
   color: #efd199 !important;
   border-bottom: 3px solid #efd199;
-  padding-bottom: 3px;
 }
 
-.d-none {
-  display: none;
+.user-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
 }

@@ -16,6 +16,11 @@ export class Login implements OnInit {
   formLogin: FormGroup;
   duckyAnimation = 'fall';
   duckyMovement = 'enterLogin';
+  quickUsers = [
+      { email: 'user1@example.com', password: '123456' },
+      { email: 'user2@example.com', password: 'abcdef' },
+      { email: 'user3@example.com', password: 'qwerty' },
+    ];
 
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {
     this.formLogin = new FormGroup({
@@ -28,7 +33,7 @@ export class Login implements OnInit {
     setTimeout(() => {
       this.duckyAnimation = 'death';
       this.cdr.detectChanges();
-    }, 800);
+    }, 700);
   }
 
   async onSubmit() {
