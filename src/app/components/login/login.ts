@@ -16,11 +16,12 @@ export class Login implements OnInit {
   formLogin: FormGroup;
   duckyAnimation = 'fall';
   duckyMovement = 'enterLogin';
-  quickUsers = [
-      { email: 'user1@example.com', password: '123456' },
-      { email: 'user2@example.com', password: 'abcdef' },
-      { email: 'user3@example.com', password: 'qwerty' },
-    ];
+  
+  quickUsers = {
+    user1: { email: 'fiore@gmail.com', password: '123456' },
+    user2: { email: 'bianca@gmail.com', password: '123456' },
+    user3: { email: 'mati@gmail.com', password: '123456' }
+  };
 
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {
     this.formLogin = new FormGroup({
@@ -37,7 +38,6 @@ export class Login implements OnInit {
   }
 
   async onSubmit() {
-    // Marcamos todos los campos como "touched" para que aparezcan los errores
     this.formLogin.markAllAsTouched();
 
     if (this.formLogin.invalid) {
@@ -52,14 +52,13 @@ export class Login implements OnInit {
       if (data?.user) {
         console.log('Usuario logueado:', data.user.email);
         this.router.navigate(['/home']);
-        this.cdr.detectChanges()
+        this.cdr.detectChanges();
       }
     } catch (error: any) {
       this.formLogin.get('email')?.setErrors({ userNotFound: true });
     }
   }
 
-  // Método para obtener mensaje de error de un control
   getErrorMsj(controlName: string): string {
     const control = this.formLogin.get(controlName);
     if (!control) return '';
@@ -68,5 +67,17 @@ export class Login implements OnInit {
     if (control.hasError('minlength'))
       return `Debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres`;
     return '';
+  }
+
+  async quickLogin(user: 'user1' | 'user2' | 'user3') {
+    const credentials = this.quickUsers[user];
+    if (!credentials) return;
+
+    this.formLogin.patchValue({
+      email: credentials.email,
+      password: credentials.password
+    });
+
+    await this.onSubmit();
   }
 }

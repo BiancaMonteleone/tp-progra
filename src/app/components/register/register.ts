@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../services/supabase';
 import { Ducky } from '../ducky/ducky';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class Register implements OnInit{
   duckyAnimation = 'jump';
   duckyMovement = 'enterRegister';
 
-  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
+  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -70,6 +71,7 @@ export class Register implements OnInit{
     try {
       await this.supabase.register(this.email, this.password, this.name, this.lastName, Number(this.age));
       console.log('Registro exitoso');
+      this.router.navigate(['/home']);
     } catch (error) {
       console.log(error);
     }

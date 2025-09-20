@@ -38,7 +38,8 @@ export class Supabase {
       .single();
 
     if (error) throw error;
-
+    console.log(authData);
+    
     return { auth: authData, profile: data };
   }
 
@@ -57,24 +58,25 @@ export class Supabase {
   }
 
   async getUser() {
-  // obtener la sesión actual
-  const { data: { session }, error: sessionError } = await this.supabase.auth.getSession();
-  if (sessionError) throw sessionError;
+    // obtener la sesión actual
+    const {
+      data: { session },
+      error: sessionError,
+    } = await this.supabase.auth.getSession();
+    if (sessionError) throw sessionError;
 
-  const authId = session?.user?.id;
-  if (!authId) return null; // no hay usuario logueado
+    const authId = session?.user?.id;
+    if (!authId) return null;
 
-  // buscar en la tabla users el perfil vinculado
-  const { data, error } = await this.supabase
-    .from('users')
-    .select('*')
-    .eq('auth_id', authId)
-    .maybeSingle();
+    const { data, error } = await this.supabase
+      .from('users')
+      .select('*')
+      .eq('auth_id', authId)
+      .maybeSingle();
 
-  if (error) throw error;
-  return data;
-}
-
+    if (error) throw error;
+    return data;
+  }
 
   async getSession(): Promise<Session | null> {
     const {

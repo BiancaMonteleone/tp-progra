@@ -16,23 +16,30 @@ export class Navbar implements OnInit {
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {}
 
   async ngOnInit() {
-    try{
+    console.log(this.logged);
+
+    try {
       this.user = await this.supabase.getUser();
-    }catch(error){
+    } catch (error) {
       console.error(error);
     }
-    this.supabase.onAuthStateChange((event, session) => {
+    this.supabase.onAuthStateChange(async (event, session) => {
       this.logged = session !== null;
+      if (this.logged) {
+        this.user = await this.supabase.getUser();
+      } else {
+        this.user = null;
+      }
       this.cdr.detectChanges();
     });
   }
 
   logOut() {
-    try{
+    try {
       this.supabase.logout();
       this.router.navigate(['/home']);
       this.cdr.detectChanges();
-    }catch(error){
+    } catch (error) {
       console.error(error);
     }
   }

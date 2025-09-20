@@ -44,7 +44,7 @@
           <img src="/img/user-icon.png" class="user-icon me-2" />
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li class="dropdown-item-text fw-bold">{{user.name}}</li>
+          <li class="dropdown-item-text fw-bold">{{ user?.name }}</li>
           <li><hr class="dropdown-divider" /></li>
           <li>
             <button class="dropdown-item text-danger" (click)="logOut()">Cerrar sesión</button>

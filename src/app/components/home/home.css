@@ -12,7 +12,7 @@
 }
 
 .custom-card:hover {
-  transform: scale(1.1); /* efecto al pasar el mouse */
+  transform: scale(1.01); /* efecto al pasar el mouse */
 }
 
 .custom-card img {
