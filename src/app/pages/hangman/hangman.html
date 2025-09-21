@@ -1,0 +1,33 @@
+<div class="container text-center">
+  <h1 class="mb-4 title">Ahorcado</h1>
+
+  <!-- Palabra -->
+  <div id="word" class="mb-3 display-4 fw-bold">
+    {{ displayWord.join(' ') }}
+  </div>
+
+  <!-- Letras incorrectas -->
+  <div id="wrong-letters" class="mb-3 text-danger fw-bold">
+    Incorrectas: {{ wrongLetters.join(', ') }}
+  </div>
+
+  <!-- Intentos restantes -->
+  <div id="remaining" class="mb-3 fw-bold">
+    Intentos restantes: {{ remainingAttempts }}
+  </div>
+
+  <!-- Teclado -->
+  <div id="letter-buttons" class="mb-3">
+    <button *ngFor="let letter of letters"
+            class="btn btn-outline-secondary m-1"
+            [disabled]="isLetterDisabled(letter)"
+            (click)="guessLetter(letter)">
+      {{ letter }}
+    </button>
+  </div>
+
+  <!-- Reiniciar -->
+  <button class="btn btn-primary btn-restart" (click)="restartGame()">Reiniciar</button>
+
+  <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
+</div>

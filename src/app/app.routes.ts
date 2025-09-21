@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Register } from './pages/register/register';
 import { Home } from './pages/home/home';
 import { AboutMe } from './pages/about-me/about-me';
 import { notLoggedGuard } from './guards/not-logged-guard';
@@ -11,5 +10,6 @@ export const routes: Routes = [
   { path: 'register', loadComponent: () => import("./pages/register/register").then((a) => a.Register), canActivate: [notLoggedGuard]},
   { path: 'home', component: Home },
   { path: 'about-me', component: AboutMe },
-  {path: 'chat', loadComponent: () => import("./pages/chat/chat").then((a) => a.Chat), canActivate: [isLoggedGuard]}
+  {path: 'chat', loadComponent: () => import("./pages/chat/chat").then((a) => a.Chat), canActivate: [isLoggedGuard]},
+  {path: 'hangman', loadComponent: () => import("./pages/hangman/hangman").then((a) => a.Hangman), canActivate: [isLoggedGuard]},
 ];

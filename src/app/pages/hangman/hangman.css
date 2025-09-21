@@ -1,0 +1,27 @@
+#word {
+  font-family: 'Press Start 2P', cursive;
+}
+
+#letter-buttons button {
+  width: 70px;
+  height: 70px;
+  font-weight: bold;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.btn {
+  background-color: #fbeed7;
+  border-color: #eeb485;
+  color: rgb(121, 121, 121);
+}
+
+.btn:hover {
+  color: #eeb485;
+}
+
+.btn-restart {
+  font-family: 'Press Start 2P', cursive;
+  background-color: #eeb485;
+  border-color: #e99e61;
+  color: white;
+}
