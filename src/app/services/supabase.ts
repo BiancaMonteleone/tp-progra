@@ -1,11 +1,5 @@
-import { Injectable } from '@angular/core';
-import {
-  createClient,
-  SupabaseClient,
-  Session,
-  User,
-  AuthChangeEvent,
-} from '@supabase/supabase-js';
+import { Injectable, signal } from '@angular/core';
+import { createClient, SupabaseClient, Session } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://krvvcmhozcmlckjhuxoh.supabase.co';
 const SUPABASE_KEY =
@@ -16,9 +10,13 @@ const SUPABASE_KEY =
 })
 export class Supabase {
   private supabase: SupabaseClient;
+  messages = signal<any[]>([]);
+
+  private realtimeChannel: any = null;
 
   constructor() {
     this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {});
+    this.setupRealtime();
   }
 
   async register(email: string, password: string, name: string, lastname: string, age: number) {
@@ -39,7 +37,7 @@ export class Supabase {
 
     if (error) throw error;
     console.log(authData);
-    
+
     return { auth: authData, profile: data };
   }
 
@@ -58,7 +56,6 @@ export class Supabase {
   }
 
   async getUser() {
-    // obtener la sesión actual
     const {
       data: { session },
       error: sessionError,
@@ -102,8 +99,55 @@ export class Supabase {
     const { data, error } = await this.supabase
       .from('messages')
       .select('*')
-
+      .order('created_at', { ascending: true });
     if (error) throw error;
+    this.messages.set(data || []);
     return data;
+  }
+
+  async sendMessage(email: string, content: string) {
+    if (!content) return;
+    const { data, error } = await this.supabase
+      .from('messages')
+      .insert({ email, content })
+      .select();
+    if (error) console.error(error);
+  }
+
+  setupRealtime() {
+    this.realtimeChannel = this.supabase
+      .channel('public:messages')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'messages' },
+        (payload: any) => {
+          const eventType = payload.eventType;
+
+          if (eventType === 'INSERT') {
+            const newMessage = payload.new;
+            this.messages.update((arr) => [...arr, newMessage]);
+          }
+
+          if (eventType === 'UPDATE') {
+            const updatedMessage = payload.new;
+            this.messages.update((arr) =>
+              arr.map((m) => (m.id === updatedMessage.id ? updatedMessage : m))
+            );
+          }
+
+          if (eventType === 'DELETE') {
+            const deletedMessage = payload.old;
+            this.messages.update((arr) => arr.filter((m) => m.id !== deletedMessage.id));
+          }
+        }
+      )
+      .subscribe();
+  }
+
+  removeRealtime() {
+    if (this.realtimeChannel) {
+      this.supabase.removeChannel(this.realtimeChannel);
+      this.realtimeChannel = null;
+    }
   }
 }

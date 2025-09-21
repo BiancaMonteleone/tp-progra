@@ -37,7 +37,7 @@ export class Navbar implements OnInit {
   logOut() {
     try {
       this.supabase.logout();
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
       this.cdr.detectChanges();
     } catch (error) {
       console.error(error);

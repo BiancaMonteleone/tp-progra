@@ -4,30 +4,34 @@
       <h5 class="mb-0">Sala de Chat</h5>
     </div>
 
-    <div class="chat-messages p-3" id="chatMessages" *ngFor="let message of messages">
-      @if(message.email === session.user.email){
-      <div class="message sent">
-        <div class="message-content">{{ message.content }}</div>
-        <span class="message-time">{{ message.time }}</span>
+    <div class="chat-messages p-3" id="chatMessages" #chatMessages>
+      <div *ngFor="let message of supabase.messages()">
+        @if(message.email === session.user.email){
+        <div class="message sent">
+          <span class="message-time">{{ message.email }}</span>
+          <div class="message-content">{{ message.content }}</div>
+          <span class="message-time">{{ message.created_at | date:'HH:mm' }}</span>
+        </div>
+        }@else{
+        <div class="message received">
+          <span class="message-time">{{ message.email }}</span>
+          <div class="message-content">{{ message.content }}</div>
+          <span class="message-time">{{ message.created_at | date:'HH:mm' }}</span>
+        </div>
+        }
       </div>
-      }@else{
-      <div class="message received">
-        <div class="message-content">{{ message.content }}</div>
-        <span class="message-time">{{ message.time }}</span>
-      </div>
-
-      }
     </div>
 
-    <!-- Input -->
     <div class="chat-input p-3 d-flex">
       <input
         type="text"
         class="form-control me-2"
         placeholder="Escribe un mensaje..."
         id="messageInput"
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"
       />
-      <button class="btn btn-primary" id="sendButton">Enviar</button>
+      <button class="btn btn-primary" (click)="sendMessage()">Enviar</button>
     </div>
   </div>
 </div>
