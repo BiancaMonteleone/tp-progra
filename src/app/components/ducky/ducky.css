@@ -78,6 +78,64 @@ img {
   }
 }
 
+.enter-hangman {
+  animation: enterHangman 3s forwards;
+  transform: translate(-50%, -50%);
+  left: -20%;
+  top: 5%
+}
+
+@keyframes enterHangman {
+  0% {
+    left: -20%;
+    top: 5%
+  }
+
+  60% {
+    left: 50%;
+    top: 5%
+  }
+
+  90% {
+    left: 50%;
+    top: 16%;
+  }
+
+  100% {
+    left: 50%;
+    top: 16%;
+  }
+}
+
+.enter-cards {
+  animation: enterCards 3s forwards;
+  transform: translate(-50%, -50%);
+  right: -20%;
+  top: 5%
+}
+
+@keyframes enterCards {
+  0% {
+    right: -20%;
+    top: 5%
+  }
+
+  60% {
+    right: 44%;
+    top: 5%
+  }
+
+  90% {
+    right: 44%;
+    top: 14%;
+  }
+
+  100% {
+    right: 44%;
+    top: 14%;
+  }
+}
+
 .hidden {
   left: -50%
 }

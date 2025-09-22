@@ -12,4 +12,5 @@ export const routes: Routes = [
   { path: 'about-me', component: AboutMe },
   {path: 'chat', loadComponent: () => import("./pages/chat/chat").then((a) => a.Chat), canActivate: [isLoggedGuard]},
   {path: 'hangman', loadComponent: () => import("./pages/hangman/hangman").then((a) => a.Hangman), canActivate: [isLoggedGuard]},
+  {path: 'cards', loadComponent: () => import("./pages/cards/cards").then((a) => a.Cards), canActivate: [isLoggedGuard]},
 ];

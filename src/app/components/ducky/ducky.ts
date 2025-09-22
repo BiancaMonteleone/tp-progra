@@ -16,7 +16,7 @@ export class Ducky {
   intervalId: any;
   positionClass = 'floating';
 
-  constructor(private cdr: ChangeDetectorRef){};
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['animation']) this.playAnimation(this.animation);
@@ -39,7 +39,16 @@ export class Ducky {
         sprites = [
           `/img/ducky/floating-00.png`,
           `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`
+          `/img/ducky/floating-00.png`,
+        ];
+        loop = true;
+        time = 60;
+        break;
+      case 'floating-left':
+        sprites = [
+          `/img/ducky/floating-left-00.png`,
+          `/img/ducky/floating-left-01.png`,
+          `/img/ducky/floating-left-00.png`,
         ];
         loop = true;
         time = 60;
@@ -49,29 +58,28 @@ export class Ducky {
           `/img/ducky/climb-00.png`,
           `/img/ducky/climb-01.png`,
           `/img/ducky/climb-02.png`,
-          `/img/ducky/climb-03.png`
+          `/img/ducky/climb-03.png`,
         ];
         loop = true;
         time = 60;
         break;
       case 'fall':
-        sprites = [
-          `/img/ducky/fall.png`
-        ];
+        sprites = [`/img/ducky/fall.png`];
+        loop = false;
+        time = 100;
+        break;
+      case 'fall-left':
+        sprites = [`/img/ducky/fall-left.png`];
         loop = false;
         time = 100;
         break;
       case 'sittingLeft':
-        sprites = [
-          `/img/ducky/sitting-left.png`
-        ];
+        sprites = [`/img/ducky/sitting-left.png`];
         loop = false;
         time = 100;
         break;
       case 'death':
-        sprites = [
-          `/img/ducky/death.png`
-        ];
+        sprites = [`/img/ducky/death.png`];
         loop = false;
         time = 100;
         break;
@@ -81,7 +89,7 @@ export class Ducky {
           `/img/ducky/jump-01.png`,
           `/img/ducky/jump-02.png`,
           `/img/ducky/jump-03.png`,
-          `/img/ducky/jump-00.png`
+          `/img/ducky/jump-00.png`,
         ];
         loop = false;
         time = 150;
@@ -94,6 +102,11 @@ export class Ducky {
           `/img/ducky/roll-03.png`,
         ];
         loop = true;
+        time = 100;
+        break;
+      case 'sittingRight':
+        sprites = [`/img/ducky/sitting-right.png`];
+        loop = false;
         time = 100;
         break;
     }
@@ -130,6 +143,12 @@ export class Ducky {
         break;
       case 'enterLogin':
         this.positionClass = 'enter-login';
+        break;
+      case 'enterHangman':
+        this.positionClass = 'enter-hangman';
+        break;
+      case 'enterCards':
+        this.positionClass = 'enter-cards';
         break;
       default:
         this.positionClass = 'hidden';

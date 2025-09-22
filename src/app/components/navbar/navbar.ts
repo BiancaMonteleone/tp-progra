@@ -16,8 +16,6 @@ export class Navbar implements OnInit {
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {}
 
   async ngOnInit() {
-    console.log(this.logged);
-
     try {
       this.user = await this.supabase.getUser();
     } catch (error) {

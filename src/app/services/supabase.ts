@@ -150,4 +150,16 @@ export class Supabase {
       this.realtimeChannel = null;
     }
   }
+
+  async registerScore(id: string, score: number, table: string) {
+    const { data, error } = await this.supabase
+      .from(`${table}`)
+      .insert([{ score: score, id_user: id }])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { data, error };
+  }
 }

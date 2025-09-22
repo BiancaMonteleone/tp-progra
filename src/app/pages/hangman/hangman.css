@@ -1,3 +1,7 @@
+.container {
+  margin-top: 5rem;
+}
+
 #word {
   font-family: 'Press Start 2P', cursive;
 }
@@ -24,4 +28,12 @@
   background-color: #eeb485;
   border-color: #e99e61;
   color: white;
+}
+
+.cloud {
+  position: absolute;
+  margin-top: 0rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 225px;
 }

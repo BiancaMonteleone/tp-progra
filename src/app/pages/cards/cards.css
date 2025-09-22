@@ -1,0 +1,44 @@
+.game-container {
+  margin-top: 5rem;
+}
+
+.card {
+  width: 14rem;
+}
+
+.card-title {
+  font-family: 'Press Start 2P', cursive;
+}
+
+img {
+  height: 200px;
+  margin: 20px 0;
+}
+
+.btn {
+  color: rgb(121, 121, 121);
+  margin: 20px;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+}
+
+.btn-higher {
+  background-color: #a1dc7c;
+  border-color: #8bd15f;
+}
+
+.btn-lower {
+  background-color: #dc7c7c;
+  border-color: #d15f5f;
+}
+
+.cloud {
+  position: absolute;
+  margin-top: 0rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 225px;
+  height: 100px;
+}
