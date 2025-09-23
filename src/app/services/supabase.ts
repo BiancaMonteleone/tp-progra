@@ -19,6 +19,7 @@ export class Supabase {
     this.setupRealtime();
   }
 
+  /*-------------------- User --------------------*/
   async register(email: string, password: string, name: string, lastname: string, age: number) {
     const { data: authData, error: authError } = await this.supabase.auth.signUp({
       email,
@@ -95,6 +96,8 @@ export class Supabase {
     });
   }
 
+  /*-------------------- Messages --------------------*/
+
   async getMessages() {
     const { data, error } = await this.supabase
       .from('messages')
@@ -127,18 +130,6 @@ export class Supabase {
             const newMessage = payload.new;
             this.messages.update((arr) => [...arr, newMessage]);
           }
-
-          if (eventType === 'UPDATE') {
-            const updatedMessage = payload.new;
-            this.messages.update((arr) =>
-              arr.map((m) => (m.id === updatedMessage.id ? updatedMessage : m))
-            );
-          }
-
-          if (eventType === 'DELETE') {
-            const deletedMessage = payload.old;
-            this.messages.update((arr) => arr.filter((m) => m.id !== deletedMessage.id));
-          }
         }
       )
       .subscribe();
@@ -150,6 +141,8 @@ export class Supabase {
       this.realtimeChannel = null;
     }
   }
+
+  /*-------------------- Score --------------------*/
 
   async registerScore(id: string, score: number, table: string) {
     const { data, error } = await this.supabase

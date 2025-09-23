@@ -6,9 +6,8 @@
       Puntaje: <strong>{{ score }}</strong>
     </p>
   
-    <!-- Zona de cartas -->
     <div class="row justify-content-center mb-4">
-      <!-- Carta actual -->
+
       <div class="col-12 col-md-5 d-flex justify-content-center">
         <div class="card shadow">
           <img
@@ -23,7 +22,6 @@
         </div>
       </div>
   
-      <!-- Carta oculta -->
       <div class="col-12 col-md-5 d-flex justify-content-center">
         <div class="card shadow">
           <img *ngIf="!nextCard" src="/img/cards/back.png" class="card-img-top" alt="Carta oculta" />
@@ -35,13 +33,11 @@
       </div>
     </div>
   
-    <!-- Botones -->
     <div class="text-center mb-4">
       <button class="btn btn-primary btn-higher" (click)="guess(true)">Mayor</button>
       <button class="btn btn-primary btn-lower" (click)="guess(false)">Menor</button>
     </div>
   
-    <!-- Modal personalizado -->
     <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
   </div>
 </div>

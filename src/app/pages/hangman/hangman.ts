@@ -14,17 +14,15 @@ import { Supabase } from '../../services/supabase';
 export class Hangman implements OnInit {
   modalMessage: string = '';
   isModalOpen: boolean = false;
+  duckyAnimation = 'floatingRight';
+  duckyMovement = 'enterHangman';
   user: any = null;
-  words: string[] = ['typescript', 'html', 'javascript', 'bootstrap'];
+
   selectedWord: string = '';
   displayWord: string[] = [];
   wrongLetters: string[] = [];
-  remainingAttempts: number = 6;
-
+  errors: number = 6;
   letters: string[] = 'abcdefghijklmnñopqrstuvwxyz'.split('');
-
-  duckyAnimation = 'floatingRight';
-  duckyMovement = 'enterHangman';
 
   constructor(private cdr: ChangeDetectorRef, private wordService: WordService, private supabase: Supabase) {}
 
@@ -41,31 +39,28 @@ export class Hangman implements OnInit {
     }, 1450);
   }
 
-  normalizeWord(word: string): string {
-    return word
-      .toLowerCase()
-      .normalize('NFD') // separa letras y acentos
-      .replace(/[\u0300-\u036f]/g, ''); // quita tildes
-  }
-
   initGame(): void {
-    // Pedir palabra de la API
     this.wordService.getRandomWord().subscribe({
       next: (words) => {
         this.selectedWord = words[0].toLowerCase();
         this.displayWord = Array(this.selectedWord.length).fill('_');
         this.wrongLetters = [];
-        this.remainingAttempts = 6;
+        this.errors = 6;
         this.selectedWord = this.normalizeWord(this.selectedWord);
         this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al obtener palabra:', err);
-        // fallback si falla la API
-        this.selectedWord = 'angular';
-        this.displayWord = Array(this.selectedWord.length).fill('_');
       },
     });
+  }
+
+  normalizeWord(word: string): string {
+    return word
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace('ñ', 'ñ');
   }
 
   guessLetter(letter: string): void {
@@ -89,7 +84,7 @@ export class Hangman implements OnInit {
         this.cdr.detectChanges();
       }, 700);
       this.wrongLetters.push(letter);
-      this.remainingAttempts--;
+      this.errors--;
     }
 
     this.checkGameOver();
@@ -103,7 +98,7 @@ export class Hangman implements OnInit {
       this.showModal('¡Ganaste! 🎉');
       this.supabase.registerScore(this.user.auth_id, this.selectedWord.length, 'hangman_scores')
       setTimeout(() => this.restartGame(), 2000);
-    } else if (this.remainingAttempts <= 0) {
+    } else if (this.errors <= 0) {
       this.showModal(`Perdiste 😢 La palabra era: ${this.selectedWord}`);
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
@@ -111,16 +106,16 @@ export class Hangman implements OnInit {
       this.cdr.detectChanges()
     }
   }
-
-  isLetterDisabled(letter: string): boolean {
-    return this.displayWord.includes(letter) || this.wrongLetters.includes(letter);
-  }
-
+  
   restartGame(): void {
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
     this.initGame();
     this.cdr.detectChanges();
+  }
+  
+  isLetterDisabled(letter: string): boolean {
+    return this.displayWord.includes(letter) || this.wrongLetters.includes(letter);
   }
 
   showModal(message: string): void {

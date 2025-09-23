@@ -36,14 +36,14 @@ export class Chat implements OnInit, OnDestroy {
     }, 1400);
   }
 
+  ngOnDestroy() {
+    this.supabase.removeRealtime();
+  }
+
   async sendMessage() {
     if (!this.newMessage.trim()) return;
     await this.supabase.sendMessage(this.session.user.email, this.newMessage);
     this.newMessage = '';
-  }
-
-  ngOnDestroy() {
-    this.supabase.removeRealtime();
   }
 
   ngAfterViewChecked() {
@@ -55,39 +55,4 @@ export class Chat implements OnInit, OnDestroy {
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
     } catch (err) {}
   }
-
-  /*session: any = null;
-  newMessage: string = '';
-  @ViewChild('chatMessages') private chatContainer!: ElementRef;
-
-  constructor(public supabase: Supabase) {}
-
-  async ngOnInit() {
-    this.session = await this.supabase.getSession();
-    await this.supabase.getMessages();
-
-    effect(() => {
-      console.log('Mensajes actualizados', this.supabase.messages());
-    });
-  }
-
-  async sendMessage() {
-    if (!this.newMessage.trim()) return;
-    await this.supabase.sendMessage(this.session.user.email, this.newMessage);
-    this.newMessage = '';
-  }
-
-  ngOnDestroy() {
-    this.supabase.removeRealtime();
-  }
-
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
-
-  private scrollToBottom(): void {
-    try {
-      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch(err) { }
-  }*/
 }
