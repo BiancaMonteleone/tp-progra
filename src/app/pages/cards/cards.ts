@@ -23,7 +23,7 @@ export class Cards implements OnInit {
 
   user: any = null;
 
-  duckyAnimation = 'floating-left';
+  duckyAnimation = 'floatingLeft';
   duckyMovement = 'enterCards';
 
   constructor(private cardsService: CardsService, private cdr: ChangeDetectorRef, private supabase: Supabase) {}
@@ -32,7 +32,7 @@ export class Cards implements OnInit {
     this.user = await this.supabase.getUser()
     this.initGame();
     setTimeout(() => {
-      this.duckyAnimation = 'fall-left';
+      this.duckyAnimation = 'fallLeft';
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingLeft';
@@ -67,14 +67,16 @@ export class Cards implements OnInit {
       this.score++;
       this.currentCard = this.deck.shift(); // avanzamos en el mazo
       this.nextCard = null;
-      this.duckyAnimation = 'fall';
+      this.duckyAnimation = 'fallLeft';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.duckyAnimation = 'sittingRight';
+        this.duckyAnimation = 'sittingLeft';
         this.cdr.detectChanges();
       }, 700);
     } else {
       this.showModal(`Perdiste 😢 La carta era ${this.nextCard.value} de ${this.nextCard.suit}`);
+      this.duckyAnimation = 'deathLeft';
+      this.cdr.detectChanges();
       this.supabase.registerScore(this.user.auth_id, this.score, 'cards_scores')
       setTimeout(() => this.restartGame(), 2000);
       this.cdr.detectChanges()
@@ -126,6 +128,7 @@ export class Cards implements OnInit {
 
   restartGame(): void {
     this.isModalOpen = false;
+    this.duckyAnimation = 'sittingLeft';
     this.initGame();
     this.cdr.detectChanges();
   }

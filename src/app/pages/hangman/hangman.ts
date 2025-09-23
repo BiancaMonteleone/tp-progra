@@ -23,7 +23,7 @@ export class Hangman implements OnInit {
 
   letters: string[] = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
-  duckyAnimation = 'floating';
+  duckyAnimation = 'floatingRight';
   duckyMovement = 'enterHangman';
 
   constructor(private cdr: ChangeDetectorRef, private wordService: WordService, private supabase: Supabase) {}
@@ -32,12 +32,12 @@ export class Hangman implements OnInit {
     this.user = await this.supabase.getUser()
     this.initGame();
     setTimeout(() => {
-      this.duckyAnimation = 'fall';
+      this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
-      }, 550);
+      }, 600);
     }, 1450);
   }
 
@@ -72,7 +72,7 @@ export class Hangman implements OnInit {
     if (this.displayWord.includes(letter) || this.wrongLetters.includes(letter)) return;
 
     if (this.selectedWord.includes(letter)) {
-      this.duckyAnimation = 'fall';
+      this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingRight';
@@ -82,6 +82,12 @@ export class Hangman implements OnInit {
         if (this.selectedWord[i] === letter) this.displayWord[i] = letter;
       }
     } else {
+      this.duckyAnimation = 'hideRight';
+      this.cdr.detectChanges();
+      setTimeout(() => {
+        this.duckyAnimation = 'sittingRight';
+        this.cdr.detectChanges();
+      }, 700);
       this.wrongLetters.push(letter);
       this.remainingAttempts--;
     }
@@ -92,16 +98,17 @@ export class Hangman implements OnInit {
 
   checkGameOver(): void {
     if (!this.displayWord.includes('_')) {
-      this.duckyAnimation = 'fall';
+      this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       this.showModal('¡Ganaste! 🎉');
       this.supabase.registerScore(this.user.auth_id, this.selectedWord.length, 'hangman_scores')
       setTimeout(() => this.restartGame(), 2000);
     } else if (this.remainingAttempts <= 0) {
-      this.duckyAnimation = 'death';
-      this.cdr.detectChanges();
       this.showModal(`Perdiste 😢 La palabra era: ${this.selectedWord}`);
+      this.duckyAnimation = 'deathRight';
+      this.cdr.detectChanges();
       setTimeout(() => this.restartGame(), 2000);
+      this.cdr.detectChanges()
     }
   }
 
@@ -110,9 +117,8 @@ export class Hangman implements OnInit {
   }
 
   restartGame(): void {
-    this.duckyAnimation = 'sittingRight';
-    this.cdr.detectChanges();
     this.isModalOpen = false;
+    this.duckyAnimation = 'sittingRight';
     this.initGame();
     this.cdr.detectChanges();
   }

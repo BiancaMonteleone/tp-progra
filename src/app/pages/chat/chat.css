@@ -11,6 +11,7 @@ html, body {
   align-items: center;
   background: #eaf3f8;
   border-radius: 12px;
+  margin-top: 75px;
 }
 
 .chat-card {

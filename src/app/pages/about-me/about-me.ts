@@ -14,7 +14,7 @@ export class AboutMe implements OnInit {
   userPath: string = 'https://api.github.com/users/BiancaMonteleone';
   loading = true;
   error = '';
-  duckyAnimation = 'floating';
+  duckyAnimation = 'floatingRight';
   duckyMovement = 'enterAboutMe';
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef){};
@@ -23,7 +23,7 @@ export class AboutMe implements OnInit {
     this.loadUser();
     
     setTimeout(() => {
-      this.duckyAnimation = 'fall';
+      this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingLeft'

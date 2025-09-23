@@ -1,25 +1,39 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef, effect } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Supabase } from '../../services/supabase';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Ducky } from '../../components/ducky/ducky';
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Ducky],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })
 export class Chat implements OnInit, OnDestroy {
   session: any = null;
   newMessage: string = '';
+
+  duckyAnimation = 'floatingLeft';
+  duckyMovement = 'enterCards';
+
   @ViewChild('chatMessages') private chatContainer!: ElementRef;
 
-  constructor(public supabase: Supabase) {}
+  constructor(public supabase: Supabase, private cdr: ChangeDetectorRef) {}
 
   async ngOnInit() {
     this.session = await this.supabase.getSession();
     await this.supabase.getMessages();
     setTimeout(() => this.scrollToBottom(), 0);
+
+    setTimeout(() => {
+      this.duckyAnimation = 'fallLeft';
+      this.cdr.detectChanges();
+      setTimeout(() => {
+        this.duckyAnimation = 'sittingLeft';
+        this.cdr.detectChanges();
+      }, 700);
+    }, 1400);
   }
 
   async sendMessage() {
@@ -39,7 +53,7 @@ export class Chat implements OnInit, OnDestroy {
   private scrollToBottom(): void {
     try {
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch(err) { }
+    } catch (err) {}
   }
 
   /*session: any = null;

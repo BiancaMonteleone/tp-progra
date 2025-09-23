@@ -35,16 +35,16 @@ export class Ducky {
     let time = 0;
 
     switch (anim) {
-      case 'floating':
+      case 'floatingRight':
         sprites = [
-          `/img/ducky/floating-00.png`,
-          `/img/ducky/floating-01.png`,
-          `/img/ducky/floating-00.png`,
+          `/img/ducky/floating-right-00.png`,
+          `/img/ducky/floating-right-01.png`,
+          `/img/ducky/floating-right-00.png`,
         ];
         loop = true;
         time = 60;
         break;
-      case 'floating-left':
+      case 'floatingLeft':
         sprites = [
           `/img/ducky/floating-left-00.png`,
           `/img/ducky/floating-left-01.png`,
@@ -53,6 +53,46 @@ export class Ducky {
         loop = true;
         time = 60;
         break;
+      //-------------------------------------------
+      case 'fallRight':
+        sprites = [`/img/ducky/fall-right.png`];
+        loop = false;
+        time = 100;
+        break;
+      case 'fallLeft':
+        sprites = [`/img/ducky/fall-left.png`];
+        loop = false;
+        time = 100;
+        break;
+      //-------------------------------------------
+      case 'sittingRight':
+        sprites = [`/img/ducky/sitting-right.png`];
+        loop = false;
+        time = 100;
+        break;
+      case 'sittingLeft':
+        sprites = [`/img/ducky/sitting-left.png`];
+        loop = false;
+        time = 100;
+        break;
+      //-------------------------------------------
+      case 'deathRight':
+        sprites = [`/img/ducky/death-right.png`];
+        loop = false;
+        time = 100;
+        break;
+      case 'deathLeft':
+        sprites = [`/img/ducky/death-left.png`];
+        loop = false;
+        time = 100;
+        break;
+      //-------------------------------------------
+      case 'hideRight':
+        sprites = [`/img/ducky/hide-right.png`];
+        loop = false;
+        time = 100;
+        break;
+      //-------------------------------------------
       case 'climb':
         sprites = [
           `/img/ducky/climb-00.png`,
@@ -63,26 +103,7 @@ export class Ducky {
         loop = true;
         time = 60;
         break;
-      case 'fall':
-        sprites = [`/img/ducky/fall.png`];
-        loop = false;
-        time = 100;
-        break;
-      case 'fall-left':
-        sprites = [`/img/ducky/fall-left.png`];
-        loop = false;
-        time = 100;
-        break;
-      case 'sittingLeft':
-        sprites = [`/img/ducky/sitting-left.png`];
-        loop = false;
-        time = 100;
-        break;
-      case 'death':
-        sprites = [`/img/ducky/death.png`];
-        loop = false;
-        time = 100;
-        break;
+      //-------------------------------------------
       case 'jump':
         sprites = [
           `/img/ducky/jump-00.png`,
@@ -94,6 +115,7 @@ export class Ducky {
         loop = false;
         time = 150;
         break;
+      //-------------------------------------------
       case 'roll':
         sprites = [
           `/img/ducky/roll-00.png`,
@@ -102,11 +124,6 @@ export class Ducky {
           `/img/ducky/roll-03.png`,
         ];
         loop = true;
-        time = 100;
-        break;
-      case 'sittingRight':
-        sprites = [`/img/ducky/sitting-right.png`];
-        loop = false;
         time = 100;
         break;
     }
@@ -132,17 +149,14 @@ export class Ducky {
 
   private updateMovement(movement: string) {
     switch (movement) {
-      case 'hidden':
-        this.positionClass = 'hidden';
-        break;
       case 'enterAboutMe':
         this.positionClass = 'enter-about-me';
         break;
-      case 'enterRegister':
-        this.positionClass = 'enter-register';
-        break;
       case 'enterLogin':
         this.positionClass = 'enter-login';
+        break;
+      case 'enterRegister':
+        this.positionClass = 'enter-register';
         break;
       case 'enterHangman':
         this.positionClass = 'enter-hangman';
@@ -150,8 +164,9 @@ export class Ducky {
       case 'enterCards':
         this.positionClass = 'enter-cards';
         break;
-      default:
+      case 'hidden':
         this.positionClass = 'hidden';
+        break;
     }
   }
 }

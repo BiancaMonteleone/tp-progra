@@ -37,6 +37,25 @@ img {
   }
 }
 
+.enter-login {
+  position: absolute;
+  animation: enterLogin 1s forwards;
+}
+
+@keyframes enterLogin {
+  from {
+    left: 50%;
+    top: -20%;
+    transform: translateX(-50%);
+  }
+
+  to {
+    left: 50%;
+    top: 29rem;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .enter-register {
   animation: enterRegister 3s forwards;
   transform: translate(-50%, -50%);
@@ -56,25 +75,6 @@ img {
   100% {
     left: 50%;
     bottom: 77%;
-  }
-}
-
-.enter-login {
-  position: absolute;
-  animation: enterLogin 1s forwards;
-}
-
-@keyframes enterLogin {
-  from {
-    left: 50%;
-    top: -20%;
-    transform: translateX(-50%);
-  }
-
-  to {
-    left: 50%;
-    top: 29rem;
-    transform: translate(-50%, -50%);
   }
 }
 

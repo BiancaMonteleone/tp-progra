@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class Login implements OnInit {
   formLogin: FormGroup;
-  duckyAnimation = 'fall';
+  duckyAnimation = 'fallRight';
   duckyMovement = 'enterLogin';
   
   quickUsers = {
@@ -32,7 +32,7 @@ export class Login implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.duckyAnimation = 'death';
+      this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
     }, 700);
   }
