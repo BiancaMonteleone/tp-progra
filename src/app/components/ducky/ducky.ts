@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 export class Ducky {
   @Input() animation: string = 'floating';
   @Input() movement: string = 'hidden';
-  @Input() size: number = 120;
 
   currentSprite: string = '';
   intervalId: any;
@@ -163,6 +162,9 @@ export class Ducky {
         break;
       case 'enterCards':
         this.positionClass = 'enter-cards';
+        break;
+      case 'enterChat':
+        this.positionClass = 'enter-chat';
         break;
       case 'hidden':
         this.positionClass = 'hidden';

@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WordService {
-  private apiUrl = 'https://random-word-api.herokuapp.com/word?number=1&lang=es';
+  private jsonUrl = '/files/words.json';
 
   constructor(private http: HttpClient) {}
 
   getRandomWord(): Observable<string[]> {
-    return this.http.get<string[]>(this.apiUrl);
+    return this.http.get<{ words: string[] }>(this.jsonUrl).pipe(
+      map((data) => {
+        const random = data.words[Math.floor(Math.random() * data.words.length)];
+        return [random];
+      })
+    );
   }
 }

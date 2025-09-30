@@ -4,6 +4,8 @@ import { Modal } from '../../components/modal/modal';
 import { WordService } from '../../services/word.service';
 import { Ducky } from '../../components/ducky/ducky';
 import { Supabase } from '../../services/supabase';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hangman',
@@ -24,10 +26,15 @@ export class Hangman implements OnInit {
   errors: number = 6;
   letters: string[] = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
-  constructor(private cdr: ChangeDetectorRef, private wordService: WordService, private supabase: Supabase) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private wordService: WordService,
+    private supabase: Supabase,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
-    this.user = await this.supabase.getUser()
+    this.user = await this.supabase.getUser();
     this.initGame();
     setTimeout(() => {
       this.duckyAnimation = 'fallRight';
@@ -43,6 +50,8 @@ export class Hangman implements OnInit {
     this.wordService.getRandomWord().subscribe({
       next: (words) => {
         this.selectedWord = words[0].toLowerCase();
+        console.log(this.selectedWord);
+
         this.displayWord = Array(this.selectedWord.length).fill('_');
         this.wrongLetters = [];
         this.errors = 6;
@@ -95,25 +104,56 @@ export class Hangman implements OnInit {
     if (!this.displayWord.includes('_')) {
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
-      this.showModal('¡Ganaste! 🎉');
-      this.supabase.registerScore(this.user.auth_id, this.selectedWord.length, 'hangman_scores')
-      setTimeout(() => this.restartGame(), 2000);
+      this.supabase.registerScore(this.user.auth_id, this.selectedWord.length, 'hangman_scores');
+      Swal.fire({
+        title: '¡Ganaste! 🎉',
+        text: `La palabra era: ${this.selectedWord}`,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Jugar de nuevo',
+        cancelButtonText: 'Salir',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.restartGame();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/home']);
+        }
+      });
     } else if (this.errors <= 0) {
-      this.showModal(`Perdiste 😢 La palabra era: ${this.selectedWord}`);
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
-      setTimeout(() => this.restartGame(), 2000);
-      this.cdr.detectChanges()
+      Swal.fire({
+        title: 'Perdiste 😢',
+        text: `La palabra era: ${this.selectedWord}`,
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Jugar de nuevo',
+        cancelButtonText: 'Salir',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.restartGame();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/home']);
+        }
+      });
     }
   }
-  
+
   restartGame(): void {
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
     this.initGame();
     this.cdr.detectChanges();
   }
-  
+
   isLetterDisabled(letter: string): boolean {
     return this.displayWord.includes(letter) || this.wrongLetters.includes(letter);
   }

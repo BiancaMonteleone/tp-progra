@@ -3,6 +3,8 @@ import { Modal } from '../../components/modal/modal';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../services/supabase';
 import { Ducky } from '../../components/ducky/ducky';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
@@ -22,10 +24,10 @@ export class Cards implements OnInit {
   nextCard: any = null;
   score: number = 0;
 
-  constructor(private cdr: ChangeDetectorRef, private supabase: Supabase) {}
+  constructor(private cdr: ChangeDetectorRef, private supabase: Supabase, private router: Router) {}
 
   async ngOnInit() {
-    this.user = await this.supabase.getUser()
+    this.user = await this.supabase.getUser();
     this.initGame();
     setTimeout(() => {
       this.duckyAnimation = 'fallLeft';
@@ -43,7 +45,7 @@ export class Cards implements OnInit {
 
     this.deck = this.generateDeck();
     this.currentCard = this.deck.shift();
-    this.cdr.detectChanges()
+    this.cdr.detectChanges();
   }
 
   generateDeck(): any[] {
@@ -66,8 +68,24 @@ export class Cards implements OnInit {
 
   guess(higher: boolean) {
     if (this.deck.length === 0) {
-      this.showModal('¡Ganaste! Se terminó el mazo 🎉');
-      return;
+      Swal.fire({
+        title: '¡Ganaste! 🎉',
+        text: 'Terminaste el mazo',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Jugar de nuevo',
+        cancelButtonText: 'Salir',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.restartGame();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/home']);
+        }
+      });
     }
 
     this.nextCard = this.deck[0];
@@ -75,11 +93,15 @@ export class Cards implements OnInit {
     const currentValue = this.getValue(this.currentCard.value);
     const nextValue = this.getValue(this.nextCard.value);
 
-    const correct = (higher && nextValue > currentValue) || (!higher && nextValue < currentValue) || (nextValue === currentValue);
+    const correct =
+      (higher && nextValue > currentValue) ||
+      (!higher && nextValue < currentValue) ||
+      nextValue === currentValue;
 
     if (correct) {
       this.score++;
       this.currentCard = this.deck.shift();
+      
       this.nextCard = null;
       this.duckyAnimation = 'fallLeft';
       this.cdr.detectChanges();
@@ -88,12 +110,26 @@ export class Cards implements OnInit {
         this.cdr.detectChanges();
       }, 700);
     } else {
-      this.showModal(`Perdiste 😢 La carta era ${this.nextCard.value} de ${this.nextCard.suit}`);
       this.duckyAnimation = 'deathLeft';
       this.cdr.detectChanges();
-      this.supabase.registerScore(this.user.auth_id, this.score, 'cards_scores')
-      setTimeout(() => this.restartGame(), 2000);
-      this.cdr.detectChanges()
+      Swal.fire({
+        title: 'Perdiste 😢',
+        text: `La carta era '${this.nextCard.value} de ${this.nextCard.suit}'`,
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Jugar de nuevo',
+        cancelButtonText: 'Salir',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.restartGame();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/home']);
+        }
+      });
     }
   }
 

@@ -5,7 +5,8 @@ div {
 }
 
 img {
-  height: 12vh;
+  height: 120px;
+  /* tamaño relativo al ancho de la pantalla */
 }
 
 .enter-about-me {
@@ -51,7 +52,7 @@ img {
 
   to {
     left: 50%;
-    top: 29rem;
+    top: 33rem;
     transform: translate(-50%, -50%);
   }
 }
@@ -64,17 +65,17 @@ img {
 @keyframes enterRegister {
   0% {
     left: 50%;
-    bottom: -15%
+    top: 92%
   }
 
   30% {
     left: 50%;
-    bottom: 3%
+    top: 81%
   }
 
   100% {
     left: 50%;
-    bottom: 77%;
+    top: 3.5rem;
   }
 }
 
@@ -88,51 +89,80 @@ img {
 @keyframes enterHangman {
   0% {
     left: -20%;
-    top: 5%
+    top: 4rem;
   }
 
   60% {
     left: 50%;
-    top: 5%
+    top: 4rem;
   }
 
   90% {
     left: 50%;
-    top: 16%;
+    top: 7rem;
   }
 
   100% {
     left: 50%;
-    top: 16%;
+    top: 7rem;
   }
 }
 
 .enter-cards {
   animation: enterCards 3s forwards;
   transform: translate(-50%, -50%);
-  right: -20%;
-  top: 5%
+  left: 120%;
+  top: 5%;
 }
 
 @keyframes enterCards {
   0% {
-    right: -20%;
-    top: 5%
+    left: 120%;
+    top: 4rem;
   }
 
   60% {
-    right: 44%;
-    top: 5%
+    left: 50%;
+    top: 4rem;
   }
 
   90% {
-    right: 44%;
-    top: 14%;
+    left: 50%;
+    top: 7rem;
   }
 
   100% {
-    right: 44%;
-    top: 14%;
+    left: 50%;
+    top: 7rem;
+  }
+}
+
+.enter-chat {
+  animation: enterChat 3s forwards;
+  transform: translate(-50%, -50%);
+  left: 120%;
+  top: 5%8
+}
+
+@keyframes enterChat {
+  0% {
+    left: 120%;
+    top: 4rem;
+  }
+
+  60% {
+    left: 50%;
+    top: 4rem;
+  }
+
+  90% {
+    left: 50%;
+    top: 8rem;
+  }
+
+  100% {
+    left: 50%;
+    top: 8rem;
   }
 }
 

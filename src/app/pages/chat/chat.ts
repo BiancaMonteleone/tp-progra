@@ -15,7 +15,7 @@ export class Chat implements OnInit, OnDestroy {
   newMessage: string = '';
 
   duckyAnimation = 'floatingLeft';
-  duckyMovement = 'enterCards';
+  duckyMovement = 'enterChat';
 
   @ViewChild('chatMessages') private chatContainer!: ElementRef;
 
@@ -33,7 +33,7 @@ export class Chat implements OnInit, OnDestroy {
         this.duckyAnimation = 'sittingLeft';
         this.cdr.detectChanges();
       }, 700);
-    }, 1400);
+    }, 1600);
   }
 
   ngOnDestroy() {

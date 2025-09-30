@@ -1,9 +1,10 @@
 .cloud {
   position: absolute;
-  margin-top: 42rem;
+  bottom: -60px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 225px;
+  z-index: 1;
 }
 
 .login-card {
