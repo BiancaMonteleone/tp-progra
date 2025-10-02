@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class Cards implements OnInit {
   modalMessage: string = '';
   isModalOpen: boolean = false;
-  duckyAnimation = 'floatingLeft';
+  duckyAnimation = 'floatingRight';
   duckyMovement = 'enterCards';
   user: any = null;
 
@@ -30,10 +30,10 @@ export class Cards implements OnInit {
     this.user = await this.supabase.getUser();
     this.initGame();
     setTimeout(() => {
-      this.duckyAnimation = 'fallLeft';
+      this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.duckyAnimation = 'sittingLeft';
+        this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
       }, 700);
     }, 1400);
@@ -103,14 +103,14 @@ export class Cards implements OnInit {
       this.currentCard = this.deck.shift();
       
       this.nextCard = null;
-      this.duckyAnimation = 'fallLeft';
+      this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.duckyAnimation = 'sittingLeft';
+        this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
       }, 700);
     } else {
-      this.duckyAnimation = 'deathLeft';
+      this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({
         title: 'Perdiste 😢',
@@ -158,7 +158,7 @@ export class Cards implements OnInit {
 
   restartGame(): void {
     this.isModalOpen = false;
-    this.duckyAnimation = 'sittingLeft';
+    this.duckyAnimation = 'sittingRight';
     this.initGame();
     this.cdr.detectChanges();
   }

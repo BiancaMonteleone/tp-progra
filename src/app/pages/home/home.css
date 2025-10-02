@@ -1,8 +1,39 @@
-.hover-scale:hover {
-  transform: scale(1.02);
-  transition: transform 0.2s ease;
+.image-card {
+  position: relative;         /* necesario para colocar la imagen oculta */
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border: 5px dashed #e9c686;
+  border-radius: 12px;
+  aspect-ratio: 1/1;    /* mantiene la forma cuadrada */
 }
 
-.object-fit-cover {
+.main-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+.hidden-img {
+  position: absolute;
+  bottom: -50px;     /* escondida hacia abajo */
+  right: -50px;      /* escondida hacia la derecha */
+  width: 150px;
+  height: auto;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* Al pasar el mouse: aparece y se desplaza hacia adentro */
+.image-card:hover .hidden-img {
+  bottom: 10px;
+  right: 10px;
+  opacity: 1;
+}
+
+.hover-scale:hover {
+  transform: scale(1.01);
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }

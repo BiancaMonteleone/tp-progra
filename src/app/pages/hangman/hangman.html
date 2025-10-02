@@ -1,24 +1,23 @@
 <div class="container text-center">
   <img src="/img/cloud.png" class="cloud" />
+  <img [src]="gallowSrc" class="gallow" />
   <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
 
   <div id="word" class="mb-3 display-4 fw-bold py-5">
     {{ displayWord.join(' ') }}
   </div>
 
-  <div id="wrong-letters" class="mb-3 text-danger fw-bold">
-    Incorrectas: {{ wrongLetters.join(', ') }}
-  </div>
-
-  <div id="remaining" class="mb-3 fw-bold">
-    Intentos restantes: {{ errors }}
-  </div>
-
-  <div id="letter-buttons" class="mb-3">
-    <button *ngFor="let letter of letters"
-            class="btn btn-outline-secondary m-1"
-            [disabled]="isLetterDisabled(letter)"
-            (click)="guessLetter(letter)">
+  <div id="letter-buttons" class="mb-3 py-4">
+    <button
+      *ngFor="let letter of letters"
+      class="btn btn-outline-secondary m-1"
+      [ngClass]="{
+        'btn-correct': letterStates[letter] === 'correct',
+        'btn-incorrect': letterStates[letter] === 'incorrect'
+      }"
+      [disabled]="isLetterDisabled(letter)"
+      (click)="guessLetter(letter)"
+    >
       {{ letter }}
     </button>
   </div>

@@ -18,8 +18,6 @@ export class Home {
   }
 
   redirect(game: string) {
-    console.log('hola');
-    
     this.router.navigate([`/${game}`]);
   }
 }

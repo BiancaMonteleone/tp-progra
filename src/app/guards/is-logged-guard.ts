@@ -2,6 +2,7 @@ import { CanActivateFn } from '@angular/router';
 import { Supabase } from '../services/supabase';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 export const isLoggedGuard: CanActivateFn = async () => {
   const supabase = inject(Supabase);
@@ -12,6 +13,11 @@ export const isLoggedGuard: CanActivateFn = async () => {
   if (session) {
     return true;
   } else {
+    Swal.fire({
+          title: '¿A dónde vas? 🤨',
+          text: 'Necesitas iniciar sesión para acceder a esta página',
+          icon: 'error',
+        }) 
     return router.createUrlTree(['/home']);
   }
 };

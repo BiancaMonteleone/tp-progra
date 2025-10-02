@@ -16,15 +16,17 @@ import { Router } from '@angular/router';
 export class Hangman implements OnInit {
   modalMessage: string = '';
   isModalOpen: boolean = false;
-  duckyAnimation = 'floatingRight';
+  duckyAnimation = 'climb';
   duckyMovement = 'enterHangman';
   user: any = null;
+  gallowSrc: string = '/img/gallow/gallow_0.png';
 
   selectedWord: string = '';
   displayWord: string[] = [];
   wrongLetters: string[] = [];
   errors: number = 6;
-  letters: string[] = 'abcdefghijklmnñopqrstuvwxyz'.split('');
+  letters: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+  letterStates: { [key: string]: 'correct' | 'incorrect' | '' } = {};
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -37,19 +39,19 @@ export class Hangman implements OnInit {
     this.user = await this.supabase.getUser();
     this.initGame();
     setTimeout(() => {
-      this.duckyAnimation = 'fallRight';
+      this.duckyAnimation = 'walkRight';
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
-      }, 600);
+      }, 1130);
     }, 1450);
   }
 
   initGame(): void {
     this.wordService.getRandomWord().subscribe({
       next: (words) => {
-        this.selectedWord = words[0].toLowerCase();
+        this.selectedWord = words[0].toUpperCase();
         console.log(this.selectedWord);
 
         this.displayWord = Array(this.selectedWord.length).fill('_');
@@ -66,7 +68,7 @@ export class Hangman implements OnInit {
 
   normalizeWord(word: string): string {
     return word
-      .toLowerCase()
+      .toUpperCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace('ñ', 'ñ');
@@ -76,6 +78,7 @@ export class Hangman implements OnInit {
     if (this.displayWord.includes(letter) || this.wrongLetters.includes(letter)) return;
 
     if (this.selectedWord.includes(letter)) {
+      this.letterStates[letter] = 'correct';
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
@@ -86,6 +89,7 @@ export class Hangman implements OnInit {
         if (this.selectedWord[i] === letter) this.displayWord[i] = letter;
       }
     } else {
+      this.letterStates[letter] = 'incorrect';
       this.duckyAnimation = 'hideRight';
       this.cdr.detectChanges();
       setTimeout(() => {
@@ -94,6 +98,7 @@ export class Hangman implements OnInit {
       }, 700);
       this.wrongLetters.push(letter);
       this.errors--;
+      this.gallowSrc = `/img/gallow/gallow_${6 - this.errors}.png`;
     }
 
     this.checkGameOver();
@@ -150,6 +155,9 @@ export class Hangman implements OnInit {
   restartGame(): void {
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
+    this.errors = 6;
+    this.gallowSrc = '/img/gallow/gallow_0.png';
+    this.letterStates = {};
     this.initGame();
     this.cdr.detectChanges();
   }

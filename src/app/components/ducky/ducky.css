@@ -79,14 +79,14 @@ img {
   }
 }
 
-.enter-hangman {
-  animation: enterHangman 3s forwards;
+.enter-cards {
+  animation: enterCards 3s forwards;
   transform: translate(-50%, -50%);
   left: -20%;
   top: 5%
 }
 
-@keyframes enterHangman {
+@keyframes enterCards {
   0% {
     left: -20%;
     top: 4rem;
@@ -108,32 +108,32 @@ img {
   }
 }
 
-.enter-cards {
-  animation: enterCards 3s forwards;
+.enter-hangman {
+  animation: enterHangman 3s forwards;
   transform: translate(-50%, -50%);
   left: 120%;
   top: 5%;
 }
 
-@keyframes enterCards {
+@keyframes enterHangman {
   0% {
-    left: 120%;
-    top: 4rem;
+    left: 9%;
+    top: 75%
   }
 
   60% {
-    left: 50%;
-    top: 4rem;
+    left: 9%;
+    top: 11%
   }
 
-  90% {
-    left: 50%;
-    top: 7rem;
+  99% {
+    left: 16%;
+    top: 11%
   }
 
   100% {
-    left: 50%;
-    top: 7rem;
+    left: 16%;
+    top: 15%;
   }
 }
 

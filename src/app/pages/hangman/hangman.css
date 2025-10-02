@@ -1,5 +1,23 @@
+.gallow {
+  position: absolute;
+  top: 22rem;
+  left: 23rem;
+  transform: translate(-50%, -50%);
+  width: 500px;
+}
+
+.cloud {
+  position: absolute;
+  margin-top: 27rem;
+  left: 12rem;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 110px;
+}
+
 .container {
   margin-top: 5rem;
+  margin-left: 30rem
 }
 
 #word {
@@ -7,8 +25,8 @@
 }
 
 #letter-buttons button {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   font-weight: bold;
   font-family: 'Press Start 2P', cursive;
 }
@@ -23,6 +41,25 @@
   color: #eeb485;
 }
 
+.btn-incorrect {
+  background-color: #fbd7d7;
+  border-color: #ee8585;
+  color: rgb(121, 121, 121);
+}
+
+.btn-incorrect:hover {
+  color: #eeb485;
+}
+.btn-correct {
+  background-color: #d7fbd7;
+  border-color: #8fee85;
+  color: rgb(121, 121, 121);
+}
+
+.btn-correct:hover {
+  color: #eeb485;
+}
+
 .btn-restart {
   font-family: 'Press Start 2P', cursive;
   background-color: #eeb485;
@@ -30,10 +67,3 @@
   color: white;
 }
 
-.cloud {
-  position: absolute;
-  margin-top: 0rem;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 225px;
-}

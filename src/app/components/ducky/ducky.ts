@@ -86,6 +86,16 @@ export class Ducky {
         time = 100;
         break;
       //-------------------------------------------
+      case 'walkRight':
+        sprites = [`/img/ducky/walk-right-00.png`,
+          `/img/ducky/walk-right-01.png`,
+          `/img/ducky/walk-right-02.png`,
+          `/img/ducky/walk-right-03.png`
+        ];
+        loop = true;
+        time = 150;
+        break;
+      //-------------------------------------------
       case 'hideRight':
         sprites = [`/img/ducky/hide-right.png`];
         loop = false;
