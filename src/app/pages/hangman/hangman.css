@@ -6,6 +6,24 @@
   width: 500px;
 }
 
+.status-bar {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+}
+
+.status-bar div {
+  color: #555;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
 .cloud {
   position: absolute;
   margin-top: 27rem;
@@ -50,6 +68,7 @@
 .btn-incorrect:hover {
   color: #eeb485;
 }
+
 .btn-correct {
   background-color: #d7fbd7;
   border-color: #8fee85;
@@ -66,4 +85,3 @@
   border-color: #e99e61;
   color: white;
 }
-

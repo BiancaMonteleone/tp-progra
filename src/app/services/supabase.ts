@@ -155,4 +155,16 @@ export class Supabase {
 
     return { data, error };
   }
+
+  async registerHangmanScore(id: string, score: number, time: number) {
+    const { data, error } = await this.supabase
+      .from(`hangman_scores`)
+      .insert([{ score: score, id_user: id, time: time }])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { data, error };
+  }
 }

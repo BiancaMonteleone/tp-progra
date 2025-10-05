@@ -1,15 +1,17 @@
 <div class="game-container">
   <img src="/img/cloud.png" class="cloud" />
   <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
+
+  <div class="status-bar">
+    <div class="score">🏆 {{ score }}</div>
+  </div>
+
   <div class="container mt-5 py-5">
-    <p class="lead text-center">
-      Puntaje: <strong>{{ score }}</strong>
-    </p>
-  
-    <div class="row justify-content-center mb-4">
+
+    <div class="row justify-content-center mb-5">
 
       <div class="col-12 col-md-5 d-flex justify-content-center">
-        <div class="card shadow">
+        <div class="card">
           <img
             *ngIf="currentCard"
             [src]="currentCard.image"
@@ -23,7 +25,7 @@
       </div>
   
       <div class="col-12 col-md-5 d-flex justify-content-center">
-        <div class="card shadow">
+        <div class="card">
           <img *ngIf="!nextCard" src="/img/cards/back.png" class="card-img-top" alt="Carta oculta" />
           <img *ngIf="nextCard" [src]="nextCard.image" class="card-img-top" alt="Carta revelada" />
           <div class="card-body text-center">

@@ -3,6 +3,11 @@
   <img [src]="gallowSrc" class="gallow" />
   <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
 
+  <div class="status-bar">
+    <div class="score">🏆 {{ correctLetters }}</div>
+    <div class="timer">🕒 {{ elapsedTime }}s</div>
+  </div>
+
   <div id="word" class="mb-3 display-4 fw-bold py-5">
     {{ displayWord.join(' ') }}
   </div>
@@ -21,8 +26,6 @@
       {{ letter }}
     </button>
   </div>
-
-  <button class="btn btn-primary btn-restart" (click)="restartGame()">Reiniciar</button>
 
   <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
 </div>

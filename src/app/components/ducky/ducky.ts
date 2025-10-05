@@ -124,16 +124,35 @@ export class Ducky {
         loop = false;
         time = 150;
         break;
+      case 'jumpLeft':
+        sprites = [
+          `/img/ducky/jump-left-00.png`,
+          `/img/ducky/jump-left-01.png`,
+          `/img/ducky/jump-left-02.png`,
+          `/img/ducky/jump-left-03.png`,
+        ];
+        loop = false;
+        time = 100;
+        break;
       //-------------------------------------------
       case 'roll':
         sprites = [
-          `/img/ducky/roll-00.png`,
-          `/img/ducky/roll-01.png`,
           `/img/ducky/roll-02.png`,
           `/img/ducky/roll-03.png`,
+          `/img/ducky/roll-00.png`,
+          `/img/ducky/roll-01.png`,
         ];
         loop = true;
         time = 100;
+        break;
+      //-------------------------------------------
+      case 'crash':
+        sprites = [
+          `/img/ducky/crash-01.png`,
+          `/img/ducky/crash-00.png`,
+        ];
+        loop = false;
+        time = 400;
         break;
     }
 

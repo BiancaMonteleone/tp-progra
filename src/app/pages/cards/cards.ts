@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
   selector: 'app-cards',
   imports: [Modal, CommonModule, Ducky],
   templateUrl: './cards.html',
-  styleUrl: './cards.css',
+  styleUrls: ['./cards.css'],
 })
 export class Cards implements OnInit {
   modalMessage: string = '';
   isModalOpen: boolean = false;
-  duckyAnimation = 'floatingRight';
+  duckyAnimation = 'jumpLeft';
   duckyMovement = 'enterCards';
   user: any = null;
 
@@ -30,27 +30,28 @@ export class Cards implements OnInit {
     this.user = await this.supabase.getUser();
     this.initGame();
     setTimeout(() => {
-      this.duckyAnimation = 'fallRight';
+      this.duckyAnimation = 'roll';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.duckyAnimation = 'sittingRight';
+        this.duckyAnimation = 'crash';
         this.cdr.detectChanges();
-      }, 700);
-    }, 1400);
+        setTimeout(() => {
+          this.duckyAnimation = 'sittingRight';
+          this.cdr.detectChanges();
+        }, 450);
+      }, 1000);
+    }, 100);
   }
 
   initGame() {
-    this.score = 0;
-    this.nextCard = null;
-
     this.deck = this.generateDeck();
     this.currentCard = this.deck.shift();
     this.cdr.detectChanges();
   }
 
   generateDeck(): any[] {
-    const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    const values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king'];
+    const suits = ['corazones', 'diamantes', 'treboles', 'picas'];
+    const values = ['as', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'reina', 'rey'];
 
     const deck = [];
 
@@ -59,7 +60,7 @@ export class Cards implements OnInit {
         deck.push({
           suit,
           value,
-          image: `img/cards/${value}_of_${suit}.png`,
+          image: `img/cards/${value}_de_${suit}.png`,
         });
       }
     }
@@ -67,7 +68,7 @@ export class Cards implements OnInit {
   }
 
   guess(higher: boolean) {
-    if (this.deck.length === 0) {
+    if (this.deck.length === 1) {
       Swal.fire({
         title: '¡Ganaste! 🎉',
         text: 'Terminaste el mazo',
@@ -86,10 +87,10 @@ export class Cards implements OnInit {
           this.router.navigate(['/home']);
         }
       });
+      return; // Prevent further execution when deck is empty
     }
 
     this.nextCard = this.deck[0];
-
     const currentValue = this.getValue(this.currentCard.value);
     const nextValue = this.getValue(this.nextCard.value);
 
@@ -101,7 +102,7 @@ export class Cards implements OnInit {
     if (correct) {
       this.score++;
       this.currentCard = this.deck.shift();
-      
+
       this.nextCard = null;
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
@@ -114,7 +115,7 @@ export class Cards implements OnInit {
       this.cdr.detectChanges();
       Swal.fire({
         title: 'Perdiste 😢',
-        text: `La carta era '${this.nextCard.value} de ${this.nextCard.suit}'`,
+        text: `La siguiente carta era '${this.nextCard.value} de ${this.nextCard.suit}'`,
         icon: 'error',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -135,11 +136,11 @@ export class Cards implements OnInit {
 
   getValue(value: string): number {
     switch (value) {
-      case 'ace':
+      case 'as':
         return 1;
-      case 'king':
+      case 'rey':
         return 13;
-      case 'queen':
+      case 'reina':
         return 12;
       case 'jack':
         return 11;
@@ -159,6 +160,8 @@ export class Cards implements OnInit {
   restartGame(): void {
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
+    this.score = 0;
+    this.nextCard = null;
     this.initGame();
     this.cdr.detectChanges();
   }

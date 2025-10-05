@@ -22,11 +22,14 @@ export class Hangman implements OnInit {
   gallowSrc: string = '/img/gallow/gallow_0.png';
 
   selectedWord: string = '';
+  correctLetters: number = 0;
   displayWord: string[] = [];
   wrongLetters: string[] = [];
   errors: number = 6;
   letters: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
   letterStates: { [key: string]: 'correct' | 'incorrect' | '' } = {};
+  elapsedTime: number = 0;
+  private timerInterval: any;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -37,6 +40,7 @@ export class Hangman implements OnInit {
 
   async ngOnInit() {
     this.user = await this.supabase.getUser();
+    this.startTimer();
     this.initGame();
     setTimeout(() => {
       this.duckyAnimation = 'walkRight';
@@ -46,6 +50,21 @@ export class Hangman implements OnInit {
         this.cdr.detectChanges();
       }, 1130);
     }, 1450);
+  }
+
+  startTimer(): void {
+    this.stopTimer();
+    this.timerInterval = setInterval(() => {
+      this.elapsedTime++;
+      this.cdr.detectChanges();
+    }, 1000);
+  }
+
+  stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
   }
 
   initGame(): void {
@@ -80,57 +99,69 @@ export class Hangman implements OnInit {
     if (this.selectedWord.includes(letter)) {
       this.letterStates[letter] = 'correct';
       this.duckyAnimation = 'fallRight';
+
       this.cdr.detectChanges();
       setTimeout(() => {
         this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
-      }, 700);
+      }, 500);
       for (let i = 0; i < this.selectedWord.length; i++) {
-        if (this.selectedWord[i] === letter) this.displayWord[i] = letter;
+        if (this.selectedWord[i] === letter) {
+          this.displayWord[i] = letter;
+          this.correctLetters++;
+        }
       }
     } else {
       this.letterStates[letter] = 'incorrect';
-      this.duckyAnimation = 'hideRight';
-      this.cdr.detectChanges();
-      setTimeout(() => {
-        this.duckyAnimation = 'sittingRight';
-        this.cdr.detectChanges();
-      }, 700);
+
       this.wrongLetters.push(letter);
       this.errors--;
       this.gallowSrc = `/img/gallow/gallow_${6 - this.errors}.png`;
-    }
 
+      if (this.errors > 0) {
+        this.duckyAnimation = 'hideRight';
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.duckyAnimation = 'sittingRight';
+          this.cdr.detectChanges();
+        }, 500);
+      }
+    }
     this.checkGameOver();
-    this.cdr.detectChanges();
   }
 
-  checkGameOver(): void {
+  async checkGameOver() {
     if (!this.displayWord.includes('_')) {
+      this.stopTimer();
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
-      this.supabase.registerScore(this.user.auth_id, this.selectedWord.length, 'hangman_scores');
       Swal.fire({
-        title: '¡Ganaste! 🎉',
+        title: '¡Muy bien! 🎉',
         text: `La palabra era: ${this.selectedWord}`,
         icon: 'success',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Jugar de nuevo',
+        confirmButtonText: 'Continuar',
         cancelButtonText: 'Salir',
         allowOutsideClick: false,
         allowEscapeKey: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          this.restartGame();
+          this.continueGame();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           this.router.navigate(['/home']);
         }
       });
     } else if (this.errors <= 0) {
+      this.stopTimer();
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
+      await this.supabase.registerHangmanScore(
+        this.user.auth_id,
+        this.correctLetters,
+        this.elapsedTime
+      );
       Swal.fire({
         title: 'Perdiste 😢',
         text: `La palabra era: ${this.selectedWord}`,
@@ -144,7 +175,7 @@ export class Hangman implements OnInit {
         allowEscapeKey: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          this.restartGame();
+          this.gameOver();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           this.router.navigate(['/home']);
         }
@@ -152,12 +183,26 @@ export class Hangman implements OnInit {
     }
   }
 
-  restartGame(): void {
+  gameOver(){
+    this.correctLetters = 0;
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
     this.errors = 6;
     this.gallowSrc = '/img/gallow/gallow_0.png';
     this.letterStates = {};
+    this.elapsedTime = 0;
+    this.startTimer();
+    this.initGame();
+    this.cdr.detectChanges();
+  }
+
+  continueGame(): void {
+    this.isModalOpen = false;
+    this.duckyAnimation = 'sittingRight';
+    this.errors = 6;
+    this.gallowSrc = '/img/gallow/gallow_0.png';
+    this.letterStates = {};
+    this.startTimer();
     this.initGame();
     this.cdr.detectChanges();
   }
