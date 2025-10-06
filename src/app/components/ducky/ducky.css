@@ -185,6 +185,25 @@ img {
   }
 }
 
+.enter-word-or-color {
+  animation: enterWordOrColor 2s forwards;
+  transform: translate(-50%, -50%);
+  left: 19rem;
+  top: -30%
+}
+
+@keyframes enterWordOrColor {
+  0% {
+    left: 19rem;
+    top: -30%;
+  }
+
+  100% {
+    left: 19rem;
+    top: 9rem;
+  }
+}
+
 .hidden {
   left: -50%
 }

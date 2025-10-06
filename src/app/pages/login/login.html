@@ -13,36 +13,35 @@
       <label class="fw-bold text-dark">
         Email:
         <input formControlName="email" class="form-control mt-1" />
-        <p
-          *ngIf="formLogin.get('email')?.invalid && formLogin.get('email')?.touched"
-          class="text-danger small mt-1"
-        >
+        @if(formLogin.get('email')?.invalid && formLogin.get('email')?.touched) {
+        <p class="text-danger small mt-1">
           {{ getErrorMsj('email') }}
         </p>
+        }
       </label>
 
       <label class="fw-bold text-dark">
         Contraseña:
         <input type="password" formControlName="password" class="form-control mt-1" />
-        <p
-          *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched"
-          class="text-danger small mt-1"
-        >
+        @if(formLogin.get('password')?.invalid && formLogin.get('password')?.touched) {
+        <p class="text-danger small mt-1">
           {{ getErrorMsj('password') }}
         </p>
-        <p *ngIf="formLogin.get('email')?.hasError('userNotFound')" class="text-danger small mt-1">
-          Usuario o contraseña incorrectos
-        </p>
+        } @if(formLogin.get('email')?.hasError('userNotFound')) {
+        <p class="text-danger small mt-1">Usuario o contraseña incorrectos</p>
+        }
       </label>
 
       <button type="submit" class="btn btn-warning mt-2">Aceptar</button>
     </form>
   </div>
+
   <div class="feather-container">
     <img src="/img/icons/feather.png" class="feather" (click)="quickLogin('user1')" />
     <img src="/img/icons/feather.png" class="feather" (click)="quickLogin('user2')" />
     <img src="/img/icons/feather.png" class="feather" (click)="quickLogin('user3')" />
   </div>
+
   <img src="/img/cloud.png" class="cloud" />
 </div>
 }

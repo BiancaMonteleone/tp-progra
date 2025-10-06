@@ -199,6 +199,9 @@ export class Ducky {
       case 'enterTrivia':
         this.positionClass = 'enter-trivia';
         break;
+      case 'enterWordOrColor':
+        this.positionClass = 'enter-word-or-color';
+        break;
       case 'hidden':
         this.positionClass = 'hidden';
         break;

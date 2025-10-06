@@ -16,18 +16,19 @@
   </div>
 
   <div id="letter-buttons" class="mb-3 py-4">
-    <button
-      *ngFor="let letter of letters"
-      class="btn btn-outline-secondary m-1"
-      [ngClass]="{
-        'btn-correct': letterStates[letter] === 'correct',
-        'btn-incorrect': letterStates[letter] === 'incorrect'
-      }"
-      [disabled]="isLetterDisabled(letter)"
-      (click)="guessLetter(letter)"
-    >
-      {{ letter }}
-    </button>
+    @for (letter of letters; track letter) {
+      <button
+        class="btn btn-outline-secondary m-1"
+        [ngClass]="{
+          'btn-correct': letterStates[letter] === 'correct',
+          'btn-incorrect': letterStates[letter] === 'incorrect'
+        }"
+        [disabled]="isLetterDisabled(letter)"
+        (click)="guessLetter(letter)"
+      >
+        {{ letter }}
+      </button>
+    }
   </div>
 
   <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>

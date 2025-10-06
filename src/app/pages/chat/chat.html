@@ -9,21 +9,20 @@
     </div>
 
     <div class="chat-messages p-3" id="chatMessages" #chatMessages>
-      <div *ngFor="let message of supabase.messages()">
-        @if(message.email === session.user.email){
-        <div class="message sent">
-          <span class="message-time">{{ message.email }}</span>
-          <div class="message-content">{{ message.content }}</div>
-          <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
-        </div>
-        }@else{
-        <div class="message received">
-          <span class="message-time">{{ message.email }}</span>
-          <div class="message-content">{{ message.content }}</div>
-          <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
-        </div>
-        }
+      @for (message of supabase.messages(); track $index) { @if (message.email ===
+      session.user.email) {
+      <div class="message sent">
+        <span class="message-time">{{ message.email }}</span>
+        <div class="message-content">{{ message.content }}</div>
+        <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
       </div>
+      } @else {
+      <div class="message received">
+        <span class="message-time">{{ message.email }}</span>
+        <div class="message-content">{{ message.content }}</div>
+        <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
+      </div>
+      } }
     </div>
 
     <div class="chat-input p-3 d-flex">

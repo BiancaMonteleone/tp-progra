@@ -1,0 +1,40 @@
+@if(loading) {
+<app-loading></app-loading>
+} @else {
+<div class="game-container">
+  <img src="/img/cloud.png" class="cloud" />
+  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
+
+  <div class="status-bar">
+    <div class="score">🏆 {{ score }}</div>
+  </div>
+
+  <div class="container mt-5 py-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col-12 text-center">
+        <div class="card color-card">
+          <div class="card-body">
+            <h2 class="color-word" [style.color]="displayColor?.hex || '#000'">
+              {{ displayWord?.name?.toUpperCase() || '' }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mb-4">
+      @for(color of colors; track color.name) {
+      <button class="btn color-btn me-3" (click)="selectColor(color)">
+        {{ color.name }}
+      </button>
+      }
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" [style.width.%]="progress"></div>
+    </div>
+
+    <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
+  </div>
+</div>
+}

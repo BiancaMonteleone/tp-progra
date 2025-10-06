@@ -14,7 +14,6 @@
       <div class="col-12 col-md-5 d-flex justify-content-center">
         <div class="card">
           <img
-            *ngIf="currentCard"
             [src]="currentCard.image"
             class="card-img-top"
             alt="Carta actual"
@@ -28,12 +27,11 @@
       <div class="col-12 col-md-5 d-flex justify-content-center">
         <div class="card">
           <img
-            *ngIf="!nextCard"
             src="/img/cards/back.png"
             class="card-img-top"
             alt="Carta oculta"
           />
-          <img *ngIf="nextCard" [src]="nextCard.image" class="card-img-top" alt="Carta revelada" />
+          <img [src]="nextCard.image" class="card-img-top" alt="Carta revelada" />
           <div class="card-body text-center">
             <h6 class="card-title">Siguiente</h6>
           </div>
