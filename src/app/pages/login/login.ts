@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { Supabase } from '../../services/supabase';
 import { Ducky } from '../../components/ducky/ducky';
 import { Router } from '@angular/router';
+import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Ducky],
+  imports: [CommonModule, ReactiveFormsModule, Ducky, Loading],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
 })
@@ -16,6 +17,7 @@ export class Login implements OnInit {
   formLogin: FormGroup;
   duckyAnimation = 'fallRight';
   duckyMovement = 'enterLogin';
+  loading: boolean = false;
   
   quickUsers = {
     user1: { email: 'fiore@gmail.com', password: '123456' },
@@ -31,6 +33,8 @@ export class Login implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = false;
+    this.cdr.detectChanges();
     setTimeout(() => {
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();

@@ -1,11 +1,11 @@
+@if(loading) {
+<app-loading></app-loading>
+} @else {
 <div class="container px-2 px-md-4">
   <div class="row g-4 justify-content-center">
     <!-- Imagen 1 -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div
-        class="image-card hover-scale"
-        (click)="redirect('hangman')"
-      >
+      <div class="image-card hover-scale" (click)="redirect('hangman')">
         <div class="img-container">
           <img src="/img/games/hangman.png" alt="Ahorcado" class="img-fluid object-fit-cover" />
           <img src="/img/ducky/floating-left-00.png" alt="Extra" class="hidden-img" />
@@ -15,16 +15,9 @@
 
     <!-- Imagen 2 -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div
-        class="image-card hover-scale"
-        (click)="redirect('cards')"
-      >
+      <div class="image-card hover-scale" (click)="redirect('cards')">
         <div class="img-container">
-          <img
-            src="/img/games/cards.png"
-            alt="Mayor o menor"
-            class="img-fluid object-fit-cover"
-          />
+          <img src="/img/games/cards.png" alt="Mayor o menor" class="img-fluid object-fit-cover" />
           <img src="/img/ducky/floating-left-00.png" alt="Extra" class="hidden-img" />
         </div>
       </div>
@@ -32,16 +25,9 @@
 
     <!-- Imagen 3 -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div
-        class="image-card hover-scale"
-        (click)="redirect('trivia')"
-      >
+      <div class="image-card hover-scale" (click)="redirect('trivia')">
         <div class="img-container">
-          <img
-            src="/img/game-example.png"
-            alt="Preguntados"
-            class="img-fluid object-fit-cover"
-          />
+          <img src="/img/games/trivia.png" alt="Preguntados" class="img-fluid object-fit-cover" />
           <img src="/img/ducky/floating-left-00.png" alt="Extra" class="hidden-img" />
         </div>
       </div>
@@ -49,9 +35,7 @@
 
     <!-- Imagen 4 -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div
-        class="image-card hover-scale"
-      >
+      <div class="image-card hover-scale">
         <div class="img-container">
           <img
             src="/img/game-example.png"
@@ -64,3 +48,4 @@
     </div>
   </div>
 </div>
+}

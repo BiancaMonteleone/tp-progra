@@ -3,16 +3,18 @@ import { Supabase } from '../../services/supabase';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Ducky } from '../../components/ducky/ducky';
+import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule, Ducky],
+  imports: [CommonModule, FormsModule, Ducky, Loading],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })
 export class Chat implements OnInit, OnDestroy {
   session: any = null;
   newMessage: string = '';
+  loading: boolean = true;
 
   duckyAnimation = 'floatingLeft';
   duckyMovement = 'enterChat';
@@ -25,7 +27,8 @@ export class Chat implements OnInit, OnDestroy {
     this.session = await this.supabase.getSession();
     await this.supabase.getMessages();
     setTimeout(() => this.scrollToBottom(), 0);
-
+    this.loading = false;
+    this.cdr.detectChanges();
     setTimeout(() => {
       this.duckyAnimation = 'fallLeft';
       this.cdr.detectChanges();

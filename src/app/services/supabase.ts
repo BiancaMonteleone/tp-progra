@@ -144,10 +144,10 @@ export class Supabase {
 
   /*-------------------- Score --------------------*/
 
-  async registerScore(id: string, score: number, table: string) {
+  async registerScore(idUser: string, score: number, table: string) {
     const { data, error } = await this.supabase
       .from(`${table}`)
-      .insert([{ score: score, id_user: id }])
+      .insert([{ score: score, id_user: idUser }])
       .select()
       .single();
 

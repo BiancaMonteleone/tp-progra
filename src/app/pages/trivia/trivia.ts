@@ -4,6 +4,7 @@ import { Ducky } from '../../components/ducky/ducky';
 import { Loading } from '../../components/loading/loading';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Supabase } from '../../services/supabase';
 
 @Component({
   selector: 'app-trivia',
@@ -19,15 +20,17 @@ export class Trivia implements OnInit {
   currentIndex = 0;
   score = 0;
   loading = true;
+  user: any = null;
 
-  constructor(private cdr: ChangeDetectorRef, private router: Router) {}
+  constructor(private cdr: ChangeDetectorRef, private router: Router, private supabase: Supabase) {}
 
   async ngOnInit() {
+    this.user = await this.supabase.getUser();
     await this.loadQuestions();
     this.startGame();
     this.loading = false;
     this.cdr.detectChanges();
-    
+
     setTimeout(() => {
       setTimeout(() => {
         this.cdr.detectChanges();
@@ -68,6 +71,7 @@ export class Trivia implements OnInit {
       }, 500);
       this.nextQuestion();
     } else {
+      this.supabase.registerScore(this.user.auth_id, this.score, 'trivia_scores');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({
@@ -81,12 +85,19 @@ export class Trivia implements OnInit {
         cancelButtonText: 'Salir',
         allowOutsideClick: false,
         allowEscapeKey: false,
-      }).then(() => this.restartGame());
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.restartGame();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/home']);
+        }
+      });
     }
   }
 
   nextQuestion() {
     this.currentIndex++;
+    this.supabase.registerScore(this.user.auth_id, this.score, 'trivia_scores');
     if (this.currentIndex >= this.questions.length) {
       Swal.fire({
         title: '¡Ganaste! 🎉',

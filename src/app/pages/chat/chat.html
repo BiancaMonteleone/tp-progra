@@ -1,3 +1,6 @@
+@if(loading) {
+<app-loading></app-loading>
+} @else {
 <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
 <div class="chat-wrapper">
   <div class="chat-card shadow">
@@ -11,13 +14,13 @@
         <div class="message sent">
           <span class="message-time">{{ message.email }}</span>
           <div class="message-content">{{ message.content }}</div>
-          <span class="message-time">{{ message.created_at | date:'HH:mm' }}</span>
+          <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
         </div>
         }@else{
         <div class="message received">
           <span class="message-time">{{ message.email }}</span>
           <div class="message-content">{{ message.content }}</div>
-          <span class="message-time">{{ message.created_at | date:'HH:mm' }}</span>
+          <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
         </div>
         }
       </div>
@@ -36,3 +39,4 @@
     </div>
   </div>
 </div>
+}

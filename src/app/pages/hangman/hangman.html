@@ -1,3 +1,6 @@
+@if(loading) {
+<app-loading></app-loading>
+} @else {
 <div class="container text-center">
   <img src="/img/cloud.png" class="cloud" />
   <img [src]="gallowSrc" class="gallow" />
@@ -29,3 +32,4 @@
 
   <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
 </div>
+}

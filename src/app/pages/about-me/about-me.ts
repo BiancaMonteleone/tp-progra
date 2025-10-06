@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Ducky } from '../../components/ducky/ducky';
+import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-about-me',
-  imports: [CommonModule, Ducky],
+  imports: [CommonModule, Ducky, Loading],
   templateUrl: './about-me.html',
   styleUrl: './about-me.css',
 })
@@ -21,7 +22,8 @@ export class AboutMe implements OnInit {
   
   ngOnInit(): void {
     this.loadUser();
-    
+    this.loading = false;
+    this.cdr.detectChanges();
     setTimeout(() => {
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
@@ -33,7 +35,6 @@ export class AboutMe implements OnInit {
   }
 
   loadUser(){
-    this.loading = true;
     this.error = '';
     this.http.get(this.userPath).subscribe({
       next: (data) => {
@@ -44,8 +45,6 @@ export class AboutMe implements OnInit {
       error: (err) => {
         console.error('Error al cargar usuario', err);
         this.error = 'Error al cargar la informacion del usuario';
-        this.loading = false;
-        this.cdr.detectChanges();
       }
     })
   }

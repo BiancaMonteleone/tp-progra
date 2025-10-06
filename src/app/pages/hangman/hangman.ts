@@ -6,10 +6,11 @@ import { Ducky } from '../../components/ducky/ducky';
 import { Supabase } from '../../services/supabase';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-hangman',
-  imports: [CommonModule, Modal, Ducky],
+  imports: [CommonModule, Modal, Ducky, Loading],
   templateUrl: './hangman.html',
   styleUrl: './hangman.css',
 })
@@ -20,6 +21,7 @@ export class Hangman implements OnInit {
   duckyMovement = 'enterHangman';
   user: any = null;
   gallowSrc: string = '/img/gallow/gallow_0.png';
+  loading: boolean = true;
 
   selectedWord: string = '';
   correctLetters: number = 0;
@@ -41,6 +43,8 @@ export class Hangman implements OnInit {
   async ngOnInit() {
     this.user = await this.supabase.getUser();
     this.startTimer();
+    this.loading = false;
+    this.cdr.detectChanges();
     this.initGame();
     setTimeout(() => {
       this.duckyAnimation = 'walkRight';
@@ -150,6 +154,11 @@ export class Hangman implements OnInit {
         if (result.isConfirmed) {
           this.continueGame();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.supabase.registerHangmanScore(
+            this.user.auth_id,
+            this.correctLetters,
+            this.elapsedTime
+          );
           this.router.navigate(['/home']);
         }
       });
@@ -183,15 +192,18 @@ export class Hangman implements OnInit {
     }
   }
 
-  gameOver(){
-    this.correctLetters = 0;
+  gameOver() {
     this.isModalOpen = false;
+    this.loading = true;
+    this.cdr.detectChanges();
+    this.correctLetters = 0;
     this.duckyAnimation = 'sittingRight';
     this.errors = 6;
     this.gallowSrc = '/img/gallow/gallow_0.png';
     this.letterStates = {};
     this.elapsedTime = 0;
     this.startTimer();
+    this.loading = false;
     this.initGame();
     this.cdr.detectChanges();
   }

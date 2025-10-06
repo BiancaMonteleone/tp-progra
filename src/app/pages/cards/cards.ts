@@ -5,10 +5,11 @@ import { Supabase } from '../../services/supabase';
 import { Ducky } from '../../components/ducky/ducky';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-cards',
-  imports: [Modal, CommonModule, Ducky],
+  imports: [Modal, CommonModule, Ducky, Loading],
   templateUrl: './cards.html',
   styleUrls: ['./cards.css'],
 })
@@ -18,6 +19,7 @@ export class Cards implements OnInit {
   duckyAnimation = 'jumpLeft';
   duckyMovement = 'enterCards';
   user: any = null;
+  loading = true;
 
   deck: any[] = [];
   currentCard: any = null;
@@ -29,6 +31,8 @@ export class Cards implements OnInit {
   async ngOnInit() {
     this.user = await this.supabase.getUser();
     this.initGame();
+    this.loading = false;
+    this.cdr.detectChanges();
     setTimeout(() => {
       this.duckyAnimation = 'roll';
       this.cdr.detectChanges();
@@ -69,6 +73,7 @@ export class Cards implements OnInit {
 
   guess(higher: boolean) {
     if (this.deck.length === 1) {
+      this.supabase.registerScore(this.user.auth_id, this.score, 'cards_scores');
       Swal.fire({
         title: '¡Ganaste! 🎉',
         text: 'Terminaste el mazo',
@@ -111,6 +116,7 @@ export class Cards implements OnInit {
         this.cdr.detectChanges();
       }, 700);
     } else {
+      this.supabase.registerScore(this.user.auth_id, this.score, 'cards_scores');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({
@@ -158,10 +164,14 @@ export class Cards implements OnInit {
   }
 
   restartGame(): void {
+    this.loading = true;
+    this.cdr.detectChanges();
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
     this.score = 0;
     this.nextCard = null;
+    this.loading = false;
+    this.cdr.detectChanges();
     this.initGame();
     this.cdr.detectChanges();
   }
