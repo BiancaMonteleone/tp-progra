@@ -14,10 +14,11 @@ export class Ducky {
   currentSprite: string = '';
   intervalId: any;
   positionClass = 'floating';
+  @Input() shake: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {  
     if (changes['animation']) this.playAnimation(this.animation);
     if (changes['movement']) this.updateMovement(this.movement);
   }
@@ -194,6 +195,9 @@ export class Ducky {
         break;
       case 'enterChat':
         this.positionClass = 'enter-chat';
+        break;
+      case 'enterTrivia':
+        this.positionClass = 'enter-trivia';
         break;
       case 'hidden':
         this.positionClass = 'hidden';

@@ -91,6 +91,7 @@ img {
     left: 60%;
     top: 10rem;
   }
+
   50% {
     left: 35%;
     top: 3.5rem;
@@ -100,6 +101,7 @@ img {
     left: 16%;
     top: 8rem;
   }
+
   100% {
     left: 16%;
     top: 9rem;
@@ -139,7 +141,7 @@ img {
   animation: enterChat 3s forwards;
   transform: translate(-50%, -50%);
   left: 120%;
-  top: 5%8
+  top: 58%
 }
 
 @keyframes enterChat {
@@ -161,6 +163,25 @@ img {
   100% {
     left: 50%;
     top: 8rem;
+  }
+}
+
+.enter-trivia {
+  animation: enterTrivia 1s forwards;
+  transform: translate(-50%, -50%);
+  left: 44rem;
+  top: -20%
+}
+
+@keyframes enterTrivia {
+  0% {
+    left: 44rem;
+    top: -20%
+  }
+
+  100% {
+    left: 44rem;
+    top: 13rem;
   }
 }
 

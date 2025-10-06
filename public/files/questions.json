@@ -1,0 +1,86 @@
+[
+  {
+    "question": "¿Cuál es el planeta más grande del sistema solar?",
+    "options": ["Tierra", "Júpiter", "Marte", "Saturno"],
+    "answer": "Júpiter",
+    "image": "/img/questions/planet.png"
+  },
+  {
+    "question": "¿Quién pintó la Mona Lisa?",
+    "options": ["Leonardo da Vinci", "Picasso", "Van Gogh", "Rembrandt"],
+    "answer": "Leonardo da Vinci",
+    "image": "/img/questions/monalisa.png"
+  },
+  {
+    "question": "¿Cuál es el océano más grande del mundo?",
+    "options": ["Atlántico", "Pacífico", "Índico", "Ártico"],
+    "answer": "Pacífico",
+    "image": "/img/questions/ocean.png"
+  },
+  {
+    "question": "¿En qué año llegó el hombre a la Luna?",
+    "options": ["1965", "1969", "1972", "1959"],
+    "answer": "1969",
+    "image": "/img/questions/moon.png"
+  },
+  {
+    "question": "¿Cuál es el país más grande del mundo?",
+    "options": ["China", "Rusia", "Canadá", "Estados Unidos"],
+    "answer": "Rusia",
+    "image": "/img/questions/world.png"
+  },
+  {
+    "question": "¿Cuál es el metal más ligero?",
+    "options": ["Cobre", "Plomo", "Litio", "Hierro"],
+    "answer": "Litio",
+    "image": "/img/questions/lithium.png"
+  },
+  {
+    "question": "¿Cuál es el río más largo del mundo?",
+    "options": ["Amazonas", "Nilo", "Misisipi", "Yangtsé"],
+    "answer": "Nilo",
+    "image": "/img/questions/river.png"
+  },
+  {
+    "question": "¿Qué ciudad es la capital de Japón?",
+    "options": ["Kioto", "Tokio", "Osaka", "Nagoya"],
+    "answer": "Tokio",
+    "image": "/img/questions/tokyo.png"
+  },
+  {
+    "question": "¿Quién fue el primer presidente de Estados Unidos?",
+    "options": ["Abraham Lincoln", "George Washington", "Thomas Jefferson", "John Adams"],
+    "answer": "George Washington",
+    "image": "/img/questions/president.png"
+  },
+  {
+    "question": "¿Qué parte del cuerpo humano produce insulina?",
+    "options": ["Hígado", "Páncreas", "Riñones", "Corazón"],
+    "answer": "Páncreas",
+    "image": "/img/questions/pancreas.png"
+  },
+  {
+    "question": "¿Qué famoso científico formuló la teoría de la relatividad?",
+    "options": ["Isaac Newton", "Albert Einstein", "Nikola Tesla", "Stephen Hawking"],
+    "answer": "Albert Einstein",
+    "image": "/img/questions/einstein.png"
+  },
+  {
+    "question": "¿En qué continente está Egipto?",
+    "options": ["Asia", "África", "Europa", "Oceanía"],
+    "answer": "África",
+    "image": "/img/questions/egypt.png"
+  },
+  {
+    "question": "¿Cuál es el hueso más largo del cuerpo humano?",
+    "options": ["Fémur", "Tibia", "Húmero", "Peroné"],
+    "answer": "Fémur",
+    "image": "/img/questions/bone.png"
+  },
+  {
+    "question": "¿Cuál es la capital de Canadá?",
+    "options": ["Toronto", "Vancouver", "Montreal", "Ottawa"],
+    "answer": "Ottawa",
+    "image": "/img/questions/canada.png"
+  }
+]

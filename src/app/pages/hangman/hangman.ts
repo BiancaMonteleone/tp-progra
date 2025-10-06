@@ -29,7 +29,7 @@ export class Hangman implements OnInit {
   letters: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
   letterStates: { [key: string]: 'correct' | 'incorrect' | '' } = {};
   elapsedTime: number = 0;
-  private timerInterval: any;
+  timerInterval: any;
 
   constructor(
     private cdr: ChangeDetectorRef,

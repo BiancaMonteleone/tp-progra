@@ -1,0 +1,33 @@
+@if(loading) {
+  <app-loading></app-loading>
+}
+@else {
+<div class="game-container">
+  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
+
+  <div class="status-bar">
+    <div class="score">🏆 {{ score }}</div>
+  </div>
+
+  <div class="container mt-5 py-5 text-center">
+    <div class="card mx-auto d-flex flex-row align-items-center justify-content-center">
+      @if (currentQuestion?.image) {
+      <img [src]="currentQuestion.image" class="card-img-left" alt="Imagen pregunta"/>
+      }
+
+      <div class="card-body text-start">
+        <h4 class="question mb-4">{{ currentQuestion.question }}</h4>
+
+        <div class="options d-flex flex-column align-items-start">
+          @for (opt of currentQuestion.options; track $index) {
+          <button class="btn btn-option mb-3" (click)="selectOption(opt)">
+            {{ opt }}
+          </button>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="mt-4"></div>
+  </div>
+</div>
+}

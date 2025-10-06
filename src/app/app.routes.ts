@@ -3,6 +3,7 @@ import { Home } from './pages/home/home';
 import { AboutMe } from './pages/about-me/about-me';
 import { notLoggedGuard } from './guards/not-logged-guard';
 import { isLoggedGuard } from './guards/is-logged-guard';
+import { Trivia } from './pages/trivia/trivia';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   {path: 'chat', loadComponent: () => import("./pages/chat/chat").then((a) => a.Chat), canActivate: [isLoggedGuard]},
   {path: 'hangman', loadComponent: () => import("./pages/hangman/hangman").then((a) => a.Hangman), canActivate: [isLoggedGuard]},
   {path: 'cards', loadComponent: () => import("./pages/cards/cards").then((a) => a.Cards), canActivate: [isLoggedGuard]},
+  {path: 'trivia', loadComponent: () => import("./pages/trivia/trivia").then((a) => a.Trivia), canActivate: [isLoggedGuard]},
 ];
