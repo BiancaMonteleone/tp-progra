@@ -1,22 +1,31 @@
 @if(loading) {
+<!-- Spinner de carga -->
 <app-loading></app-loading>
 } @else {
-<app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
+<!-- Mascota animada -->
+<app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
+
+<!-- Contenedor principal del chat -->
 <div class="chat-wrapper">
+  <!-- Tarjeta del chat -->
   <div class="chat-card shadow">
+    <!-- Header del chat -->
     <div class="chat-header p-3">
       <h5 class="mb-0">Sala de Chat</h5>
     </div>
 
+    <!-- Mensajes del chat -->
     <div class="chat-messages p-3" id="chatMessages" #chatMessages>
       @for (message of supabase.messages(); track $index) { @if (message.email ===
       session.user.email) {
+      <!-- Mensaje enviado por el usuario -->
       <div class="message sent">
         <span class="message-time">{{ message.email }}</span>
         <div class="message-content">{{ message.content }}</div>
         <span class="message-time">{{ message.created_at | date : 'HH:mm' }}</span>
       </div>
       } @else {
+      <!-- Mensaje recibido -->
       <div class="message received">
         <span class="message-time">{{ message.email }}</span>
         <div class="message-content">{{ message.content }}</div>
@@ -25,6 +34,7 @@
       } }
     </div>
 
+    <!-- Input para enviar mensajes -->
     <div class="chat-input p-3 d-flex">
       <input
         type="text"

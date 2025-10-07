@@ -1,36 +1,43 @@
 @if(loading) {
+<!-- Spinner de carga -->
 <app-loading></app-loading>
 } @else {
+
+<!-- Contenedor principal -->
 <div class="container text-center">
+  <!-- Imágenes decorativas -->
   <img src="/img/cloud.png" class="cloud" />
   <img [src]="gallowSrc" class="gallow" />
-  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
 
+  <!-- Mascota animada -->
+  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
+
+  <!-- Barra de estado -->
   <div class="status-bar">
     <div class="score">🏆 {{ correctLetters }}</div>
     <div class="timer">🕒 {{ elapsedTime }}s</div>
   </div>
 
+  <!-- Palabra mostrada -->
   <div id="word" class="mb-3 display-4 fw-bold py-5">
     {{ displayWord.join(' ') }}
   </div>
 
+  <!-- Botones de letras -->
   <div id="letter-buttons" class="mb-3 py-4">
     @for (letter of letters; track letter) {
-      <button
-        class="btn btn-outline-secondary m-1"
-        [ngClass]="{
-          'btn-correct': letterStates[letter] === 'correct',
-          'btn-incorrect': letterStates[letter] === 'incorrect'
-        }"
-        [disabled]="isLetterDisabled(letter)"
-        (click)="guessLetter(letter)"
-      >
-        {{ letter }}
-      </button>
+    <button
+      class="btn btn-outline-secondary m-1"
+      [ngClass]="{
+        'btn-correct': letterStates[letter] === 'correct',
+        'btn-incorrect': letterStates[letter] === 'incorrect'
+      }"
+      [disabled]="isLetterDisabled(letter)"
+      (click)="guessLetter(letter)"
+    >
+      {{ letter }}
+    </button>
     }
   </div>
-
-  <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
 </div>
 }

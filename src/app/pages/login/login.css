@@ -1,3 +1,4 @@
+/* Imagen de nube */
 .cloud {
   position: absolute;
   margin-top: 32rem;
@@ -6,6 +7,7 @@
   width: 225px;
 }
 
+/* Contenedor principal de la tarjeta de login */
 .login-card {
   max-width: 900px;
   min-width: 350px;
@@ -13,12 +15,14 @@
   box-sizing: border-box;
 }
 
+/* Estilo de los inputs cuando están activos */
 input:focus {
   border-color: #f3b685;
   box-shadow: 0 0 0 0.2rem rgba(238, 180, 133, 0.138);
   outline: none;
 }
 
+/* Botón principal */
 .btn-warning {
   background-color: #eeb485;
   border: none;
@@ -28,21 +32,22 @@ input:focus {
   background-color: #d7a175;
 }
 
+/* Plumas */
 .feather-container {
   display: flex;
-  justify-content: center; /* centra horizontalmente todas las plumas */
-  gap: 30px;               /* espacio entre cada pluma */
-  align-items: center;      /* opcional: alinea verticalmente si hay altura diferente */
-  flex-wrap: wrap;          /* opcional: que se vaya a otra línea si no entra */
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
   margin-top: 15px;
 }
 
 .feather {
-  width: 70px;   /* tamaño fijo o relativo */
+  width: 70px;
   height: auto;
   cursor: pointer;
 }
 
 .feather:hover {
-  transform: scale(1.1); /* efecto al pasar el mouse */
+  transform: scale(1.1);
 }

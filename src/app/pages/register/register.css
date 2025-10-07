@@ -1,3 +1,4 @@
+/* Imagen de nube  */
 .cloud {
   position: absolute;
   bottom: -60px;
@@ -7,6 +8,7 @@
   z-index: 1;
 }
 
+/* Tarjeta del formulario */
 .login-card {
   max-width: 900px;
   min-width: 350px;
@@ -14,12 +16,14 @@
   box-sizing: border-box;
 }
 
+/* Estilo al enfocar un input */
 input:focus {
   border-color: #f3b685;
   box-shadow: 0 0 0 0.2rem rgba(238, 180, 133, 0.138);
   outline: none;
 }
 
+/* Botón principal */
 .btn-warning {
   background-color: #eeb485;
   border: none;

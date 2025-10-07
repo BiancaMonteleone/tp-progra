@@ -1,11 +1,22 @@
+@if(loading) {
+<!-- Spinner de carga -->
+<app-loading></app-loading>
+}@else {
+<!-- Contenedor principal del registro -->
 <div class="register-container d-flex flex-column align-items-center">
+  <!-- Imagen de nube -->
+  <img src="/img/cloud.png" class="cloud" />
+
+  <!-- Mascota animada -->
   <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
 
+  <!-- Formulario de registro -->
   <div class="form-container d-flex justify-content-center">
     <form
       (ngSubmit)="onSubmit()"
       class="card login-card p-4 d-flex flex-column gap-3 w-100 rounded-4 shadow-lg"
     >
+      <!-- Nombre -->
       <label class="fw-bold text-dark">
         Nombre:
         <input name="name" [(ngModel)]="name" class="form-control mt-1" />
@@ -14,6 +25,7 @@
         }
       </label>
 
+      <!-- Apellido -->
       <label class="fw-bold text-dark">
         Apellido:
         <input name="lastName" [(ngModel)]="lastName" class="form-control mt-1" />
@@ -22,6 +34,7 @@
         }
       </label>
 
+      <!-- Edad -->
       <label class="fw-bold text-dark">
         Edad:
         <input type="number" name="age" [(ngModel)]="age" class="form-control mt-1" />
@@ -30,6 +43,7 @@
         }
       </label>
 
+      <!-- Email -->
       <label class="fw-bold text-dark">
         Email:
         <input name="email" [(ngModel)]="email" class="form-control mt-1" />
@@ -38,6 +52,7 @@
         }
       </label>
 
+      <!-- Contraseña -->
       <label class="fw-bold text-dark">
         Contraseña:
         <input name="password" type="password" [(ngModel)]="password" class="form-control mt-1" />
@@ -46,6 +61,7 @@
         }
       </label>
 
+      <!-- Confirmar contraseña -->
       <label class="fw-bold text-dark">
         Confirmar contraseña:
         <input
@@ -59,8 +75,9 @@
         }
       </label>
 
+      <!-- Botón de envío -->
       <button type="submit" class="btn btn-warning mt-2">Aceptar</button>
     </form>
-    <img src="/img/cloud.png" class="cloud" />
   </div>
 </div>
+}

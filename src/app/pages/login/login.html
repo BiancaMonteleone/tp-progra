@@ -1,15 +1,24 @@
 @if(loading) {
+<!-- Spinner de carga -->
 <app-loading></app-loading>
 } @else {
+
+<!-- Contenedor principal del login -->
 <div class="login-container d-flex flex-column align-items-center">
+  <!-- Imagen de nube -->
+  <img src="/img/cloud.png" class="cloud" />
+
+  <!-- Mascota animada -->
   <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
 
+  <!-- Formulario de login -->
   <div class="form-container d-flex justify-content-center">
     <form
       [formGroup]="formLogin"
       (ngSubmit)="onSubmit()"
       class="card login-card p-4 d-flex flex-column gap-3 w-100 rounded-4 shadow-lg"
     >
+      <!-- Input email -->
       <label class="fw-bold text-dark">
         Email:
         <input formControlName="email" class="form-control mt-1" />
@@ -20,6 +29,7 @@
         }
       </label>
 
+      <!-- Input contraseña -->
       <label class="fw-bold text-dark">
         Contraseña:
         <input type="password" formControlName="password" class="form-control mt-1" />
@@ -32,16 +42,16 @@
         }
       </label>
 
+      <!-- Botón enviar -->
       <button type="submit" class="btn btn-warning mt-2">Aceptar</button>
     </form>
   </div>
 
+  <!-- Login rápido con plumas -->
   <div class="feather-container">
     <img src="/img/icons/feather.png" class="feather" (click)="quickLogin('user1')" />
     <img src="/img/icons/feather.png" class="feather" (click)="quickLogin('user2')" />
     <img src="/img/icons/feather.png" class="feather" (click)="quickLogin('user3')" />
   </div>
-
-  <img src="/img/cloud.png" class="cloud" />
 </div>
 }

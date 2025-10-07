@@ -10,6 +10,7 @@ export class WordService {
 
   constructor(private http: HttpClient) {}
 
+  // Obtiene una palabra aleatoria del JSON
   getRandomWord(): Observable<string[]> {
     return this.http.get<{ words: string[] }>(this.jsonUrl).pipe(
       map((data) => {

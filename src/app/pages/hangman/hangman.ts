@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Modal } from '../../components/modal/modal';
 import { WordService } from '../../services/word.service';
 import { Ducky } from '../../components/ducky/ducky';
 import { Supabase } from '../../services/supabase';
@@ -10,19 +9,17 @@ import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-hangman',
-  imports: [CommonModule, Modal, Ducky, Loading],
+  imports: [CommonModule, Ducky, Loading],
   templateUrl: './hangman.html',
   styleUrl: './hangman.css',
 })
 export class Hangman implements OnInit {
+  // Variables del juego
   modalMessage: string = '';
   isModalOpen: boolean = false;
-  duckyAnimation = 'climb';
-  duckyMovement = 'enterHangman';
-  session: any = null;
   gallowSrc: string = '/img/gallow/gallow_0.png';
-  loading: boolean = true;
-
+  
+  // Estado del juego
   selectedWord: string = '';
   correctLetters: number = 0;
   displayWord: string[] = [];
@@ -32,7 +29,15 @@ export class Hangman implements OnInit {
   letterStates: { [key: string]: 'correct' | 'incorrect' | '' } = {};
   elapsedTime: number = 0;
   timerInterval: any;
-
+  
+  // Animaciones de Ducky
+  duckyAnimation = 'climb';
+  duckyMovement = 'enterHangman';
+  isCorrect = false;
+  isFailed = false;
+  
+  session: any = null;
+  loading: boolean = true;
   constructor(
     private cdr: ChangeDetectorRef,
     private wordService: WordService,
@@ -46,6 +51,8 @@ export class Hangman implements OnInit {
     this.loading = false;
     this.cdr.detectChanges();
     this.initGame();
+
+    // Animación inicial del pato
     setTimeout(() => {
       this.duckyAnimation = 'walkRight';
       this.cdr.detectChanges();
@@ -56,6 +63,7 @@ export class Hangman implements OnInit {
     }, 1450);
   }
 
+  // Temporizador
   startTimer(): void {
     this.stopTimer();
     this.timerInterval = setInterval(() => {
@@ -71,6 +79,7 @@ export class Hangman implements OnInit {
     }
   }
 
+  // Configuración inicial del juego
   initGame(): void {
     this.wordService.getRandomWord().subscribe({
       next: (words) => {
@@ -89,6 +98,7 @@ export class Hangman implements OnInit {
     });
   }
 
+  // Normalización de palabras
   normalizeWord(word: string): string {
     return word
       .toUpperCase()
@@ -97,18 +107,20 @@ export class Hangman implements OnInit {
       .replace('ñ', 'ñ');
   }
 
+  // Lógica de adivinanza
   guessLetter(letter: string): void {
     if (this.displayWord.includes(letter) || this.wrongLetters.includes(letter)) return;
 
     if (this.selectedWord.includes(letter)) {
       this.letterStates[letter] = 'correct';
       this.duckyAnimation = 'fallRight';
-
       this.cdr.detectChanges();
+
       setTimeout(() => {
         this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
       }, 500);
+
       for (let i = 0; i < this.selectedWord.length; i++) {
         if (this.selectedWord[i] === letter) {
           this.displayWord[i] = letter;
@@ -117,7 +129,6 @@ export class Hangman implements OnInit {
       }
     } else {
       this.letterStates[letter] = 'incorrect';
-
       this.wrongLetters.push(letter);
       this.errors--;
       this.gallowSrc = `/img/gallow/gallow_${6 - this.errors}.png`;
@@ -131,14 +142,18 @@ export class Hangman implements OnInit {
         }, 500);
       }
     }
+
     this.checkGameOver();
   }
 
+  // Verificación de fin de juego
   async checkGameOver() {
     if (!this.displayWord.includes('_')) {
+      // Ganó
       this.stopTimer();
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
+
       Swal.fire({
         title: '¡Muy bien! 🎉',
         text: `La palabra era: ${this.selectedWord}`,
@@ -164,15 +179,18 @@ export class Hangman implements OnInit {
         }
       });
     } else if (this.errors <= 0) {
+      // Perdió
       this.stopTimer();
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
+
       await this.supabase.registerScore(
         this.session.user.email,
         this.correctLetters,
         this.elapsedTime,
         'hangman'
       );
+
       Swal.fire({
         title: 'Perdiste 😢',
         text: `La palabra era: ${this.selectedWord}`,
@@ -194,22 +212,26 @@ export class Hangman implements OnInit {
     }
   }
 
+  // Reiniciar juego
   gameOver() {
     this.isModalOpen = false;
     this.loading = true;
     this.cdr.detectChanges();
+
     this.correctLetters = 0;
     this.duckyAnimation = 'sittingRight';
     this.errors = 6;
     this.gallowSrc = '/img/gallow/gallow_0.png';
     this.letterStates = {};
     this.elapsedTime = 0;
+
     this.startTimer();
     this.loading = false;
     this.initGame();
     this.cdr.detectChanges();
   }
 
+  // Continuar con nueva palabra
   continueGame(): void {
     this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
@@ -221,18 +243,8 @@ export class Hangman implements OnInit {
     this.cdr.detectChanges();
   }
 
+  // Deshabilitar letras ya usadas
   isLetterDisabled(letter: string): boolean {
     return this.displayWord.includes(letter) || this.wrongLetters.includes(letter);
-  }
-
-  showModal(message: string): void {
-    this.modalMessage = message;
-    this.isModalOpen = true;
-    this.cdr.detectChanges();
-  }
-
-  closeModal(): void {
-    this.isModalOpen = false;
-    this.cdr.detectChanges();
   }
 }

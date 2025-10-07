@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Modal } from '../../components/modal/modal';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../services/supabase';
 import { Ducky } from '../../components/ducky/ducky';
@@ -9,18 +8,20 @@ import { Loading } from '../../components/loading/loading';
 
 @Component({
   selector: 'app-cards',
-  imports: [Modal, CommonModule, Ducky, Loading],
+  imports: [CommonModule, Ducky, Loading],
   templateUrl: './cards.html',
   styleUrls: ['./cards.css'],
 })
 export class Cards implements OnInit {
-  modalMessage: string = '';
-  isModalOpen: boolean = false;
+  // Animaciones y movimiento del pato
   duckyAnimation = 'jumpLeft';
   duckyMovement = 'enterCards';
+
+  // Sesión y estado de carga
   session: any = null;
   loading = true;
 
+  // Estado del juego
   deck: any[] = [];
   currentCard: any = null;
   nextCard: any = null;
@@ -30,10 +31,11 @@ export class Cards implements OnInit {
 
   async ngOnInit() {
     this.session = await this.supabase.getSession();
-    
     this.initGame();
     this.loading = false;
     this.cdr.detectChanges();
+
+    // Secuencia de animaciones del pato
     this.duckyAnimation = 'roll';
     this.cdr.detectChanges();
     setTimeout(() => {
@@ -46,16 +48,17 @@ export class Cards implements OnInit {
     }, 1700);
   }
 
+  // Inicializa el mazo y la carta actual
   initGame() {
     this.deck = this.generateDeck();
     this.currentCard = this.deck.shift();
     this.cdr.detectChanges();
   }
 
+  // Genera y baraja el mazo de cartas
   generateDeck(): any[] {
     const suits = ['corazones', 'diamantes', 'treboles', 'picas'];
     const values = ['as', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'reina', 'rey'];
-
     const deck = [];
 
     for (const suit of suits) {
@@ -70,7 +73,9 @@ export class Cards implements OnInit {
     return this.shuffle(deck);
   }
 
+  // Adivinar si la siguiente carta es mayor o menor
   guess(higher: boolean) {
+    // Si queda solo una carta, el jugador gana
     if (this.deck.length === 1) {
       this.supabase.registerScore(this.session.user.email, this.score, null, 'cards');
       Swal.fire({
@@ -91,22 +96,24 @@ export class Cards implements OnInit {
           this.router.navigate(['/home']);
         }
       });
-      return; // Prevent further execution when deck is empty
+      return; // Evita seguir ejecutando si el mazo está vacío
     }
 
+    // Revela la siguiente carta
     this.nextCard = this.deck[0];
     const currentValue = this.getValue(this.currentCard.value);
     const nextValue = this.getValue(this.nextCard.value);
 
+    // Verifica si la predicción es correcta
     const correct =
       (higher && nextValue > currentValue) ||
       (!higher && nextValue < currentValue) ||
       nextValue === currentValue;
 
     if (correct) {
+      // Si acierta, suma punto y avanza a la siguiente carta
       this.score++;
       this.currentCard = this.deck.shift();
-
       this.nextCard = null;
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
@@ -115,6 +122,7 @@ export class Cards implements OnInit {
         this.cdr.detectChanges();
       }, 700);
     } else {
+      // Si falla, muestra mensaje y registra puntaje
       this.supabase.registerScore(this.session.user.email, this.score, null, 'cards');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
@@ -139,6 +147,7 @@ export class Cards implements OnInit {
     }
   }
 
+  // Convierte el valor de la carta a número para comparar
   getValue(value: string): number {
     switch (value) {
       case 'as':
@@ -154,6 +163,7 @@ export class Cards implements OnInit {
     }
   }
 
+  // Baraja el mazo de cartas
   shuffle(deck: any[]): any[] {
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -162,27 +172,16 @@ export class Cards implements OnInit {
     return deck;
   }
 
+  // Reinicia el juego y el estado
   restartGame(): void {
     this.loading = true;
     this.cdr.detectChanges();
-    this.isModalOpen = false;
     this.duckyAnimation = 'sittingRight';
     this.score = 0;
     this.nextCard = null;
     this.loading = false;
     this.cdr.detectChanges();
     this.initGame();
-    this.cdr.detectChanges();
-  }
-
-  showModal(message: string): void {
-    this.modalMessage = message;
-    this.isModalOpen = true;
-    this.cdr.detectChanges();
-  }
-
-  closeModal(): void {
-    this.isModalOpen = false;
     this.cdr.detectChanges();
   }
 }

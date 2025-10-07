@@ -1,8 +1,4 @@
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
+/* Contenedor principal del chat */
 .chat-wrapper {
   height: 75vh;
   width: 70vw;
@@ -14,6 +10,7 @@ html, body {
   margin-top: 75px;
 }
 
+/* Tarjeta del chat */
 .chat-card {
   border-radius: 12px;
   display: flex;
@@ -22,6 +19,7 @@ html, body {
   width: 100%;
 }
 
+/* Header del chat */
 .chat-header {
   background: #4ba0c0;
   color: white;
@@ -30,6 +28,7 @@ html, body {
   border-top-right-radius: 12px;
 }
 
+/* Contenedor de mensajes */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -64,37 +63,46 @@ html, body {
   color: #666;
 }
 
+/* Mensajes recibidos */
 .message.received {
   align-items: flex-start;
 }
+
 .message.received .message-content {
   background: #e9ecef;
   border-top-left-radius: 0;
 }
+
 .message.received .message-time {
   align-self: flex-start;
 }
 
+/* Mensajes enviados */
 .message.sent {
   align-items: flex-end;
   margin-left: auto;
 }
+
 .message.sent .message-content {
   background: #4ba0c0;
   color: white;
   border-top-right-radius: 0;
 }
+
 .message.sent .message-time {
   align-self: flex-end;
 }
 
+/* Input del chat */
 .chat-input {
   border-top: 1px solid #ddd;
   background: #fff;
 }
+
 .chat-input input {
   border-radius: 20px;
 }
+
 .chat-input button {
   border-radius: 20px;
 }

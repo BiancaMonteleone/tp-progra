@@ -1,3 +1,4 @@
+/* Barra de estado */
 .status-bar {
   position: absolute;
   top: 1rem;
@@ -16,6 +17,7 @@
   border-radius: 10px;
 }
 
+/* Tarjeta de pregunta */
 .card {
   display: flex;
   flex-direction: row;
@@ -27,6 +29,7 @@
   gap: 2rem;
 }
 
+/* Imagen a la izquierda de la tarjeta */
 .card-img-left {
   width: 40%;
   max-width: 400px;
@@ -34,12 +37,29 @@
   margin-top: 1rem;
 }
 
+/* Animaciones  */
 @keyframes shake {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(0, -20px); }
-  40% { transform: translate(0, 20px); }
-  60% { transform: translate(0, -20px); }
-  80% { transform: translate(0, 20px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  20% {
+    transform: translate(0, -20px);
+  }
+
+  40% {
+    transform: translate(0, 20px);
+  }
+
+  60% {
+    transform: translate(0, -20px);
+  }
+
+  80% {
+    transform: translate(0, 20px);
+  }
 }
 
 .shake {
@@ -47,6 +67,7 @@
   animation-iteration-count: 1;
 }
 
+/* Cuerpo de la tarjeta */
 .card-body {
   flex: 1;
 }
@@ -58,6 +79,7 @@
   margin-top: 2rem;
 }
 
+/* Opciones de respuesta */
 .options {
   width: 100%;
 }
@@ -72,7 +94,6 @@
   max-width: 500px;
   text-align: left;
 }
-
 
 .btn-option:hover {
   background-color: #a1dc7c;

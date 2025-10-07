@@ -3,41 +3,43 @@ import { CommonModule } from '@angular/common';
 import { Supabase } from '../../services/supabase';
 import { Ducky } from '../../components/ducky/ducky';
 import { Loading } from '../../components/loading/loading';
-import { Modal } from '../../components/modal/modal';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-word-or-color',
-  imports: [CommonModule, Ducky, Loading, Modal],
+  imports: [CommonModule, Ducky, Loading],
   templateUrl: './word-or-color.html',
   styleUrl: './word-or-color.css',
 })
 export class WordOrColor implements OnInit, OnDestroy {
-  loading = true;
+  // Estado general del juego
   score = 0;
-  duckyAnimation = 'floatingRight';
-  duckyMovement = 'enterWordOrColor';
-  session: any = null;
-  timer = 20; // segundos
+  timer = 20;
   progress = 100;
   timerInterval: any;
   isRoundActive = false;
-
+  
+  // Colores disponibles
   colors = [
     { name: 'Rojo', hex: '#ff4d4d' },
     { name: 'Verde', hex: '#4dff4d' },
-    { name: 'Azul', hex: '#4d4dff' },
+    { name: 'Azul', hex: '#3636ffff' },
     { name: 'Amarillo', hex: '#ffff4d' },
     { name: 'Naranja', hex: '#ffa64d' },
     { name: 'Violeta', hex: '#b84dff' },
   ];
 
+  // Estado de la ronda actual
   displayWord: any;
   displayColor: any;
 
-  modalMessage = '';
-  isModalOpen = false;
+  // Animaciones de Ducky
+  duckyAnimation = 'floatingRight';
+  duckyMovement = 'enterWordOrColor';
+
+  loading = true;
+  session: any = null;
 
   constructor(private cdr: ChangeDetectorRef, private supabase: Supabase, private router: Router) {}
 
@@ -47,7 +49,7 @@ export class WordOrColor implements OnInit, OnDestroy {
     this.cdr.detectChanges();
     this.startGame();
 
-    // Animaciones del pato
+    // Animación inicial del pato
     setTimeout(() => {
       this.duckyAnimation = 'sittingRight';
       this.cdr.detectChanges();
@@ -58,38 +60,41 @@ export class WordOrColor implements OnInit, OnDestroy {
     this.stopTimer();
   }
 
+  // Temporizador
   startTimer() {
     const startTime = Date.now();
-    const duration = 20000; // 60 segundos
+    const duration = 20000;
     this.progress = 100;
 
     this.stopTimer();
     this.timerInterval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(duration - elapsed, 0);
-      this.timer = Math.ceil(remaining / 1000); // segundos restantes
+      this.timer = Math.ceil(remaining / 1000);
       this.progress = (remaining / duration) * 100;
       this.cdr.detectChanges();
 
       if (remaining <= 0) {
         this.endGame('¡Se acabó el tiempo!');
       }
-    }, 16); // ~60 FPS
+    }, 16);
   }
 
   stopTimer() {
     if (this.timerInterval) clearInterval(this.timerInterval);
   }
 
+  // Juego
   startGame() {
     this.score = 0;
     this.isRoundActive = true;
-    this.timer = 20; // temporizador global
+    this.timer = 20;
     this.progress = 100;
-    this.generateRound(); // palabra inicial
-    this.startTimer(); // iniciar solo 1 vez
+    this.generateRound();
+    this.startTimer();
   }
 
+  // Genera una nueva ronda
   generateRound() {
     const word = this.colors[Math.floor(Math.random() * this.colors.length)];
     let color = this.colors[Math.floor(Math.random() * this.colors.length)];
@@ -101,43 +106,11 @@ export class WordOrColor implements OnInit, OnDestroy {
     this.displayColor = color;
   }
 
-  timeOut() {
-    this.isRoundActive = false;
-    this.stopTimer();
-    this.duckyAnimation = 'deathRight';
-    this.cdr.detectChanges();
-
-    // animar barra suavemente a 0
-    const step = this.progress / 10;
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      this.progress -= step;
-      this.cdr.detectChanges();
-      if (i >= 10) clearInterval(interval);
-    }, 50);
-
-    this.supabase.registerScore(this.session.user.email, this.score, null, 'word_or_color');
-    Swal.fire({
-      title: '¡Se acabó el tiempo! ⏱️',
-      text: `Tu puntaje es ${this.score}`,
-      icon: 'success',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Jugar de nuevo',
-      cancelButtonText: 'Salir',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-    }).then((result) => {
-      if (result.isConfirmed) this.restartGame();
-      else this.router.navigate(['/home']);
-    });
-  }
-
+  // Manejo de selección
   selectColor(selected: any) {
     if (!this.isRoundActive) return;
 
+    // Animación del pato y siguiente ronda
     const correct = selected.name === this.displayColor.name;
     if (correct) {
       this.score++;
@@ -146,7 +119,7 @@ export class WordOrColor implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.duckyAnimation = 'sittingRight';
-        this.generateRound(); // solo cambia palabra/color
+        this.generateRound();
         this.cdr.detectChanges();
       }, 700);
     } else {
@@ -154,13 +127,17 @@ export class WordOrColor implements OnInit, OnDestroy {
     }
   }
 
+  // Fin de juego
   endGame(message: string) {
     this.isRoundActive = false;
     this.stopTimer();
     this.duckyAnimation = 'deathRight';
     this.cdr.detectChanges();
+
+    // Registrar puntaje
     this.supabase.registerScore(this.session.user.email, this.score, null, 'word_or_color');
 
+    // Mostrar modal de fin
     Swal.fire({
       title: message,
       text: `Tu puntuación: ${this.score}`,
@@ -178,6 +155,7 @@ export class WordOrColor implements OnInit, OnDestroy {
     });
   }
 
+  // Reinicia el juego
   restartGame() {
     this.duckyAnimation = 'sittingRight';
     this.startGame();

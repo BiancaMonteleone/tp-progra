@@ -1,24 +1,30 @@
+/* Estilos para el avatar de usuario */
 .avatar {
   width: 120px;
   height: 120px;
   object-fit: cover;
 }
 
+/* Botón  personalizado */
 .btn-warning {
   background-color: #eeb485;
   border: none;
 }
+
 .btn-warning:hover {
   background-color: #d7a175;
 }
 
+/* Fondo y borde de botón personalizados */
 .bg-warning {
   background-color: #eeb485 !important;
 }
+
 .border-warning {
   border-color: #eeb485 !important;
 }
 
+/* Tarjeta principal del perfil y juego */
 .full-card {
   max-width: 900px;
   min-width: 350px;

@@ -1,3 +1,4 @@
+/* Tarjetas de selección de juego */
 .image-card {
   position: relative;
   width: 100%;
@@ -46,23 +47,24 @@
   opacity: 1;
 }
 
-/* --- Tabla --- */
+/* Tabla de puntajes*/
 .table {
   width: 90%;
   margin: 20px auto 0 auto;
   border: 3px dashed #d8a880;
   border-radius: 6px;
   overflow: hidden;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
+  font-size: 20px;
   text-align: center;
   background-color: #fff9f0;
 }
 
 .table th {
   background-color: #eeb485;
+  font-family: 'Press Start 2P', cursive;
   color: #4b2e05;
   padding: 12px;
+  font-size: 20px;
   border-bottom: 3px dashed #d8a880;
 }
 
@@ -75,12 +77,6 @@
 
 .table tr:last-child td {
   border-bottom: none;
-}
-
-.table tbody tr:hover {
-  background-color: #fff2da;
-  transform: scale(1.01);
-  transition: all 0.1s ease;
 }
 
 thead tr th {

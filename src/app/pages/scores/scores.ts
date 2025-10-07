@@ -11,26 +11,35 @@ import { Ducky } from '../../components/ducky/ducky';
   styleUrl: './scores.css',
 })
 export class Scores implements OnInit {
-  currentGame = 'hangman';
-  loading = true;
+  // Juego y puntaje actual
   scores: any[] = [];
-  currentGameScores: any[] = [];
+  currentGame = 'hangman';
+  currentGameScores: any[] = []
+  
+  // Animaciones de Ducky
   duckyAnimation = 'walkRight';
   duckyMovement = 'enterScores';
-
+  
+  loading = true;
+  
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    // Obtener puntajes y filtrar por juego actual
     this.scores = await this.supabase.getScores();
     this.showGame(this.currentGame);
     this.loading = false;
+
+    // Animación inicial del pato
     setTimeout(() => {
       this.duckyAnimation = 'sittingLeft';
       this.cdr.detectChanges();
     }, 3000);
-    this.cdr.detectChanges(); // 👈 fuerza a Angular a renderizar los cambios
+
+    this.cdr.detectChanges();
   }
 
+  // Actualiza el juego actual y filtra sus puntajes
   showGame(game: string) {
     this.currentGame = game;
     this.currentGameScores = this.scores.filter(

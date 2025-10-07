@@ -12,17 +12,21 @@ import { Loading } from '../../components/loading/loading';
 })
 export class Home implements OnInit {
   loading: boolean = true;
+
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef, private router: Router) {}
+
   ngOnInit(): void {
     this.loading = false;
     this.cdr.detectChanges();
   }
 
+  // Cerrar sesión
   logOut() {
     this.supabase.logout();
     this.cdr.detectChanges();
   }
 
+  // Redirección a juegos
   redirect(game: string) {
     this.router.navigate([`/${game}`]);
   }

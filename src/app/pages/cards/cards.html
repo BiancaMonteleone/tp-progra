@@ -1,51 +1,56 @@
 @if(loading) {
-  <app-loading></app-loading>
+<!-- Spinner de carga -->
+<app-loading></app-loading>
 } @else {
-  <div class="game-container">
-    <img src="/img/cloud.png" class="cloud" />
-    <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
+<div class="game-container">
+  <!-- Imagen de nube -->
+  <img src="/img/cloud.png" class="cloud" />
 
-    <div class="status-bar">
-      <div class="score">🏆 {{ score }}</div>
+  <!-- Mascota animada -->
+  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
+
+  <!-- Barra de estado con puntaje -->
+  <div class="status-bar">
+    <div class="score">🏆 {{ score }}</div>
+  </div>
+
+  <div class="container mt-5 py-5">
+    <div class="row justify-content-center mb-5">
+      <!-- Columna: carta actual -->
+      <div class="col-12 col-md-5 d-flex justify-content-center">
+        <div class="card">
+          @if(currentCard) {
+          <!-- Imagen de la carta actual -->
+          <img [src]="currentCard.image" class="card-img-top" alt="Carta actual" />
+          }
+          <div class="card-body text-center">
+            <h6 class="card-title">Actual</h6>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna: carta siguiente (oculta o revelada) -->
+      <div class="col-12 col-md-5 d-flex justify-content-center">
+        <div class="card">
+          @if(!nextCard) {
+          <!-- Imagen de carta oculta -->
+          <img src="/img/cards/back.png" class="card-img-top" alt="Carta oculta" />
+          } @else {
+          <!-- Imagen de la carta siguiente revelada -->
+          <img [src]="nextCard.image" class="card-img-top" alt="Carta revelada" />
+          }
+          <div class="card-body text-center">
+            <h6 class="card-title">Siguiente</h6>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="container mt-5 py-5">
-      <div class="row justify-content-center mb-5">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-          <div class="card">
-            @if(currentCard) {
-              <img
-                [src]="currentCard.image"
-                class="card-img-top"
-                alt="Carta actual"
-              />
-            }
-            <div class="card-body text-center">
-              <h6 class="card-title">Actual</h6>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-          <div class="card">
-            @if(!nextCard) {
-              <img src="/img/cards/back.png" class="card-img-top" alt="Carta oculta" />
-            } @else {
-              <img [src]="nextCard.image" class="card-img-top" alt="Carta revelada" />
-            }
-            <div class="card-body text-center">
-              <h6 class="card-title">Siguiente</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center mb-4">
-        <button class="btn btn-primary btn-higher" (click)="guess(true)">Mayor</button>
-        <button class="btn btn-primary btn-lower" (click)="guess(false)">Menor</button>
-      </div>
-
-      <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
+    <!-- Botones de acción: mayor o menor -->
+    <div class="text-center mb-4">
+      <button class="btn btn-primary btn-higher" (click)="guess(true)">Mayor</button>
+      <button class="btn btn-primary btn-lower" (click)="guess(false)">Menor</button>
     </div>
   </div>
+</div>
 }

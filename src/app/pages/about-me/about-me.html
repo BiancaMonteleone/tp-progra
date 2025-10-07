@@ -1,30 +1,42 @@
 @if(loading) {
-  <app-loading></app-loading>
-}
-@else {
+<!-- Spinner de carga -->
+<app-loading></app-loading>
+} @else {
 <div class="d-flex justify-content-center py-5">
-  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"> </app-ducky>
+  <!-- Mascota animada  -->
+  <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
+
+  <!-- Tarjeta principal con perfil y descripción del juego -->
   <div class="card full-card w-100 rounded-4 p-4 shadow-lg">
     <div class="row align-items-center">
-
-      <!-- Sección izquierda -->
+      <!-- Sección izquierda: información del usuario -->
       <div class="col-md-4 text-center mb-4 mb-md-0">
-        <img [src]="user.avatar_url" alt="Foto de perfil" class="avatar rounded-circle border border-4 border-warning mb-3">
+        <!-- Foto de perfil del usuario -->
+        <img
+          [src]="user.avatar_url"
+          alt="Foto de perfil"
+          class="avatar rounded-circle border border-4 border-warning mb-3"
+        />
+        <!-- Nombre del usuario -->
         <h2 class="h4">{{ user.name }}</h2>
+        <!-- Enlace al perfil de GitHub -->
         <a [href]="user.html_url" target="_blank" class="btn btn-warning mt-2">Ver Perfil</a>
       </div>
 
-      <!-- Sección derecha -->
+      <!-- Sección derecha: estadísticas del usuario -->
       <div class="col-md-8 d-flex justify-content-center">
         <div class="d-flex gap-3 flex-wrap justify-content-center">
+          <!-- Cantidad de repositorios públicos -->
           <div class="bg-warning text-white rounded-3 p-3 text-center">
             <h3 class="h5 mb-1">{{ user.public_repos }}</h3>
             <p class="mb-0">Repositorios</p>
           </div>
+          <!-- Cantidad de seguidores -->
           <div class="bg-warning text-white rounded-3 p-3 text-center">
             <h3 class="h5 mb-1">{{ user.followers }}</h3>
             <p class="mb-0">Seguidores</p>
           </div>
+          <!-- Cantidad de seguidos -->
           <div class="bg-warning text-white rounded-3 p-3 text-center">
             <h3 class="h5 mb-1">{{ user.following }}</h3>
             <p class="mb-0">Siguiendo</p>
@@ -33,16 +45,22 @@
       </div>
     </div>
 
+    <!-- Separador visual -->
     <hr class="my-4" />
 
-    <!-- Info del juego -->
+    <!-- Sección de información sobre el juego -->
     <div class="text-center">
-      <h1 class="h4 mb-3">Juego propio - Color o Palabra</h1>
-      <p>Aparecerá un color escrito, pero con la fuente de otro color.</p>
-      <p>Abajo habrá botones, cada uno dirá un color distinto.</p>
-      <p>El jugador deberá hacer click en el botón que represente el color de la fuente, no la palabra.</p>
-      <p>En caso de que acierte, sigue jugando y acumula puntos. De lo contrario, pierde.</p>
-      <img src="/img/game-example.png" class="img-fluid border-warning rounded-3 border border-3 border-info mt-3" />
+      <h1 class="h4 mb-3">Juego propio - Palabra o color</h1>
+      <p>Aparecerá un color escrito, pero con la fuente de otro color. Abajo habrá botones, cada uno dirá un color distinto.</p>
+      <p>
+        El jugador deberá hacer click en el botón que represente el color de la fuente, no la
+        palabra. En caso de que acierte, sigue jugando y acumula puntos. De lo contrario, pierde.</p>
+      <p>Tendrá un minuto apra realizar la mayor cantidad de aciertos posibles.</p>
+      <!-- Imagen de ejemplo del juego -->
+      <img
+        src="/img/game-example.png"
+        class="img-fluid border-warning rounded-3 border border-3 border-info mt-3"
+      />
     </div>
   </div>
 </div>

@@ -11,30 +11,37 @@ import { Loading } from '../../components/loading/loading';
   styleUrl: './about-me.css',
 })
 export class AboutMe implements OnInit {
+  // Datos del usuario de GitHub
   user: any = null;
   userPath: string = 'https://api.github.com/users/BiancaMonteleone';
+
+  // Estado de carga y error
   loading = true;
   error = '';
+
+  // Animaciones del pato
   duckyAnimation = 'floatingRight';
   duckyMovement = 'enterAboutMe';
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef){};
-  
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
-    this.loadUser();
+    this.loadUser(); 
     this.loading = false;
-    this.cdr.detectChanges();
+
+    // Secuencia de animaciones del pato
     setTimeout(() => {
       this.duckyAnimation = 'fallRight';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.duckyAnimation = 'sittingLeft'
+        this.duckyAnimation = 'sittingLeft';
         this.cdr.detectChanges();
-      }, 550)
-    }, 1800)
+      }, 550);
+    }, 1800);
   }
 
-  loadUser(){
+  // Cargar datos del usuario desde la API de GitHub
+  loadUser() {
     this.error = '';
     this.http.get(this.userPath).subscribe({
       next: (data) => {
@@ -45,7 +52,7 @@ export class AboutMe implements OnInit {
       error: (err) => {
         console.error('Error al cargar usuario', err);
         this.error = 'Error al cargar la informacion del usuario';
-      }
-    })
+      },
+    });
   }
 }

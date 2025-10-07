@@ -1,3 +1,4 @@
+/* Imagen del ahorcado */
 .gallow {
   position: absolute;
   top: 22rem;
@@ -6,6 +7,7 @@
   width: 500px;
 }
 
+/* Barra de estado */
 .status-bar {
   position: absolute;
   top: 1rem;
@@ -24,6 +26,7 @@
   border-radius: 10px;
 }
 
+/* Nube decorativa */
 .cloud {
   position: absolute;
   margin-top: 27rem;
@@ -33,15 +36,18 @@
   height: 110px;
 }
 
+/* Contenedor principal */
 .container {
   margin-top: 5rem;
-  margin-left: 30rem
+  margin-left: 30rem;
 }
 
+/* Palabra mostrada */
 #word {
   font-family: 'Press Start 2P', cursive;
 }
 
+/* Botones de letras */
 #letter-buttons button {
   width: 80px;
   height: 80px;
@@ -49,6 +55,7 @@
   font-family: 'Press Start 2P', cursive;
 }
 
+/* Botones base */
 .btn {
   background-color: #fbeed7;
   border-color: #eeb485;
@@ -59,6 +66,7 @@
   color: #eeb485;
 }
 
+/* Botones incorrectos */
 .btn-incorrect {
   background-color: #fbd7d7;
   border-color: #ee8585;
@@ -69,6 +77,7 @@
   color: #eeb485;
 }
 
+/* Botones correctos */
 .btn-correct {
   background-color: #d7fbd7;
   border-color: #8fee85;
@@ -79,6 +88,7 @@
   color: #eeb485;
 }
 
+/* Botón de reinicio */
 .btn-restart {
   font-family: 'Press Start 2P', cursive;
   background-color: #eeb485;

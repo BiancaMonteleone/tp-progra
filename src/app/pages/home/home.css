@@ -1,24 +1,26 @@
+/* Contenedor de la imagen */
 .image-card {
-  position: relative;         /* necesario para colocar la imagen oculta */
+  position: relative;
   width: 100%;
   max-width: 400px;
   aspect-ratio: 1/1;
   overflow: hidden;
   border: 5px dashed #e9c686;
   border-radius: 12px;
-  aspect-ratio: 1/1;    /* mantiene la forma cuadrada */
 }
 
+/* Imagen principal visible */
 .main-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* Imagen secundaria oculta */
 .hidden-img {
   position: absolute;
-  bottom: -50px;     /* escondida hacia abajo */
-  right: -50px;      /* escondida hacia la derecha */
+  bottom: -50px;
+  right: -50px;
   width: 150px;
   height: auto;
   opacity: 0;
@@ -32,6 +34,7 @@
   opacity: 1;
 }
 
+/* Efecto de escala al pasar el mouse */
 .hover-scale:hover {
   transform: scale(1.01);
   transition: transform 0.3s ease;

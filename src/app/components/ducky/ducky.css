@@ -6,7 +6,6 @@ div {
 
 img {
   height: 120px;
-  /* tamaño relativo al ancho de la pantalla */
 }
 
 .enter-about-me {
@@ -226,8 +225,4 @@ img {
     left: 85rem;
     top: 4.5rem;
   }
-}
-
-.hidden {
-  left: -50%
 }

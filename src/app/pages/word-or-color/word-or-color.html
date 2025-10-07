@@ -1,15 +1,21 @@
 @if(loading) {
+<!-- Spinner de carga -->
 <app-loading></app-loading>
 } @else {
 <div class="game-container">
+  <!-- Imagen de nube -->
   <img src="/img/cloud.png" class="cloud" />
+
+  <!-- Mascota animada -->
   <app-ducky [animation]="duckyAnimation" [movement]="duckyMovement"></app-ducky>
 
+  <!-- Barra de puntaje -->
   <div class="status-bar">
     <div class="score">🏆 {{ score }}</div>
   </div>
 
   <div class="container mt-5 py-5">
+    <!-- Palabra a adivinar / mostrar color -->
     <div class="row justify-content-center mb-5">
       <div class="col-12 text-center">
         <div class="card color-card">
@@ -22,6 +28,7 @@
       </div>
     </div>
 
+    <!-- Botones de selección de color -->
     <div class="text-center mb-4">
       @for(color of colors; track color.name) {
       <button class="btn color-btn me-3" (click)="selectColor(color)">
@@ -30,11 +37,10 @@
       }
     </div>
 
+    <!-- Barra de progreso del tiempo / juego -->
     <div class="progress">
       <div class="progress-bar" [style.width.%]="progress"></div>
     </div>
-
-    <app-modal [message]="modalMessage" [isOpen]="isModalOpen"></app-modal>
   </div>
 </div>
 }
