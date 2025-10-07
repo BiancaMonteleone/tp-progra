@@ -18,7 +18,7 @@ export class Cards implements OnInit {
   isModalOpen: boolean = false;
   duckyAnimation = 'jumpLeft';
   duckyMovement = 'enterCards';
-  user: any = null;
+  session: any = null;
   loading = true;
 
   deck: any[] = [];
@@ -29,7 +29,8 @@ export class Cards implements OnInit {
   constructor(private cdr: ChangeDetectorRef, private supabase: Supabase, private router: Router) {}
 
   async ngOnInit() {
-    this.user = await this.supabase.getUser();
+    this.session = await this.supabase.getSession();
+    
     this.initGame();
     this.loading = false;
     this.cdr.detectChanges();
@@ -71,7 +72,7 @@ export class Cards implements OnInit {
 
   guess(higher: boolean) {
     if (this.deck.length === 1) {
-      this.supabase.registerScore(this.user.auth_id, this.score, null, 'cards');
+      this.supabase.registerScore(this.session.user.email, this.score, null, 'cards');
       Swal.fire({
         title: '¡Ganaste! 🎉',
         text: 'Terminaste el mazo',
@@ -114,7 +115,7 @@ export class Cards implements OnInit {
         this.cdr.detectChanges();
       }, 700);
     } else {
-      this.supabase.registerScore(this.user.auth_id, this.score, null, 'cards');
+      this.supabase.registerScore(this.session.user.email, this.score, null, 'cards');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({

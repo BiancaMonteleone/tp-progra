@@ -20,12 +20,12 @@ export class Trivia implements OnInit {
   currentIndex = 0;
   score = 0;
   loading = true;
-  user: any = null;
+  session: any = null;
 
   constructor(private cdr: ChangeDetectorRef, private router: Router, private supabase: Supabase) {}
 
   async ngOnInit() {
-    this.user = await this.supabase.getUser();
+    this.session = await this.supabase.getSession();
     await this.loadQuestions();
     this.startGame();
     this.loading = false;
@@ -71,7 +71,7 @@ export class Trivia implements OnInit {
       }, 500);
       this.nextQuestion();
     } else {
-      this.supabase.registerScore(this.user.auth_id, this.score, null, 'trivia');
+      this.supabase.registerScore(this.session.user.email, this.score, null, 'trivia');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({
@@ -98,7 +98,7 @@ export class Trivia implements OnInit {
   nextQuestion() {
     this.currentIndex++;
     if (this.currentIndex >= this.questions.length) {
-      this.supabase.registerScore(this.user.auth_id, this.score, null, 'trivia');
+      this.supabase.registerScore(this.session.user.email, this.score, null, 'trivia');
       Swal.fire({
         title: '¡Ganaste! 🎉',
         text: `Puntaje final: ${this.score}/${this.questions.length}`,

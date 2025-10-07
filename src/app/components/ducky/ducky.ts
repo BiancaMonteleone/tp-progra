@@ -202,6 +202,9 @@ export class Ducky {
       case 'enterWordOrColor':
         this.positionClass = 'enter-word-or-color';
         break;
+      case 'enterScores':
+        this.positionClass = 'enter-scores';
+        break;
       case 'hidden':
         this.positionClass = 'hidden';
         break;

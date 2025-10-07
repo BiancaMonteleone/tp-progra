@@ -144,15 +144,31 @@ export class Supabase {
 
   /*-------------------- Score --------------------*/
 
-  async registerScore(idUser: string, score: number, time: number | null, game: string) {
+  async registerScore(email: string, score: number, time: number | null, game: string) {
+    try {
+      const { data, error } = await this.supabase
+        .from('scores')
+        .insert([{ email: email, score: score, time: time, game: game }])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      return { data, error };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getScores() {
     const { data, error } = await this.supabase
       .from('scores')
-      .insert([{ id_user: idUser, score: score, time: time, game: game }])
-      .select()
-      .single();
+      .select('*')
+      .order('score', { ascending: false });
 
     if (error) throw error;
 
-    return { data, error };
+    return data || [];
   }
 }

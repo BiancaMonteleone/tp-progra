@@ -204,6 +204,30 @@ img {
   }
 }
 
+.enter-scores {
+  animation: enterScores 3s forwards;
+  transform: translate(-50%, -50%);
+  left: 35rem;
+  top: 2.5rem
+}
+
+@keyframes enterScores {
+  0% {
+    left: 35rem;
+    top: 3rem;
+  }
+
+  99% {
+    left: 85rem;
+    top: 3rem;
+  }
+
+  100% {
+    left: 85rem;
+    top: 4.5rem;
+  }
+}
+
 .hidden {
   left: -50%
 }

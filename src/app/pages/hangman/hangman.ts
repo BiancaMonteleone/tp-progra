@@ -19,7 +19,7 @@ export class Hangman implements OnInit {
   isModalOpen: boolean = false;
   duckyAnimation = 'climb';
   duckyMovement = 'enterHangman';
-  user: any = null;
+  session: any = null;
   gallowSrc: string = '/img/gallow/gallow_0.png';
   loading: boolean = true;
 
@@ -41,7 +41,7 @@ export class Hangman implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.user = await this.supabase.getUser();
+    this.session = await this.supabase.getSession();
     this.startTimer();
     this.loading = false;
     this.cdr.detectChanges();
@@ -155,7 +155,7 @@ export class Hangman implements OnInit {
           this.continueGame();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           this.supabase.registerScore(
-            this.user.auth_id,
+            this.session.user.email,
             this.correctLetters,
             this.elapsedTime,
             'hangman'
@@ -168,7 +168,7 @@ export class Hangman implements OnInit {
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       await this.supabase.registerScore(
-        this.user.auth_id,
+        this.session.user.email,
         this.correctLetters,
         this.elapsedTime,
         'hangman'

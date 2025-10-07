@@ -18,7 +18,7 @@ export class WordOrColor implements OnInit, OnDestroy {
   score = 0;
   duckyAnimation = 'floatingRight';
   duckyMovement = 'enterWordOrColor';
-  user: any = null;
+  session: any = null;
   timer = 20; // segundos
   progress = 100;
   timerInterval: any;
@@ -42,7 +42,7 @@ export class WordOrColor implements OnInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef, private supabase: Supabase, private router: Router) {}
 
   async ngOnInit() {
-    this.user = await this.supabase.getUser();
+    this.session = await this.supabase.getSession();
     this.loading = false;
     this.cdr.detectChanges();
     this.startGame();
@@ -117,7 +117,7 @@ export class WordOrColor implements OnInit, OnDestroy {
       if (i >= 10) clearInterval(interval);
     }, 50);
 
-    this.supabase.registerScore(this.user.auth_id, this.score, null, 'word or color');
+    this.supabase.registerScore(this.session.user.email, this.score, null, 'word_or_color');
     Swal.fire({
       title: '¡Se acabó el tiempo! ⏱️',
       text: `Tu puntaje es ${this.score}`,
@@ -159,7 +159,7 @@ export class WordOrColor implements OnInit, OnDestroy {
     this.stopTimer();
     this.duckyAnimation = 'deathRight';
     this.cdr.detectChanges();
-    this.supabase.registerScore(this.user.auth_id, this.score, null, 'word or color');
+    this.supabase.registerScore(this.session.user.email, this.score, null, 'word_or_color');
 
     Swal.fire({
       title: message,
