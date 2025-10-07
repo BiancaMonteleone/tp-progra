@@ -1,0 +1,78 @@
+<div class="container my-5">
+  <!-- Nav manual -->
+  <div class="d-flex justify-content-center mb-4">
+    <button class="btn btn-primary me-2" (click)="showGame('hangman')">Ahorcado</button>
+    <button class="btn btn-primary me-2" (click)="showGame('cards')">Mayor o menor</button>
+    <button class="btn btn-primary" (click)="showGame('trivia')">Preguntados</button>
+    <button class="btn btn-primary" (click)="showGame('word_or_color')">Palabra o color</button>
+  </div>
+
+  <!-- Puntajes Word or Color -->
+  <div [hidden]="currentGame !== 'hangman'">
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Bianca</span>
+        <span>15 pts</span>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Santiago</span>
+        <span>12 pts</span>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Turko</span>
+        <span>8 pts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Puntajes Preguntados -->
+  <div [hidden]="currentGame !== 'cards'">
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Roma</span>
+        <span>20 pts</span>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Dalma</span>
+        <span>14 pts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Puntajes Otro Juego -->
+  <div [hidden]="currentGame !== 'trivia'">
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Fiore</span>
+        <span>18 pts</span>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Lucas</span>
+        <span>13 pts</span>
+      </div>
+    </div>
+  </div>
+  <!-- Puntajes Otro Juego -->
+  <div [hidden]="currentGame !== 'word_or_color'">
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Fiore</span>
+        <span>18 pts</span>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body d-flex justify-content-between">
+        <span>Lucas</span>
+        <span>13 pts</span>
+      </div>
+    </div>
+  </div>
+</div>

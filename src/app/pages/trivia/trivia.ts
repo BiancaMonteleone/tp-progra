@@ -71,7 +71,7 @@ export class Trivia implements OnInit {
       }, 500);
       this.nextQuestion();
     } else {
-      this.supabase.registerScore(this.user.auth_id, this.score, 'trivia_scores');
+      this.supabase.registerScore(this.user.auth_id, this.score, null, 'trivia');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({
@@ -97,8 +97,8 @@ export class Trivia implements OnInit {
 
   nextQuestion() {
     this.currentIndex++;
-    this.supabase.registerScore(this.user.auth_id, this.score, 'trivia_scores');
     if (this.currentIndex >= this.questions.length) {
+      this.supabase.registerScore(this.user.auth_id, this.score, null, 'trivia');
       Swal.fire({
         title: '¡Ganaste! 🎉',
         text: `Puntaje final: ${this.score}/${this.questions.length}`,
@@ -106,7 +106,7 @@ export class Trivia implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Continuar',
+        confirmButtonText: 'Jugar de nuevo',
         cancelButtonText: 'Salir',
         allowOutsideClick: false,
         allowEscapeKey: false,

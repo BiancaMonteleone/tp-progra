@@ -117,12 +117,14 @@ export class WordOrColor implements OnInit, OnDestroy {
       if (i >= 10) clearInterval(interval);
     }, 50);
 
-    this.supabase.registerScore(this.user.auth_id, this.score, 'word_or_color_scores');
+    this.supabase.registerScore(this.user.auth_id, this.score, null, 'word or color');
     Swal.fire({
       title: '¡Se acabó el tiempo! ⏱️',
       text: `Tu puntaje es ${this.score}`,
       icon: 'success',
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       confirmButtonText: 'Jugar de nuevo',
       cancelButtonText: 'Salir',
       allowOutsideClick: false,
@@ -157,13 +159,15 @@ export class WordOrColor implements OnInit, OnDestroy {
     this.stopTimer();
     this.duckyAnimation = 'deathRight';
     this.cdr.detectChanges();
-    this.supabase.registerScore(this.user.auth_id, this.score, 'word_or_color_scores');
+    this.supabase.registerScore(this.user.auth_id, this.score, null, 'word or color');
 
     Swal.fire({
       title: message,
       text: `Tu puntuación: ${this.score}`,
       icon: 'error',
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       confirmButtonText: 'Jugar de nuevo',
       cancelButtonText: 'Salir',
       allowOutsideClick: false,

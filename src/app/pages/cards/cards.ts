@@ -33,18 +33,16 @@ export class Cards implements OnInit {
     this.initGame();
     this.loading = false;
     this.cdr.detectChanges();
+    this.duckyAnimation = 'roll';
+    this.cdr.detectChanges();
     setTimeout(() => {
-      this.duckyAnimation = 'roll';
+      this.duckyAnimation = 'crash';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.duckyAnimation = 'crash';
+        this.duckyAnimation = 'sittingRight';
         this.cdr.detectChanges();
-        setTimeout(() => {
-          this.duckyAnimation = 'sittingRight';
-          this.cdr.detectChanges();
-        }, 450);
-      }, 1000);
-    }, 100);
+      }, 300);
+    }, 1700);
   }
 
   initGame() {
@@ -73,7 +71,7 @@ export class Cards implements OnInit {
 
   guess(higher: boolean) {
     if (this.deck.length === 1) {
-      this.supabase.registerScore(this.user.auth_id, this.score, 'cards_scores');
+      this.supabase.registerScore(this.user.auth_id, this.score, null, 'cards');
       Swal.fire({
         title: '¡Ganaste! 🎉',
         text: 'Terminaste el mazo',
@@ -116,7 +114,7 @@ export class Cards implements OnInit {
         this.cdr.detectChanges();
       }, 700);
     } else {
-      this.supabase.registerScore(this.user.auth_id, this.score, 'cards_scores');
+      this.supabase.registerScore(this.user.auth_id, this.score, null, 'cards');
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
       Swal.fire({

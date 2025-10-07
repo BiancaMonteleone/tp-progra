@@ -154,10 +154,11 @@ export class Hangman implements OnInit {
         if (result.isConfirmed) {
           this.continueGame();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          this.supabase.registerHangmanScore(
+          this.supabase.registerScore(
             this.user.auth_id,
             this.correctLetters,
-            this.elapsedTime
+            this.elapsedTime,
+            'hangman'
           );
           this.router.navigate(['/home']);
         }
@@ -166,10 +167,11 @@ export class Hangman implements OnInit {
       this.stopTimer();
       this.duckyAnimation = 'deathRight';
       this.cdr.detectChanges();
-      await this.supabase.registerHangmanScore(
+      await this.supabase.registerScore(
         this.user.auth_id,
         this.correctLetters,
-        this.elapsedTime
+        this.elapsedTime,
+        'hangman'
       );
       Swal.fire({
         title: 'Perdiste 😢',

@@ -144,22 +144,10 @@ export class Supabase {
 
   /*-------------------- Score --------------------*/
 
-  async registerScore(idUser: string, score: number, table: string) {
+  async registerScore(idUser: string, score: number, time: number | null, game: string) {
     const { data, error } = await this.supabase
-      .from(`${table}`)
-      .insert([{ score: score, id_user: idUser }])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    return { data, error };
-  }
-
-  async registerHangmanScore(id: string, score: number, time: number) {
-    const { data, error } = await this.supabase
-      .from(`hangman_scores`)
-      .insert([{ score: score, id_user: id, time: time }])
+      .from('scores')
+      .insert([{ id_user: idUser, score: score, time: time, game: game }])
       .select()
       .single();
 
