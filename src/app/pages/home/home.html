@@ -8,7 +8,7 @@
   <div class="row g-4 justify-content-center">
     <!-- Imagen 1: ahorcado -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div class="image-card hover-scale" (click)="redirect('hangman')">
+      <div class="image-card hover-scale" (click)="redirect('hangman')" appShowExtraImage>
         <div class="img-container">
           <img src="/img/games/hangman.png" alt="Ahorcado" class="img-fluid object-fit-cover" />
           <img src="/img/ducky/floating-left-00.png" alt="Extra" class="hidden-img" />
@@ -18,7 +18,7 @@
 
     <!-- Imagen 2: mayor o menor -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div class="image-card hover-scale" (click)="redirect('cards')">
+      <div class="image-card hover-scale" (click)="redirect('cards')" appShowExtraImage>
         <div class="img-container">
           <img src="/img/games/cards.png" alt="Mayor o menor" class="img-fluid object-fit-cover" />
           <img src="/img/ducky/floating-left-00.png" alt="Extra" class="hidden-img" />
@@ -28,7 +28,7 @@
 
     <!-- Imagen 3: preguntados -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div class="image-card hover-scale" (click)="redirect('trivia')">
+      <div class="image-card hover-scale" (click)="redirect('trivia')" appShowExtraImage>
         <div class="img-container">
           <img src="/img/games/trivia.png" alt="Preguntados" class="img-fluid object-fit-cover" />
           <img src="/img/ducky/floating-left-00.png" alt="Extra" class="hidden-img" />
@@ -38,7 +38,7 @@
 
     <!-- Imagen 4: color o palabra -->
     <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
-      <div class="image-card hover-scale" (click)="redirect('word-or-color')">
+      <div class="image-card hover-scale" (click)="redirect('word-or-color')" appShowExtraImage>
         <div class="img-container">
           <img
             src="/img/games/word_or_color.png"

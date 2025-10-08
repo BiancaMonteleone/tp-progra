@@ -2,11 +2,12 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Supabase } from '../../services/supabase';
 import { Router } from '@angular/router';
 import { Loading } from '../../components/loading/loading';
+import { ShowExtraImageDirective } from '../../directives/show-extra-image.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Loading],
+  imports: [Loading, ShowExtraImageDirective],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
